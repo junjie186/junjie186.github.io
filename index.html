@@ -149,10 +149,10 @@ class="article article-type-post"
     </header>
     <div class="article-entry post-inner-html">
         
-        <h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><blockquote>
-<p>来源 <a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录</a></p>
+        <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录</a></p>
 </blockquote>
-<p>数组是存放在连续内存空间上的相同类型数据的集合。</p>
+<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><p>数组是存放在连续内存空间上的相同类型数据的集合。</p>
 <p>需要两点注意的是</p>
 <ul>
 <li>数组下标都是从0开始的。</li>
@@ -160,6 +160,7 @@ class="article article-type-post"
 </ul>
 <p><strong>因为数组的在内存空间的地址是连续的，所以我们在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。</strong></p>
 <p>在C++中二维数组是连续分布的。</p>
+<p>测试</p>
 <pre><code class="c++">void test_arr() &#123;
     int array[2][3] = &#123;
         &#123;0, 1, 2&#125;,
@@ -176,6 +177,76 @@ int main() &#123;
 <p>结果</p>
 <pre><code>0x20d4dffc90 0x20d4dffc94 0x20d4dffc98
 0x20d4dffc9c 0x20d4dffca0 0x20d4dffca4
+</code></pre>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><blockquote>
+<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">leetcode</a></p>
+</blockquote>
+<p>思路：无。</p>
+<p>第一次提交：</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int low=0;
+        int high=nums.size()-1;
+        while(high&gt;=low)&#123;
+            int mid=low+(high-low)/2;
+            if(nums[mid]&gt;target)&#123;
+                high=mid-1;
+            &#125;else if(nums[mid]&lt;target)&#123;
+                low=mid+1;
+            &#125;else&#123;
+                return mid;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<p>这道题目的前提是数组为有序数组，同时题目还强调数组中无重复元素，因为一旦有重复元素，使用二分查找法返回的元素下标可能不是唯一的。</p>
+<p>二分查找涉及的很多的边界条件，逻辑比较简单。但较容易分不清到底是 while(left &lt; right) 还是 while(left &lt;&#x3D; right)，到底是right &#x3D; middle呢，还是要right &#x3D; middle - 1。</p>
+<p>写二分法，区间的定义一般为两种，左闭右闭即[left, right]，或者左闭右开即[left, right)。</p>
+<p>例子如下：</p>
+<pre><code class="C++">// 版本一
+class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1; // 定义target在左闭右闭的区间里，[left, right]
+        while (left &lt;= right) &#123; // 当left==right，区间[left, right]依然有效，所以用 &lt;=
+            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1; // target 在左区间，所以[left, middle - 1]
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间，所以[middle + 1, right]
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值，直接返回下标
+            &#125;
+        &#125;
+        // 未找到目标值
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">// 版本二
+class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size(); // 定义target在左闭右开的区间里，即：[left, right)
+        while (left &lt; right) &#123; // 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;
+            int middle = left + ((right - left) &gt;&gt; 1);
+            if (nums[middle] &gt; target) &#123;
+                right = middle; // target 在左区间，在[left, middle)中
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间，在[middle + 1, right)中
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值，直接返回下标
+            &#125;
+        &#125;
+        // 未找到目标值
+        return -1;
+    &#125;
+&#125;;
 </code></pre>
 
         
