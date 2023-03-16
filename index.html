@@ -152,15 +152,15 @@ class="article article-type-post"
         <blockquote>
 <p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80.html#%E6%95%B0%E7%BB%84%E7%90%86%E8%AE%BA%E5%9F%BA%E7%A1%80">代码随想录</a></p>
 </blockquote>
-<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><p>数组是存放在连续内存空间上的相同类型数据的集合。</p>
-<p>需要两点注意的是</p>
+<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><p>数组是存放在连续内存空间上的相同类型数据的集合</p>
+<p>需要两点注意的是:</p>
 <ul>
-<li>数组下标都是从0开始的。</li>
-<li>数组内存空间的地址是连续的。</li>
+<li>数组下标都是从0开始的</li>
+<li>数组内存空间的地址是连续的</li>
 </ul>
-<p><strong>因为数组的在内存空间的地址是连续的，所以我们在删除或者增添元素的时候，就难免要移动其他元素的地址。数组的元素是不能删的，只能覆盖。</strong></p>
-<p>在C++中二维数组是连续分布的。</p>
-<p>测试</p>
+<p><strong>因为数组的在内存空间的地址是连续的,所以我们在删除或者增添元素的时候,就难免要移动其他元素的地址.数组的元素是不能删的,只能覆盖.</strong></p>
+<p>在C++中二维数组是连续分布的</p>
+<p>测试:</p>
 <pre><code class="c++">void test_arr() &#123;
     int array[2][3] = &#123;
         &#123;0, 1, 2&#125;,
@@ -174,15 +174,25 @@ int main() &#123;
     test_arr();
 &#125;
 </code></pre>
-<p>结果</p>
+<p>结果:</p>
 <pre><code>0x20d4dffc90 0x20d4dffc94 0x20d4dffc98
 0x20d4dffc9c 0x20d4dffca0 0x20d4dffca4
 </code></pre>
 <h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><blockquote>
 <p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/binary-search/">leetcode</a></p>
 </blockquote>
-<p>思路：无。</p>
-<p>第一次提交：</p>
+<p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target,写一个函数搜索 nums 中的 target,如果目标值存在返回下标,否则返回 -1</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 9     
+输出: 4       
+解释: 9 出现在 nums 中并且下标为 4     
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 2     
+输出: -1        
+解释: 2 不存在 nums 中因此返回 -1     
+</code></pre>
+<p>提交:</p>
 <pre><code class="C++">class Solution &#123;
 public:
     int search(vector&lt;int&gt;&amp; nums, int target) &#123;
@@ -202,24 +212,24 @@ public:
     &#125;
 &#125;;
 </code></pre>
-<p>这道题目的前提是数组为有序数组，同时题目还强调数组中无重复元素，因为一旦有重复元素，使用二分查找法返回的元素下标可能不是唯一的。</p>
-<p>二分查找涉及的很多的边界条件，逻辑比较简单。但较容易分不清到底是 while(left &lt; right) 还是 while(left &lt;&#x3D; right)，到底是right &#x3D; middle呢，还是要right &#x3D; middle - 1。</p>
-<p>写二分法，区间的定义一般为两种，左闭右闭即[left, right]，或者左闭右开即[left, right)。</p>
-<p>例子如下：</p>
+<p>这道题目的前提是数组为有序数组,同时题目还强调数组中无重复元素,因为一旦有重复元素,使用二分查找法返回的元素下标可能不是唯一的.</p>
+<p>二分查找涉及的很多的边界条件,逻辑比较简单.但较容易分不清到底是 while(left &lt; right) 还是 while(left &lt;&#x3D; right),到底是right &#x3D; middle呢,还是要right &#x3D; middle - 1.</p>
+<p>写二分法,区间的定义一般为两种,左闭右闭即[left, right],或者左闭右开即[left, right).</p>
+<p>例子如下:</p>
 <pre><code class="C++">// 版本一
 class Solution &#123;
 public:
     int search(vector&lt;int&gt;&amp; nums, int target) &#123;
         int left = 0;
-        int right = nums.size() - 1; // 定义target在左闭右闭的区间里，[left, right]
-        while (left &lt;= right) &#123; // 当left==right，区间[left, right]依然有效，所以用 &lt;=
+        int right = nums.size() - 1; // 定义target在左闭右闭的区间里,[left, right]
+        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效,所以用 &lt;=
             int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
             if (nums[middle] &gt; target) &#123;
-                right = middle - 1; // target 在左区间，所以[left, middle - 1]
+                right = middle - 1; // target 在左区间,所以[left, middle - 1]
             &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间，所以[middle + 1, right]
+                left = middle + 1; // target 在右区间,所以[middle + 1, right]
             &#125; else &#123; // nums[middle] == target
-                return middle; // 数组中找到目标值，直接返回下标
+                return middle; // 数组中找到目标值,直接返回下标
             &#125;
         &#125;
         // 未找到目标值
@@ -232,19 +242,207 @@ class Solution &#123;
 public:
     int search(vector&lt;int&gt;&amp; nums, int target) &#123;
         int left = 0;
-        int right = nums.size(); // 定义target在左闭右开的区间里，即：[left, right)
-        while (left &lt; right) &#123; // 因为left == right的时候，在[left, right)是无效的空间，所以使用 &lt;
+        int right = nums.size(); // 定义target在左闭右开的区间里,即:[left, right)
+        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间,所以使用 &lt;
             int middle = left + ((right - left) &gt;&gt; 1);
             if (nums[middle] &gt; target) &#123;
-                right = middle; // target 在左区间，在[left, middle)中
+                right = middle; // target 在左区间,在[left, middle)中
             &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间，在[middle + 1, right)中
+                left = middle + 1; // target 在右区间,在[middle + 1, right)中
             &#125; else &#123; // nums[middle] == target
-                return middle; // 数组中找到目标值，直接返回下标
+                return middle; // 数组中找到目标值,直接返回下标
             &#125;
         &#125;
         // 未找到目标值
         return -1;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h2><p>给定一个排序数组和一个目标值,在数组中找到目标值,并返回其索引.如果目标值不存在于数组中,返回它将会被按顺序插入的位置.</p>
+<p>你可以假设数组中无重复元素.</p>
+<p>示例 1:</p>
+<ul>
+<li><p>输入: [1,3,5,6], 5</p>
+</li>
+<li><p>输出: 2</p>
+</li>
+<li><p>示例 2:</p>
+</li>
+<li><p>输入: [1,3,5,6], 2</p>
+</li>
+<li><p>输出: 1</p>
+</li>
+</ul>
+<p>示例 3:</p>
+<ul>
+<li>输入: [1,3,5,6], 7</li>
+<li>输出: 4</li>
+</ul>
+<p>示例 4:</p>
+<ul>
+<li>输入: [1,3,5,6], 0</li>
+<li>输出: 0</li>
+</ul>
+<p><font color="red">未提交</font></p>
+<p>这题target插入有四种情况:</p>
+<ul>
+<li>target在数组所有元素之前</li>
+<li>target等于数组中某一个元素</li>
+<li>target插入数组中的位置</li>
+<li>target在数组所有元素之后</li>
+</ul>
+<p>二分查找(左闭右闭区间)如果一直没找到相等值,最终一定会 <code>low=high-1</code> -&gt; <code>low=high</code></p>
+<p>当<code>low=high</code>时</p>
+<ul>
+<li><code>target&lt;nums[mid]</code> -&gt; <code>high=mid-1</code>,即<code>high=low-1</code>,返回low、high+1</li>
+<li><code>target&gt;nums[mid]</code> -&gt; <code>low=mid+1</code> ,即<code>low=high+1</code>,返回low、high+1</li>
+</ul>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int n = nums.size();
+        int left = 0;
+        int right = n - 1; // 定义target在左闭右闭的区间里,[left, right]
+        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效
+            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1; // target 在左区间,所以[left, middle - 1]
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,所以[middle + 1, right]
+            &#125; else &#123; // nums[middle] == target
+                return middle;
+            &#125;
+        &#125;
+        // 分别处理如下四种情况
+        // 目标值在数组所有元素之前  [0, -1]
+        // 目标值等于数组中某一个元素  return middle;
+        // 目标值插入数组中的位置 [left, right],return  right + 1
+        // 目标值在数组所有元素之后的情况 [left, right], 因为是右闭区间,所以 return right + 1
+        return right + 1;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">class Solution &#123;
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int n = nums.size();
+        int left = 0;
+        int right = n; // 定义target在左闭右开的区间里,[left, right)  target
+        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间
+            int middle = left + ((right - left) &gt;&gt; 1);
+            if (nums[middle] &gt; target) &#123;
+                right = middle; // target 在左区间,在[left, middle)中
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,在 [middle+1, right)中
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值的情况,直接返回下标
+            &#125;
+        &#125;
+        // 分别处理如下四种情况
+        // 目标值在数组所有元素之前 [0,0)
+        // 目标值等于数组中某一个元素 return middle
+        // 目标值插入数组中的位置 [left, right) ,return right 即可
+        // 目标值在数组所有元素之后的情况 [left, right),因为是右开区间,所以 return right
+        return right;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="在排序数组中查找元素的第一个和最后一个位置"><a href="#在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="在排序数组中查找元素的第一个和最后一个位置"></a>在排序数组中查找元素的第一个和最后一个位置</h2><p>给你一个按照非递减顺序排列的整数数组 nums,和一个目标值 target.请你找出给定目标值在数组中的开始位置和结束位置.</p>
+<p>如果数组中不存在目标值 target,返回 [-1, -1].</p>
+<p>你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题.</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 8
+输出:[3,4]
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 6
+输出:[-1,-1]
+</code></pre>
+<p>示例 3:</p>
+<pre><code class="bash">输入:nums = [], target = 0
+输出:[-1,-1]
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int low=0;
+        int high=nums.size()-1;
+        int mid=search(nums,target,low,high);
+        if(mid==-1)&#123;
+            return &#123;-1,-1&#125;;
+        &#125;
+        int right=mid,left=mid;
+        //注意可以在循环括号中赋值并判断,但不能初始化(重复初始化)
+        while((mid=search(nums,target,low,left-1))!=-1)&#123;
+            left=mid;
+        &#125;
+        while((mid=search(nums,target,right + 1, high))!=-1)&#123;
+            right=mid;
+        &#125;
+        return &#123;left,right&#125;;
+    &#125;
+
+    int search(vector&lt;int&gt;&amp; nums, int target,int low,int high) &#123;
+        while(high&gt;=low)&#123;
+            int mid=low+(high-low)/2;
+            if(nums[mid]&gt;target)&#123;
+                high=mid-1;
+            &#125;else if(nums[mid]&lt;target)&#123;
+                low=mid+1;
+            &#125;else&#123;
+                return mid;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<p>思路先做一次二分查找,再不断向左向右二分查找,直到找不到值.</p>
+<p>示例代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int leftBorder = getLeftBorder(nums, target);
+        int rightBorder = getRightBorder(nums, target);
+        // 情况一
+        if (leftBorder == -2 || rightBorder == -2) return &#123;-1, -1&#125;;
+        // 情况三
+        if (rightBorder - leftBorder &gt; 1) return &#123;leftBorder + 1, rightBorder - 1&#125;;
+        // 情况二
+        return &#123;-1, -1&#125;;
+    &#125;
+private:
+     int getRightBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1;
+        int rightBorder = -2; // 记录一下rightBorder没有被赋值的情况
+        while (left &lt;= right) &#123;
+            int middle = left + ((right - left) / 2);
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1;
+            &#125; else &#123; // 寻找右边界,nums[middle] == target的时候更新left
+                left = middle + 1;
+                rightBorder = left;
+            &#125;
+        &#125;
+        return rightBorder;
+    &#125;
+    int getLeftBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1;
+        int leftBorder = -2; // 记录一下leftBorder没有被赋值的情况
+        while (left &lt;= right) &#123;
+            int middle = left + ((right - left) / 2);
+            if (nums[middle] &gt;= target) &#123; // 寻找左边界,nums[middle] == target的时候更新right
+                right = middle - 1;
+                leftBorder = right;
+            &#125; else &#123;
+                left = middle + 1;
+            &#125;
+        &#125;
+        return leftBorder;
     &#125;
 &#125;;
 </code></pre>
