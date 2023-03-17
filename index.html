@@ -372,6 +372,7 @@ public:
         &#125;
         int right=mid,left=mid;
         //注意可以在循环括号中赋值并判断,但不能初始化(重复初始化)
+        //重复计算,每次二分查找low都为0
         while((mid=search(nums,target,low,left-1))!=-1)&#123;
             left=mid;
         &#125;
@@ -397,6 +398,46 @@ public:
 &#125;;
 </code></pre>
 <p>思路先做一次二分查找,再不断向左向右二分查找,直到找不到值.</p>
+<p><font color="red">但是代码有重复计算,每次二分查找都是low&#x3D;0或者high&#x3D;nums.size()-1,实际上,在循环过程中,因为上次循环计算过low和high,下次循环应该从上次计算的边界开始.</font></p>
+<p><font color="red">leetcode优质回答:</font></p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        return &#123;find(nums, target, true), find(nums, target, false)&#125;;
+    &#125;
+
+    int find(vector&lt;int&gt; nums, int target, bool minType) &#123;
+        int left = 0, right = nums.size() - 1;
+        int ans = -1;
+        while (left &lt;= right) &#123;
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) &#123;
+                //只有在相等的时候才更新边界!
+                ans = mid;
+                if (minType) &#123;
+                    right = mid - 1;
+                &#125; else &#123;
+                    left = mid + 1;
+                &#125;
+            &#125; else if (target &lt; nums[mid]) &#123;
+                right = mid - 1;
+            &#125; else &#123;
+                left = mid + 1;
+            &#125;
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+</code></pre>
+<p>寻找target在数组里的左右边界,有如下三种情况:</p>
+<ul>
+<li><p>情况一:target 在数组范围的右边或者左边,例如数组{3, 4, 5},target为2或者数组{3, 4, 5},target为6,此时应该返回{-1, -1}</p>
+</li>
+<li><p>情况二:target 在数组范围中,且数组中不存在target,例如数组{3,6,7},target为5,此时应该返回{-1, -1}</p>
+</li>
+<li><p>情况三:target 在数组范围中,且数组中存在target,例如数组{3,6,7},target为6,此时应该返回{1, 1}</p>
+</li>
+</ul>
 <p>示例代码:</p>
 <pre><code class="C++">class Solution &#123;
 public:
@@ -440,6 +481,50 @@ private:
             &#125;
         &#125;
         return leftBorder;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h2><p>给你一个数组 nums 和一个值 val,你需要 原地 移除所有数值等于 val 的元素,并返回移除后数组的新长度.</p>
+<p>不要使用额外的数组空间,你必须仅使用 O(1) 额外空间并原地修改输入数组.</p>
+<p>元素的顺序可以改变.你不需要考虑数组中超出新长度后面的元素.</p>
+<p>示例 1: 给定 nums &#x3D; [3,2,2,3], val &#x3D; 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2. 你不需要考虑数组中超出新长度后面的元素.</p>
+<p>示例 2: 给定 nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4.</p>
+<p>你不需要考虑数组中超出新长度后面的元素.</p>
+<p>leetcode提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
+        if(nums.size()==0)&#123;
+            return 0;
+        &#125;
+        int slow=0,fast=0;
+        while(slow&lt;nums.size()&amp;&amp;nums[slow]!=val)&#123;
+            slow++;
+            fast++;
+        &#125;
+        for(;fast&lt;nums.size();fast++)&#123;
+            if(nums[fast]==val)&#123;
+                continue;
+            &#125;else&#123;
+                nums[slow]=nums[fast];
+                slow++;
+            &#125;
+        &#125;
+        return slow;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex &lt; nums.size(); fastIndex++) &#123;
+            if (val != nums[fastIndex]) &#123;
+                nums[slowIndex++] = nums[fastIndex];
+            &#125;
+        &#125;
+        return slowIndex;
     &#125;
 &#125;;
 </code></pre>
