@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 3 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 3 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/03/21/%E7%AE%97%E6%B3%95-day-3/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 3 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/03/21/%E7%AE%97%E6%B3%95-day-3/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 3 | Hexo",
+            "datePublished": "2023-03-21T11:04:10.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/03/21/%E7%AE%97%E6%B3%95-day-3/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clfi8pcxd0000tcuhfwig7zhk" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 3
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-03-21T11:04:10.000Z" itemprop="datePublished">2023-03-21</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
+</blockquote>
+<h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><pre><code class="C++">// 单链表
+struct ListNode &#123;
+    int val;  // 节点上存储的元素
+    ListNode *next;  // 指向下一个节点的指针
+    ListNode(int x) : val(x), next(NULL) &#123;&#125;  // 节点的构造函数
+&#125;;
+</code></pre>
+<blockquote>
+<p><font color="red">记得struct后面有分号</font></p>
+</blockquote>
+<h2 id="移除链表元素"><a href="#移除链表元素" class="headerlink" title="移除链表元素"></a>移除链表元素</h2><p>给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val &#x3D;&#x3D; val 的节点，并返回 新的头节点 。</p>
+<pre><code class="bash">输入：head = [1,2,6,3,4,5,6], val = 6
+输出：[1,2,3,4,5]
+</code></pre>
+<p>思路:设置一个空的头节点…</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* removeElements(ListNode* head, int val) &#123;
+        ListNode* top=new ListNode(0,head);
+        ListNode* low=top;
+        ListNode* fast=top-&gt;next;
+        while(fast!=nullptr)&#123;
+            if(fast-&gt;val!=val)&#123;
+                fast=fast-&gt;next;
+                low=low-&gt;next;
+            &#125;else&#123;
+                ListNode* pre=fast;
+                fast=fast-&gt;next;
+                delete pre;
+                low-&gt;next=fast;
+            &#125;
+        &#125;
+        return top-&gt;next;
+
+    &#125;
+&#125;;
+</code></pre>
+<blockquote>
+<p><font color="red">但是写的不够简洁,实际上不需要fast low两个节点,并且没有将创建的虚拟头节点销毁.</font></p>
+</blockquote>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* removeElements(ListNode* head, int val) &#123;
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while (cur-&gt;next != NULL) &#123;
+            if(cur-&gt;next-&gt;val == val) &#123;
+                ListNode* tmp = cur-&gt;next;
+                cur-&gt;next = cur-&gt;next-&gt;next;
+                delete tmp;
+            &#125; else &#123;
+                cur = cur-&gt;next;
+            &#125;
+        &#125;
+        head = dummyHead-&gt;next;
+        delete dummyHead;
+        return head;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="设计链表"><a href="#设计链表" class="headerlink" title="设计链表"></a>设计链表</h2><p>你可以选择使用单链表或者双链表，设计并实现自己的链表。</p>
+<p>单链表中的节点应该具备两个属性：val 和 next 。val 是当前节点的值，next 是指向下一个节点的指针&#x2F;引用。</p>
+<p>如果是双向链表，则还需要属性 prev 以指示链表中的上一个节点。假设链表中的所有节点下标从 0 开始。</p>
+<p>实现 MyLinkedList 类：</p>
+<ul>
+<li>MyLinkedList() 初始化 MyLinkedList 对象。</li>
+<li>int get(int index) 获取链表中下标为 index 的节点的值。如果下标无效，则返回 -1 。</li>
+<li>void addAtHead(int val) 将一个值为 val 的节点插入到链表中第一个元素之前。在插入完成后，新节点会成为链表的第一个节点。</li>
+<li>void addAtTail(int val) 将一个值为 val 的节点追加到链表中作为链表的最后一个元素。</li>
+<li>void addAtIndex(int index, int val) 将一个值为 val 的节点插入到链表中下标为 index 的节点之前。如果 index 等于链表的长度，那么该节点会被追加到链表的末尾。如果 index 比长度更大，该节点将 不会插入 到链表中。</li>
+<li>void deleteAtIndex(int index) 如果下标有效，则删除链表中下标为 index 的节点。</li>
+</ul>
+<p>思路:可以设置虚拟头节点,并增加链表的size属性</p>
+<p>例子:</p>
+<pre><code class="C++">class MyLinkedList &#123;
+public:
+    // 定义链表节点结构体
+    struct LinkedNode &#123;
+        int val;
+        LinkedNode* next;
+        LinkedNode(int val):val(val), next(nullptr)&#123;&#125;
+    &#125;;
+
+    // 初始化链表
+    MyLinkedList() &#123;
+        _dummyHead = new LinkedNode(0); // 这里定义的头结点 是一个虚拟头结点，而不是真正的链表头结点
+        _size = 0;
+    &#125;
+
+    // 获取到第index个节点数值，如果index是非法数值直接返回-1， 注意index是从0开始的，第0个节点就是头结点
+    int get(int index) &#123;
+        if (index &gt; (_size - 1) || index &lt; 0) &#123;
+            return -1;
+        &#125;
+        LinkedNode* cur = _dummyHead-&gt;next;
+        while(index--)&#123; // 如果--index 就会陷入死循环
+            cur = cur-&gt;next;
+        &#125;
+        return cur-&gt;val;
+    &#125;
+
+    // 在链表最前面插入一个节点，插入完成后，新插入的节点为链表的新的头结点
+    void addAtHead(int val) &#123;
+        LinkedNode* newNode = new LinkedNode(val);
+        newNode-&gt;next = _dummyHead-&gt;next;
+        _dummyHead-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 在链表最后面添加一个节点
+    void addAtTail(int val) &#123;
+        LinkedNode* newNode = new LinkedNode(val);
+        LinkedNode* cur = _dummyHead;
+        while(cur-&gt;next != nullptr)&#123;
+            cur = cur-&gt;next;
+        &#125;
+        cur-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 在第index个节点之前插入一个新节点，例如index为0，那么新插入的节点为链表的新头节点。
+    // 如果index 等于链表的长度，则说明是新插入的节点为链表的尾结点
+    // 如果index大于链表的长度，则返回空
+    // 如果index小于0，则在头部插入节点
+    void addAtIndex(int index, int val) &#123;
+
+        if(index &gt; _size) return;
+        if(index &lt; 0) index = 0;        
+        LinkedNode* newNode = new LinkedNode(val);
+        LinkedNode* cur = _dummyHead;
+        while(index--) &#123;
+            cur = cur-&gt;next;
+        &#125;
+        newNode-&gt;next = cur-&gt;next;
+        cur-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 删除第index个节点，如果index 大于等于链表的长度，直接return，注意index是从0开始的
+    void deleteAtIndex(int index) &#123;
+        if (index &gt;= _size || index &lt; 0) &#123;
+            return;
+        &#125;
+        LinkedNode* cur = _dummyHead;
+        while(index--) &#123;
+            cur = cur -&gt;next;
+        &#125;
+        LinkedNode* tmp = cur-&gt;next;
+        cur-&gt;next = cur-&gt;next-&gt;next;
+        delete tmp;
+        _size--;
+    &#125;
+
+    // 打印链表
+    void printLinkedList() &#123;
+        LinkedNode* cur = _dummyHead;
+        while (cur-&gt;next != nullptr) &#123;
+            cout &lt;&lt; cur-&gt;next-&gt;val &lt;&lt; &quot; &quot;;
+            cur = cur-&gt;next;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+private:
+    int _size;
+    LinkedNode* _dummyHead;
+
+&#125;;
+</code></pre>
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+    ListNode* start;
+public:
+    ListNode* reverseList(ListNode* head) &#123;
+        if(head==nullptr)&#123;
+            return head;
+        &#125;
+        reverse(head);
+        return start;
+    &#125;
+
+    ListNode* reverse(ListNode* head)&#123;
+        if(head-&gt;next==nullptr)&#123;
+            start=head;
+            return head;
+        &#125;
+        ListNode* tmp=reverse(head-&gt;next);
+        head-&gt;next=nullptr;
+        tmp-&gt;next=head;
+        return head;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* reverseList(ListNode* head) &#123;
+        // 边缘条件判断
+        if(head == NULL) return NULL;
+        if (head-&gt;next == NULL) return head;
+        
+        // 递归调用，翻转第二个节点开始往后的链表
+        ListNode *last = reverseList(head-&gt;next);
+        // 翻转头节点与第二个节点的指向
+        head-&gt;next-&gt;next = head;
+        // 此时的 head 节点为尾节点，next 需要指向 NULL
+        head-&gt;next = NULL;
+        return last;
+    &#125;
+&#125;; 
+</code></pre>
+<p>实际上不需要专门设置一个node指向最后一个节点供返回,只需要在每次迭代时返回反转后的头节点,而此时反转后的链表的尾节点可以直接通过head-&gt;next找到.</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 2</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 3 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F03%2F21%2F%25E7%25AE%2597%25E6%25B3%2595-day-3%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 3 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F03%2F21%2F%25E7%25AE%2597%25E6%25B3%2595-day-3%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 3 - Hexo&url=http://example.com/2023/03/21/%E7%AE%97%E6%B3%95-day-3/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/SNPE-Snapdragon%E7%A5%9E%E7%BB%8F%E5%A4%84%E7%90%86%E5%BC%95%E6%93%8E%E9%83%A8%E7%BD%B2/">SNPE-Snapdragon神经处理引擎部署</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/16/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
