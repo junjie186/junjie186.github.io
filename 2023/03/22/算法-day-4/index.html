@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 4 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 4 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/03/22/%E7%AE%97%E6%B3%95-day-4/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 4 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/03/22/%E7%AE%97%E6%B3%95-day-4/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 4 | Hexo",
+            "datePublished": "2023-03-22T10:57:24.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/03/22/%E7%AE%97%E6%B3%95-day-4/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clfjnc1ng0000tcuhbycq4afj" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 4
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-03-22T10:57:24.000Z" itemprop="datePublished">2023-03-22</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h2><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<p>思路:创建虚拟头节点.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* node=top;
+        while(node-&gt;next!=nullptr&amp;&amp;node-&gt;next-&gt;next!=nullptr)&#123;
+            ListNode* tmp=node-&gt;next-&gt;next-&gt;next;
+            ListNode* tmp2=node-&gt;next-&gt;next;
+            node-&gt;next-&gt;next-&gt;next=node-&gt;next;
+            node-&gt;next-&gt;next=tmp;
+            node-&gt;next=tmp2;
+            node=node-&gt;next-&gt;next;
+        &#125;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while(cur-&gt;next != nullptr &amp;&amp; cur-&gt;next-&gt;next != nullptr) &#123;
+            ListNode* tmp = cur-&gt;next; // 记录临时节点
+            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next; // 记录临时节点
+
+            cur-&gt;next = cur-&gt;next-&gt;next;    // 步骤一
+            cur-&gt;next-&gt;next = tmp;          // 步骤二
+            cur-&gt;next-&gt;next-&gt;next = tmp1;   // 步骤三
+
+            cur = cur-&gt;next-&gt;next; // cur移动两位，准备下一轮交换
+        &#125;
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="删除链表的倒数第-N-个结点"><a href="#删除链表的倒数第-N-个结点" class="headerlink" title="删除链表的倒数第 N 个结点"></a>删除链表的倒数第 N 个结点</h2><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
+<p>思路:快慢指针,快指针先走n步,再同时走.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* low=top;
+        ListNode* fast=top;
+        for(int i=0;i&lt;n;i++)&#123;
+            if(fast-&gt;next==nullptr)&#123;
+                ListNode* res=top-&gt;next;
+                delete top;
+                return res;
+            &#125;
+            fast=fast-&gt;next;
+        &#125;
+
+        while(fast-&gt;next!=nullptr)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        ListNode* tmp=low-&gt;next;
+        low-&gt;next=low-&gt;next-&gt;next;
+        delete tmp;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* dummyHead = new ListNode(0);
+        dummyHead-&gt;next = head;
+        ListNode* slow = dummyHead;
+        ListNode* fast = dummyHead;
+        while(n-- &amp;&amp; fast != NULL) &#123;
+            fast = fast-&gt;next;
+        &#125;
+        fast = fast-&gt;next; // fast再提前走一步，因为需要让slow指向删除节点的上一个节点
+        while (fast != NULL) &#123;
+            fast = fast-&gt;next;
+            slow = slow-&gt;next;
+        &#125;
+        slow-&gt;next = slow-&gt;next-&gt;next; 
+        
+        // ListNode *tmp = slow-&gt;next;  C++释放内存的逻辑
+        // slow-&gt;next = tmp-&gt;next;
+        // delete nth;
+        
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="链表相交"><a href="#链表相交" class="headerlink" title="链表相交"></a>链表相交</h2><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</p>
+<p>思路:先计算两个链表的长度,再让长的链表先走插值步.</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) &#123;
+        ListNode* curA = headA;
+        ListNode* curB = headB;
+        int lenA = 0, lenB = 0;
+        while (curA != NULL) &#123; // 求链表A的长度
+            lenA++;
+            curA = curA-&gt;next;
+        &#125;
+        while (curB != NULL) &#123; // 求链表B的长度
+            lenB++;
+            curB = curB-&gt;next;
+        &#125;
+        curA = headA;
+        curB = headB;
+        // 让curA为最长链表的头，lenA为其长度
+        if (lenB &gt; lenA) &#123;
+            swap (lenA, lenB);
+            swap (curA, curB);
+        &#125;
+        // 求长度差
+        int gap = lenA - lenB;
+        // 让curA和curB在同一起点上（末尾位置对齐）
+        while (gap--) &#123;
+            curA = curA-&gt;next;
+        &#125;
+        // 遍历curA 和 curB，遇到相同则直接返回
+        while (curA != NULL) &#123;
+            if (curA == curB) &#123;
+                return curA;
+            &#125;
+            curA = curA-&gt;next;
+            curB = curB-&gt;next;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h2><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>思路:快慢指针,慢指针走一步,快指针走两步,当快指针和慢指针重合时,快指针走一步,慢指针从头开始走一步,再次重合的节点即为入环节点.</p>
+<p>证明:</p>
+<pre><code class="bash">设慢指针走了x步,链表的头到入环节点距离为t,环大小为r.
+(x-t)%r=(2x-t)%r
+x%r=2x%r
+x必为r倍数
+若x为kr+n
+则n%r=2n%r 显然不可能
+
+这说明快指针多走了x步,当快指针从当前位置走,慢指针从头节点走,它们一定相交与入环节点
+因为 t%r=(t+x)%r
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* fast=top;
+        ListNode* low=top;
+        if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+            return NULL;
+        &#125;
+        fast=fast-&gt;next-&gt;next;
+        low=low-&gt;next;
+        while(fast!=low)&#123;
+            if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+                return NULL;
+            &#125;
+            fast=fast-&gt;next-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        low=top;
+        while(fast!=low)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        return fast;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while(fast != NULL &amp;&amp; fast-&gt;next != NULL) &#123;
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            // 快慢指针相遇，此时从head 和 相遇点，同时查找直至相遇
+            if (slow == fast) &#123;
+                ListNode* index1 = fast;
+                ListNode* index2 = head;
+                while (index1 != index2) &#123;
+                    index1 = index1-&gt;next;
+                    index2 = index2-&gt;next;
+                &#125;
+                return index2; // 返回环的入口
+            &#125;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+  
+    <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 3</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 4 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F03%2F22%2F%25E7%25AE%2597%25E6%25B3%2595-day-4%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 4 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F03%2F22%2F%25E7%25AE%2597%25E6%25B3%2595-day-4%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 4 - Hexo&url=http://example.com/2023/03/22/%E7%AE%97%E6%B3%95-day-4/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/17/SNPE-Snapdragon%E7%A5%9E%E7%BB%8F%E5%A4%84%E7%90%86%E5%BC%95%E6%93%8E%E9%83%A8%E7%BD%B2/">SNPE-Snapdragon神经处理引擎部署</a>
+          </li>
+        
+          <li>
+            <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

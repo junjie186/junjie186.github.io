@@ -134,6 +134,288 @@
   
     
       <article
+id="post-算法-day-4"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h2><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<p>思路:创建虚拟头节点.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* node=top;
+        while(node-&gt;next!=nullptr&amp;&amp;node-&gt;next-&gt;next!=nullptr)&#123;
+            ListNode* tmp=node-&gt;next-&gt;next-&gt;next;
+            ListNode* tmp2=node-&gt;next-&gt;next;
+            node-&gt;next-&gt;next-&gt;next=node-&gt;next;
+            node-&gt;next-&gt;next=tmp;
+            node-&gt;next=tmp2;
+            node=node-&gt;next-&gt;next;
+        &#125;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while(cur-&gt;next != nullptr &amp;&amp; cur-&gt;next-&gt;next != nullptr) &#123;
+            ListNode* tmp = cur-&gt;next; // 记录临时节点
+            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next; // 记录临时节点
+
+            cur-&gt;next = cur-&gt;next-&gt;next;    // 步骤一
+            cur-&gt;next-&gt;next = tmp;          // 步骤二
+            cur-&gt;next-&gt;next-&gt;next = tmp1;   // 步骤三
+
+            cur = cur-&gt;next-&gt;next; // cur移动两位，准备下一轮交换
+        &#125;
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="删除链表的倒数第-N-个结点"><a href="#删除链表的倒数第-N-个结点" class="headerlink" title="删除链表的倒数第 N 个结点"></a>删除链表的倒数第 N 个结点</h2><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
+<p>思路:快慢指针,快指针先走n步,再同时走.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* low=top;
+        ListNode* fast=top;
+        for(int i=0;i&lt;n;i++)&#123;
+            if(fast-&gt;next==nullptr)&#123;
+                ListNode* res=top-&gt;next;
+                delete top;
+                return res;
+            &#125;
+            fast=fast-&gt;next;
+        &#125;
+
+        while(fast-&gt;next!=nullptr)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        ListNode* tmp=low-&gt;next;
+        low-&gt;next=low-&gt;next-&gt;next;
+        delete tmp;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* dummyHead = new ListNode(0);
+        dummyHead-&gt;next = head;
+        ListNode* slow = dummyHead;
+        ListNode* fast = dummyHead;
+        while(n-- &amp;&amp; fast != NULL) &#123;
+            fast = fast-&gt;next;
+        &#125;
+        fast = fast-&gt;next; // fast再提前走一步，因为需要让slow指向删除节点的上一个节点
+        while (fast != NULL) &#123;
+            fast = fast-&gt;next;
+            slow = slow-&gt;next;
+        &#125;
+        slow-&gt;next = slow-&gt;next-&gt;next; 
+        
+        // ListNode *tmp = slow-&gt;next;  C++释放内存的逻辑
+        // slow-&gt;next = tmp-&gt;next;
+        // delete nth;
+        
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="链表相交"><a href="#链表相交" class="headerlink" title="链表相交"></a>链表相交</h2><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</p>
+<p>思路:先计算两个链表的长度,再让长的链表先走插值步.</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) &#123;
+        ListNode* curA = headA;
+        ListNode* curB = headB;
+        int lenA = 0, lenB = 0;
+        while (curA != NULL) &#123; // 求链表A的长度
+            lenA++;
+            curA = curA-&gt;next;
+        &#125;
+        while (curB != NULL) &#123; // 求链表B的长度
+            lenB++;
+            curB = curB-&gt;next;
+        &#125;
+        curA = headA;
+        curB = headB;
+        // 让curA为最长链表的头，lenA为其长度
+        if (lenB &gt; lenA) &#123;
+            swap (lenA, lenB);
+            swap (curA, curB);
+        &#125;
+        // 求长度差
+        int gap = lenA - lenB;
+        // 让curA和curB在同一起点上（末尾位置对齐）
+        while (gap--) &#123;
+            curA = curA-&gt;next;
+        &#125;
+        // 遍历curA 和 curB，遇到相同则直接返回
+        while (curA != NULL) &#123;
+            if (curA == curB) &#123;
+                return curA;
+            &#125;
+            curA = curA-&gt;next;
+            curB = curB-&gt;next;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h2><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>思路:快慢指针,慢指针走一步,快指针走两步,当快指针和慢指针重合时,快指针走一步,慢指针从头开始走一步,再次重合的节点即为入环节点.</p>
+<p>证明:</p>
+<pre><code class="bash">设慢指针走了x步,链表的头到入环节点距离为t,环大小为r.
+(x-t)%r=(2x-t)%r
+x%r=2x%r
+x必为r倍数
+若x为kr+n
+则n%r=2n%r 显然不可能
+
+这说明快指针多走了x步,当快指针从当前位置走,慢指针从头节点走,它们一定相交与入环节点
+因为 t%r=(t+x)%r
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* fast=top;
+        ListNode* low=top;
+        if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+            return NULL;
+        &#125;
+        fast=fast-&gt;next-&gt;next;
+        low=low-&gt;next;
+        while(fast!=low)&#123;
+            if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+                return NULL;
+            &#125;
+            fast=fast-&gt;next-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        low=top;
+        while(fast!=low)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        return fast;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while(fast != NULL &amp;&amp; fast-&gt;next != NULL) &#123;
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            // 快慢指针相遇，此时从head 和 相遇点，同时查找直至相遇
+            if (slow == fast) &#123;
+                ListNode* index1 = fast;
+                ListNode* index2 = head;
+                while (index1 != index2) &#123;
+                    index1 = index1-&gt;next;
+                    index2 = index2-&gt;next;
+                &#125;
+                return index2; // 返回环的入口
+            &#125;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-22T10:57:24.000Z" itemprop="datePublished">2023-03-22</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-算法-day-3"
 class="article article-type-post"
 >
@@ -1222,6 +1504,10 @@ class="article article-type-post"
       <ul>
         
           <li>
+            <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
+          </li>
+        
+          <li>
             <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
           </li>
         
@@ -1235,10 +1521,6 @@ class="article article-type-post"
         
           <li>
             <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
-          </li>
-        
-          <li>
-            <a href="/2023/03/16/hello-world/">Hello World</a>
           </li>
         
       </ul>
