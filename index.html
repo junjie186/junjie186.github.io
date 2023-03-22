@@ -134,6 +134,221 @@
   
     
       <article
+id="post-SNPE环境配置"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/22/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">SNPE环境配置</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="SNPE"><a href="#SNPE" class="headerlink" title="SNPE"></a>SNPE</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup.html">链接</a></p>
+</blockquote>
+<p><code>Currently the SNPE SDK development environment is limited to Ubuntu, specifically version 18.04.</code>只能用Ubuntu18.04配置snpe.</p>
+<p>下载并解压<a target="_blank" rel="noopener" href="https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools">snpe</a></p>
+<p>配置安卓NDK SDK(可选)</p>
+<pre><code class="bash">Android NDK (android-ndk-r17c-linux-x86)
+Android SDK (SDK version 23 and build tools version 23.0.2)
+</code></pre>
+<p>创建python3.6环境:</p>
+<pre><code class="bash">conda create -n snpe python=3.6
+</code></pre>
+<p>配置snpe必需环境</p>
+<pre><code class="bash">unzip -X snpe-X.Y.Z.zip
+source snpe-X.Y.Z/bin/dependencies.sh
+source snpe-X.Y.Z/bin/check_python_depends.sh
+</code></pre>
+<h2 id="TFLite-Setup"><a href="#TFLite-Setup" class="headerlink" title="TFLite Setup"></a>TFLite Setup</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
+</blockquote>
+<pre><code class="bash">pip install tflite==2.3.0
+
+source bin/envsetup.sh -o $TFLITE_DIR
+</code></pre>
+<h2 id="ONNX-setup"><a href="#ONNX-setup" class="headerlink" title="ONNX setup"></a>ONNX setup</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
+</blockquote>
+<pre><code class="bash">pip install onnx==1.6.0
+pip install numpy==1.16.5
+
+#貌似protobuf v3.6.0会导致冲突,可安装v3.6.1
+pip install protobuf==3.6.0
+
+#ONNX_DIR照描述是onnx安装位置,可以用 pip show package_name 找到,但是应该不需要这个参数...
+source bin/envsetup.sh -o $ONNX_DIR
+</code></pre>
+<h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/usergroup3.html">链接</a></p>
+</blockquote>
+<p>需要将模型转换为snpe需要的dlc文件.类似:</p>
+<pre><code class="bash">#在source bin/envsetup.sh之后会找到snpe-tflite-to-dlc工具
+snpe-tflite-to-dlc --input_network inception_v3.tflite
+                   --input_dim input &quot;1,299,299,3&quot;
+                   --output_path inception_v3.dlc
+</code></pre>
+<h2 id="模型输入"><a href="#模型输入" class="headerlink" title="模型输入"></a>模型输入</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/image_input.html">链接</a></p>
+</blockquote>
+<p>需要注意的是snpe只接受<code>NHWC</code>的图像输入.</p>
+<pre><code class="python">import numpy as np
+
+a=np.random.randint(low=-128,high=128,size=[1,224,224,1]).astype(np.int8)
+a.tofile(&#39;224.raw&#39;)
+</code></pre>
+<p>需要创建一个输入列表文件:</p>
+<pre><code class="bash">/path/to/input_01.raw
+/path/to/input_02.raw
+...
+/path/to/input_0N.raw
+</code></pre>
+<h2 id="运行模型"><a href="#运行模型" class="headerlink" title="运行模型"></a>运行模型</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/tutorial_inceptionv3.html">链接</a></p>
+</blockquote>
+<p>SNPE 为 armeabi-v7a 和 arm64-v8a 架构提供 Android 二进制文件.现在最新版本应该是 <code>arm-android-clang8.0</code> <code>aarch64-android-clang8.0</code></p>
+<pre><code class="bash"># architecture: armeabi-v7a - compiler: clang - STL: libc++
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+
+# architecture: arm64-v8a - compiler: clang - STL: libc++
+export SNPE_TARGET_ARCH=aarch64-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+</code></pre>
+<pre><code class="bash">export SNPE_TARGET_ARCH=arm-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin&quot;
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib&quot;
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/dsp/lib&quot;
+
+adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/$SNPE_TARGET_STL \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/*.so \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+adb push $SNPE_ROOT/lib/dsp/*.so \
+      /data/local/tmp/snpeexample/dsp/lib
+adb push $SNPE_ROOT/bin/$SNPE_TARGET_ARCH/snpe-net-run \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+</code></pre>
+<p>在 adb shell 中设置库路径、路径变量和目标体系结构:</p>
+<pre><code class="bash">adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+snpe-net-run -h
+exit
+</code></pre>
+<p>执行:</p>
+<pre><code class="bash">cd $SNPE_ROOT/models/inception_v3
+mkdir data/rawfiles &amp;&amp; cp data/cropped/*.raw data/rawfiles/
+adb shell &quot;mkdir -p /data/local/tmp/inception_v3&quot;
+adb push data/rawfiles /data/local/tmp/inception_v3/cropped
+adb push data/target_raw_list.txt /data/local/tmp/inception_v3
+adb push dlc/inception_v3_quantized.dlc /data/local/tmp/inception_v3
+rm -rf data/rawfiles
+</code></pre>
+<pre><code>adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+cd /data/local/tmp/inception_v3
+snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt
+exit
+</code></pre>
+<p>推理的结果默认保存在output下,运行时,使用<code>--output_dir</code>参数,后面加上自己的输出路径.</p>
+<p>默认是使用CPU进行推理,要使用GPU需要加<code>--use_gpu</code>,<code>snpe-net-run --container inception_v3.dlc --input_list data/cropped/raw_list.txt --output_dir output_gpu --use_gpu</code></p>
+<p>在dsp执行:</p>
+<pre><code class="bash">adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+export ADSP_LIBRARY_PATH=&quot;/data/local/tmp/snpeexample/dsp/lib;/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp&quot;
+cd /data/local/tmp/inception_v3
+snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt --use_dsp
+exit
+</code></pre>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><pre><code>adb pull /path/to/SNPEDiag.log
+
+snpe-diagview --input_log SNPEDiag.log
+</code></pre>
+<p>结果:</p>
+<pre><code class="bash">Interpreting file serialized with Flatbuffer
+CREATE NETWORK: 519317
+Log File Created: Tue Mar 21 23:56:12 2023
+Time Scale: 1e-06
+Epoch Timestamp: 1679468172677617 Steady Clock Timestamp: 2930295956
+Software library version: 2.7.0.4264
+
+Dnn Runtime Load/Deserialize/Create/De-Init Statistics:
+--------------------------------------------------
+Load: 86 us
+Deserialize: 346 us
+Create: 520165 us
+
+Init: 523624 us
+De-Init: 7621 us
+
+Create Network(s): 519317 us
+RPC Init Time: 0 NONE
+Snpe Accelerator Init Time: 0 NONE
+Accelerator Init Time: 0 NONE
+
+Average SNPE Statistics:
+------------------------------
+Total Inference Time: 19497 us
+Forward Propagate Time: 19473 us
+RPC Execute Time: 0 us
+Snpe Accelerator Time: 0 us
+Accelerator Time: 0 us
+Misc Accelerator Time: 0 us
+
+Layer Times:
+---------------
+0: 1650 us : GPU
+1: 0 NONE : GPU
+2: 9381 us : GPU
+3: 0 NONE : GPU
+4: 4777 us : GPU
+5: 0 NONE : GPU
+6: 1123 us : GPU
+7: 0 NONE : GPU
+8: 374 us : GPU
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-22T12:31:17.000Z" itemprop="datePublished">2023-03-22</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
 id="post-算法-day-4"
 class="article article-type-post"
 >
@@ -945,221 +1160,6 @@ public:
   
     
       <article
-id="post-SNPE环境配置 "
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2023/03/17/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%20/">SNPE环境配置</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h2 id="SNPE"><a href="#SNPE" class="headerlink" title="SNPE"></a>SNPE</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup.html">链接</a></p>
-</blockquote>
-<p><code>Currently the SNPE SDK development environment is limited to Ubuntu, specifically version 18.04.</code>只能用Ubuntu18.04配置snpe.</p>
-<p>下载并解压<a target="_blank" rel="noopener" href="https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools">snpe</a></p>
-<p>配置安卓NDK SDK(可选)</p>
-<pre><code class="bash">Android NDK (android-ndk-r17c-linux-x86)
-Android SDK (SDK version 23 and build tools version 23.0.2)
-</code></pre>
-<p>创建python3.6环境:</p>
-<pre><code class="bash">conda create -n snpe python=3.6
-</code></pre>
-<p>配置snpe必需环境</p>
-<pre><code class="bash">unzip -X snpe-X.Y.Z.zip
-source snpe-X.Y.Z/bin/dependencies.sh
-source snpe-X.Y.Z/bin/check_python_depends.sh
-</code></pre>
-<h2 id="TFLite-Setup"><a href="#TFLite-Setup" class="headerlink" title="TFLite Setup"></a>TFLite Setup</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
-</blockquote>
-<pre><code class="bash">pip install tflite==2.3.0
-
-source bin/envsetup.sh -o $TFLITE_DIR
-</code></pre>
-<h2 id="ONNX-setup"><a href="#ONNX-setup" class="headerlink" title="ONNX setup"></a>ONNX setup</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
-</blockquote>
-<pre><code class="bash">pip install onnx==1.6.0
-pip install numpy==1.16.5
-
-#貌似protobuf v3.6.0会导致冲突,可安装v3.6.1
-pip install protobuf==3.6.0
-
-#ONNX_DIR照描述是onnx安装位置,可以用 pip show package_name 找到,但是应该不需要这个参数...
-source bin/envsetup.sh -o $ONNX_DIR
-</code></pre>
-<h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/usergroup3.html">链接</a></p>
-</blockquote>
-<p>需要将模型转换为snpe需要的dlc文件.类似:</p>
-<pre><code class="bash">#在source bin/envsetup.sh之后会找到snpe-tflite-to-dlc工具
-snpe-tflite-to-dlc --input_network inception_v3.tflite
-                   --input_dim input &quot;1,299,299,3&quot;
-                   --output_path inception_v3.dlc
-</code></pre>
-<h2 id="模型输入"><a href="#模型输入" class="headerlink" title="模型输入"></a>模型输入</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/image_input.html">链接</a></p>
-</blockquote>
-<p>需要注意的是snpe只接受<code>NHWC</code>的图像输入.</p>
-<pre><code class="python">import numpy as np
-
-a=np.random.randint(low=-128,high=128,size=[1,224,224,1]).astype(np.int8)
-a.tofile(&#39;224.raw&#39;)
-</code></pre>
-<p>需要创建一个输入列表文件:</p>
-<pre><code class="bash">/path/to/input_01.raw
-/path/to/input_02.raw
-...
-/path/to/input_0N.raw
-</code></pre>
-<h2 id="运行模型"><a href="#运行模型" class="headerlink" title="运行模型"></a>运行模型</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/tutorial_inceptionv3.html">链接</a></p>
-</blockquote>
-<p>SNPE 为 armeabi-v7a 和 arm64-v8a 架构提供 Android 二进制文件.现在最新版本应该是 <code>arm-android-clang8.0</code> <code>aarch64-android-clang8.0</code></p>
-<pre><code class="bash"># architecture: armeabi-v7a - compiler: clang - STL: libc++
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-
-# architecture: arm64-v8a - compiler: clang - STL: libc++
-export SNPE_TARGET_ARCH=aarch64-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-</code></pre>
-<pre><code class="bash">export SNPE_TARGET_ARCH=arm-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin&quot;
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib&quot;
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/dsp/lib&quot;
-
-adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/$SNPE_TARGET_STL \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/*.so \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-adb push $SNPE_ROOT/lib/dsp/*.so \
-      /data/local/tmp/snpeexample/dsp/lib
-adb push $SNPE_ROOT/bin/$SNPE_TARGET_ARCH/snpe-net-run \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-</code></pre>
-<p>在 adb shell 中设置库路径、路径变量和目标体系结构:</p>
-<pre><code class="bash">adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-snpe-net-run -h
-exit
-</code></pre>
-<p>执行:</p>
-<pre><code class="bash">cd $SNPE_ROOT/models/inception_v3
-mkdir data/rawfiles &amp;&amp; cp data/cropped/*.raw data/rawfiles/
-adb shell &quot;mkdir -p /data/local/tmp/inception_v3&quot;
-adb push data/rawfiles /data/local/tmp/inception_v3/cropped
-adb push data/target_raw_list.txt /data/local/tmp/inception_v3
-adb push dlc/inception_v3_quantized.dlc /data/local/tmp/inception_v3
-rm -rf data/rawfiles
-</code></pre>
-<pre><code>adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-cd /data/local/tmp/inception_v3
-snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt
-exit
-</code></pre>
-<p>推理的结果默认保存在output下,运行时,使用<code>--output_dir</code>参数,后面加上自己的输出路径.</p>
-<p>默认是使用CPU进行推理,要使用GPU需要加<code>--use_gpu</code>,<code>snpe-net-run --container inception_v3.dlc --input_list data/cropped/raw_list.txt --output_dir output_gpu --use_gpu</code></p>
-<p>在dsp执行:</p>
-<pre><code class="bash">adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-export ADSP_LIBRARY_PATH=&quot;/data/local/tmp/snpeexample/dsp/lib;/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp&quot;
-cd /data/local/tmp/inception_v3
-snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt --use_dsp
-exit
-</code></pre>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><pre><code>adb pull /path/to/SNPEDiag.log
-
-snpe-diagview --input_log SNPEDiag.log
-</code></pre>
-<p>结果:</p>
-<pre><code class="bash">Interpreting file serialized with Flatbuffer
-CREATE NETWORK: 519317
-Log File Created: Tue Mar 21 23:56:12 2023
-Time Scale: 1e-06
-Epoch Timestamp: 1679468172677617 Steady Clock Timestamp: 2930295956
-Software library version: 2.7.0.4264
-
-Dnn Runtime Load/Deserialize/Create/De-Init Statistics:
---------------------------------------------------
-Load: 86 us
-Deserialize: 346 us
-Create: 520165 us
-
-Init: 523624 us
-De-Init: 7621 us
-
-Create Network(s): 519317 us
-RPC Init Time: 0 NONE
-Snpe Accelerator Init Time: 0 NONE
-Accelerator Init Time: 0 NONE
-
-Average SNPE Statistics:
-------------------------------
-Total Inference Time: 19497 us
-Forward Propagate Time: 19473 us
-RPC Execute Time: 0 us
-Snpe Accelerator Time: 0 us
-Accelerator Time: 0 us
-Misc Accelerator Time: 0 us
-
-Layer Times:
----------------
-0: 1650 us : GPU
-1: 0 NONE : GPU
-2: 9381 us : GPU
-3: 0 NONE : GPU
-4: 4777 us : GPU
-5: 0 NONE : GPU
-6: 1123 us : GPU
-7: 0 NONE : GPU
-8: 374 us : GPU
-</code></pre>
-
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2023-03-17T13:42:10.000Z" itemprop="datePublished">2023-03-17</time>
-</div>
-    
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
 id="post-算法-day-1"
 class="article article-type-post"
 >
@@ -1676,6 +1676,10 @@ class="article article-type-post"
       <ul>
         
           <li>
+            <a href="/2023/03/22/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">SNPE环境配置</a>
+          </li>
+        
+          <li>
             <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
           </li>
         
@@ -1685,10 +1689,6 @@ class="article article-type-post"
         
           <li>
             <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
-          </li>
-        
-          <li>
-            <a href="/2023/03/17/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%20/">SNPE环境配置</a>
           </li>
         
           <li>
