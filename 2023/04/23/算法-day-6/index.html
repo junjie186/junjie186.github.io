@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 6 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 6 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-6/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 6 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-6/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 6 | Hexo",
+            "datePublished": "2023-04-23T10:29:38.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-6/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w3c000qicuh2ik0e5vl" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 6
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:29:38.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="常见的三种哈希结构"><a href="#常见的三种哈希结构" class="headerlink" title="常见的三种哈希结构"></a>常见的三种哈希结构</h2><p>当我们想使用哈希法来解决问题的时候，我们一般会选择如下三种数据结构。</p>
+<ul>
+<li>数组</li>
+<li>set （集合）</li>
+<li>map(映射)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">集合</th>
+<th align="left">底层实现</th>
+<th align="left">是否有序</th>
+<th align="left">数值是否可以重复</th>
+<th align="left">能否更改数值</th>
+<th align="left">查询效率</th>
+<th align="left">增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">std::set</td>
+<td align="left">红黑树</td>
+<td align="left">有序</td>
+<td align="left">否</td>
+<td align="left">否</td>
+<td align="left">O(log n)</td>
+<td align="left">O(log n)</td>
+</tr>
+<tr>
+<td align="left">std::multiset</td>
+<td align="left">红黑树</td>
+<td align="left">有序</td>
+<td align="left">是</td>
+<td align="left">否</td>
+<td align="left">O(logn)</td>
+<td align="left">O(logn)</td>
+</tr>
+<tr>
+<td align="left">std::unordered_set</td>
+<td align="left">哈希表</td>
+<td align="left">无序</td>
+<td align="left">否</td>
+<td align="left">否</td>
+<td align="left">O(1)</td>
+<td align="left">O(1)</td>
+</tr>
+</tbody></table>
+<p>std::unordered_set底层实现为哈希表，std::set 和std::multiset 的底层实现是红黑树，红黑树是一种平衡二叉搜索树，所以key值是有序的，但key不可以修改，改动key值会导致整棵树的错乱，所以只能删除和增加。</p>
+<table>
+<thead>
+<tr>
+<th align="left">映射</th>
+<th align="left">底层实现</th>
+<th align="left">是否有序</th>
+<th align="left">数值是否可以重复</th>
+<th align="left">能否更改数值</th>
+<th align="left">查询效率</th>
+<th align="left">增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">std::map</td>
+<td align="left">红黑树</td>
+<td align="left">key有序</td>
+<td align="left">key不可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(logn)</td>
+<td align="left">O(logn)</td>
+</tr>
+<tr>
+<td align="left">std::multimap</td>
+<td align="left">红黑树</td>
+<td align="left">key有序</td>
+<td align="left">key可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(log n)</td>
+<td align="left">O(log n)</td>
+</tr>
+<tr>
+<td align="left">std::unordered_map</td>
+<td align="left">哈希表</td>
+<td align="left">key无序</td>
+<td align="left">key不可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(1)</td>
+<td align="left">O(1)</td>
+</tr>
+</tbody></table>
+<p> std::unordered_map 底层实现为哈希表，std::map 和std::multimap 的底层实现是红黑树。同理，std::map 和std::multimap 的key也是有序的（这个问题也经常作为面试题，考察对语言容器底层的理解）。</p>
+<p>当我们要使用集合来解决哈希问题的时候，优先使用unordered_set，因为它的查询和增删效率是最优的，如果需要集合是有序的，那么就用set，如果要求不仅有序还要有重复数据的话，那么就用multiset。</p>
+<p>那么再来看一下map ，在map 是一个key value 的数据结构，map中，对key是有限制，对value没有限制的，因为key的存储方式使用红黑树实现的。</p>
+<h2 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h2><p>给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。<br>注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: s = &quot;anagram&quot;, t = &quot;nagaram&quot;
+输出: true
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: s = &quot;rat&quot;, t = &quot;car&quot;
+输出: false
+</code></pre>
+<p>思路:用大小为26的数组保存字母的次数.</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool isAnagram(string s, string t) &#123;
+        if(s.length()!=t.length())&#123;
+            return false;
+        &#125;
+        int nums[26]=&#123;0&#125;;
+        for(int i=0;i&lt;s.length();i++)&#123;
+            nums[s[i]-&#39;a&#39;]++;
+        &#125;
+
+        for(int i=0;i&lt;s.length();i++)&#123;
+            nums[t[i]-&#39;a&#39;]--;
+        &#125;
+
+        for(int i=0;i&lt;26;i++)&#123;
+            if(nums[i]!=0)&#123;
+                return false;
+            &#125;
+        &#125;
+
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><p>给定两个数组 nums1 和 nums2 ，返回 它们的交集 。输出结果中的每个元素一定是 唯一 的。我们可以 不考虑输出结果的顺序 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+解释：[4,9] 也是可通过的
+</code></pre>
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; nums1.length, nums2.length &lt;&#x3D; 1000</li>
+<li>0 &lt;&#x3D; nums1[i], nums2[i] &lt;&#x3D; 1000</li>
+</ul>
+<p>思路:题目中规定了nums的长度,所以可以用数组做hash表,当然也可以用set.</p>
+<blockquote>
+<p><font color="red"> 未提交,完全不会C++容器相关操作 </font></p>
+</blockquote>
+<p>使用 set:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+        unordered_set&lt;int&gt; result_set; // 存放结果，之所以用set是为了给结果集去重
+        unordered_set&lt;int&gt; nums_set(nums1.begin(), nums1.end());
+        for (int num : nums2) &#123;
+            // 发现nums2的元素 在nums_set里又出现过
+            if (nums_set.find(num) != nums_set.end()) &#123;
+                result_set.insert(num);
+            &#125;
+        &#125;
+        return vector&lt;int&gt;(result_set.begin(), result_set.end());
+    &#125;
+&#125;;
+</code></pre>
+<p>使用数组:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+        unordered_set&lt;int&gt; result_set; // 存放结果，之所以用set是为了给结果集去重
+        int hash[1005] = &#123;0&#125;; // 默认数值为0
+        for (int num : nums1) &#123; // nums1中出现的字母在hash数组中做记录
+            hash[num] = 1;
+        &#125;
+        for (int num : nums2) &#123; // nums2中出现话，result记录
+            if (hash[num] == 1) &#123;
+                result_set.insert(num);
+            &#125;
+        &#125;
+        return vector&lt;int&gt;(result_set.begin(), result_set.end());
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h2><p>编写一个算法来判断一个数 n 是不是快乐数。</p>
+<p>「快乐数」 定义为：</p>
+<ul>
+<li>对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。</li>
+<li>然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。</li>
+<li>如果这个过程 结果为 1，那么这个数就是快乐数。<br>如果 n 是 快乐数 就返回 true ；不是，则返回 false 。</li>
+</ul>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-7/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 7
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-39/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 39</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 6 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-6%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 6 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-6%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 6 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-6/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

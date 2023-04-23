@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 31 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 31 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-31/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 31 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-31/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 31 | Hexo",
+            "datePublished": "2023-04-23T10:40:20.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-31/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w33000iicuhh1g0dzys" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 31
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:40:20.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="分发饼干"><a href="#分发饼干" class="headerlink" title="分发饼干"></a>分发饼干</h2><p>假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。</p>
+<p>对每个孩子 i，都有一个胃口值 g[i]，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j，都有一个尺寸 s[j] 。如果 s[j] &gt;&#x3D; g[i]，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: g = [1,2,3], s = [1,1]
+输出: 1
+解释: 
+你有三个孩子和两块小饼干，3个孩子的胃口值分别是：1,2,3。
+虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
+所以你应该输出1。
+</code></pre>
+<p>示例 2:</p>
+<pre><code>输入: g = [1,2], s = [1,2,3]
+输出: 2
+解释: 
+你有两个孩子和三块小饼干，2个孩子的胃口值分别是1,2。
+你拥有的饼干数量和尺寸都足以让所有孩子满足。
+所以你应该输出2.
+</code></pre>
+<p>思路:直觉是,先分配最大的饼干给最大胃口的孩子,一直往小分配.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int findContentChildren(vector&lt;int&gt;&amp; g, vector&lt;int&gt;&amp; s) &#123;
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int k=g.size()-1;
+        int num=0;;
+        for(int i=s.size()-1;i&gt;=0;i--)&#123;
+            for(;k&gt;=0;k--)&#123;
+                if(s[i]&gt;=g[k])&#123;
+                    num++;
+                    k--;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        return num;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="摆动序列"><a href="#摆动序列" class="headerlink" title="摆动序列"></a>摆动序列</h2><p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为 摆动序列 。第一个差（如果存在的话）可能是正数或负数。仅有一个元素或者含两个不等元素的序列也视作摆动序列。</p>
+<p>例如， [1, 7, 4, 9, 2, 5] 是一个 摆动序列 ，因为差值 (6, -3, 5, -7, 3) 是正负交替出现的。</p>
+<p>相反，[1, 4, 7, 2, 5] 和 [1, 7, 4, 5, 5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>子序列 可以通过从原始序列中删除一些（也可以不删除）元素来获得，剩下的元素保持其原始顺序。</p>
+<p>给你一个整数数组 nums ，返回 nums 中作为 摆动序列 的 最长子序列的长度 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,7,4,9,2,5]
+输出：6
+解释：整个序列均为摆动序列，各元素之间的差值为 (6, -3, 5, -7, 3) 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [1,17,5,10,13,15,10,5,16,8]
+输出：7
+解释：这个序列包含几个长度为 7 摆动序列。
+其中一个是 [1, 17, 10, 13, 10, 16, 8] ，各元素之间的差值为 (16, -7, 3, -3, 6, -8) 。
+</code></pre>
+<p>没想出来…</p>
+<p>贪心算法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        if (nums.size() &lt;= 1) return nums.size();
+        int curDiff = 0; // 当前一对差值
+        int preDiff = 0; // 前一对差值
+        int result = 1;  // 记录峰值个数，序列默认序列最右边有一个峰值
+        for (int i = 0; i &lt; nums.size() - 1; i++) &#123;
+            curDiff = nums[i + 1] - nums[i];
+            // 出现峰值
+            if ((preDiff &lt;= 0 &amp;&amp; curDiff &gt; 0) || (preDiff &gt;= 0 &amp;&amp; curDiff &lt; 0)) &#123;
+                result++;
+                preDiff = curDiff; // 注意这里，只在摆动变化的时候更新prediff 
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>动态规划:</p>
+<ul>
+<li>设dp状态dp[i][0]，表示考虑前i个数，第i个数作为山峰的摆动子序列的最长长度</li>
+<li>设dp状态dp[i][1]，表示考虑前i个数，第i个数作为山谷的摆动子序列的最长长度</li>
+</ul>
+<p>则转移方程为：</p>
+<ul>
+<li>dp[i][0] &#x3D; max(dp[i][0], dp[j][1] + 1)，其中0 &lt; j &lt; i且nums[j] &lt; nums[i]，表示将nums[i]接到前面某个山谷后面，作为山峰。</li>
+<li>dp[i][1] &#x3D; max(dp[i][1], dp[j][0] + 1)，其中0 &lt; j &lt; i且nums[j] &gt; nums[i]，表示将nums[i]接到前面某个山峰后面，作为山谷。</li>
+</ul>
+<pre><code class="C++">class Solution &#123;
+public:
+    int dp[1005][2];
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        memset(dp, 0, sizeof dp);
+        dp[0][0] = dp[0][1] = 1;
+        for (int i = 1; i &lt; nums.size(); ++i) &#123;
+            dp[i][0] = dp[i][1] = 1;
+            for (int j = 0; j &lt; i; ++j) &#123;
+                if (nums[j] &gt; nums[i]) dp[i][1] = max(dp[i][1], dp[j][0] + 1);
+            &#125;
+            for (int j = 0; j &lt; i; ++j) &#123;
+                if (nums[j] &lt; nums[i]) dp[i][0] = max(dp[i][0], dp[j][1] + 1);
+            &#125;
+        &#125;
+        return max(dp[nums.size() - 1][0], dp[nums.size() - 1][1]);
+    &#125;
+&#125;;
+</code></pre>
+<p>更简单的动态规划:</p>
+<p>每当我们选择一个元素作为摆动序列的一部分时，这个元素要么是上升的，要么是下降的，这取决于前一个元素的大小。那么列出状态表达式为：</p>
+<ul>
+<li><p>up[i] 表示以前 i 个元素中的某一个为结尾的最长的「上升摆动序列」的长度。</p>
+</li>
+<li><p>down[i] 表示以前 i 个元素中的某一个为结尾的最长的「下降摆动序列」的长度。</p>
+</li>
+</ul>
+<p>则转移方程为:</p>
+<p><img src="/./%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B.png"></p>
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        if (n &lt; 2) &#123;
+            return n;
+        &#125;
+        vector&lt;int&gt; up(n), down(n);
+        up[0] = down[0] = 1;
+        for (int i = 1; i &lt; n; i++) &#123;
+            if (nums[i] &gt; nums[i - 1]) &#123;
+                up[i] = max(up[i - 1], down[i - 1] + 1);
+                down[i] = down[i - 1];
+            &#125; else if (nums[i] &lt; nums[i - 1]) &#123;
+                up[i] = up[i - 1];
+                down[i] = max(up[i - 1] + 1, down[i - 1]);
+            &#125; else &#123;
+                up[i] = up[i - 1];
+                down[i] = down[i - 1];
+            &#125;
+        &#125;
+        return max(up[n - 1], down[n - 1]);
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="最大子数组和"><a href="#最大子数组和" class="headerlink" title="最大子数组和"></a>最大子数组和</h2><p>给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>子数组 是数组中的一个连续部分。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [1]
+输出：1
+</code></pre>
+<p>思路:数组从头开始加,如果sum小于0了,则重新设置sum为0.</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int max=INT_MIN;
+        int sum=0;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            sum+=nums[i];
+            if(sum&gt;max)&#123;
+                max=sum;
+            &#125;
+            if(sum&lt;0)&#123;
+                sum=0;
+            &#125;
+        &#125;
+
+        return max;
+    &#125;
+&#125;;
+</code></pre>
+<p>动态规划,设dp[i]为以第i个数结尾的最大子序列之和.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int dp[nums.size()];
+        dp[0]=nums[0];
+        int max=dp[0];
+        for(int i=1;i&lt;nums.size();i++)&#123;
+            if(dp[i-1]&gt;=0)&#123;
+                dp[i]=dp[i-1]+nums[i];
+            &#125;else&#123;
+                dp[i]=nums[i];
+            &#125;
+            if(dp[i]&gt;max)&#123;
+                max=dp[i];
+            &#125;
+        &#125;
+        return max;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 32
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 30</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 31 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-31%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 31 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-31%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 31 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-31/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

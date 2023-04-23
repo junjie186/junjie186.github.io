@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 28 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 28 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-28/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 28 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-28/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 28 | Hexo",
+            "datePublished": "2023-04-23T10:37:44.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-28/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w2y000eicuh0cnke5c5" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 28
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:37:44.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="复原-IP-地址"><a href="#复原-IP-地址" class="headerlink" title="复原 IP 地址"></a>复原 IP 地址</h2><p>有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 ‘.’ 分隔。</p>
+<p>例如：”0.1.2.201” 和 “192.168.1.1” 是 有效 IP 地址，但是 “0.011.255.245”、”192.168.1.312” 和 “<a href="mailto:&#49;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#64;&#x31;&#x2e;&#x31;">&#49;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#64;&#x31;&#x2e;&#x31;</a>“ 是 无效 IP 地址。<br>给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 ‘.’ 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;25525511135&quot;
+输出：[&quot;255.255.11.135&quot;,&quot;255.255.111.35&quot;]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;0000&quot;
+输出：[&quot;0.0.0.0&quot;]
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：s = &quot;101023&quot;
+输出：[&quot;1.0.10.23&quot;,&quot;1.0.102.3&quot;,&quot;10.1.0.23&quot;,&quot;10.10.2.3&quot;,&quot;101.0.2.3&quot;]
+</code></pre>
+<p>没写出来…</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;string&gt; result;// 记录结果
+    // startIndex: 搜索的起始位置，pointNum:添加逗点的数量
+    void backtracking(string&amp; s, int startIndex, int pointNum) &#123;
+        if (pointNum == 3) &#123; // 逗点数量为3时，分隔结束
+            // 判断第四段子字符串是否合法，如果合法就放进result中
+            if (isValid(s, startIndex, s.size() - 1)) &#123;
+                result.push_back(s);
+            &#125;
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isValid(s, startIndex, i)) &#123; // 判断 [startIndex,i] 这个区间的子串是否合法
+                s.insert(s.begin() + i + 1 , &#39;.&#39;);  // 在i的后面插入一个逗点
+                pointNum++;
+                backtracking(s, i + 2, pointNum);   // 插入逗点之后下一个子串的起始位置为i+2
+                pointNum--;                         // 回溯
+                s.erase(s.begin() + i + 1);         // 回溯删掉逗点
+            &#125; else break; // 不合法，直接结束本层循环
+        &#125;
+    &#125;
+    // 判断字符串s在左闭又闭区间[start, end]所组成的数字是否合法
+    bool isValid(const string&amp; s, int start, int end) &#123;
+        if (start &gt; end) &#123;
+            return false;
+        &#125;
+        if (s[start] == &#39;0&#39; &amp;&amp; start != end) &#123; // 0开头的数字不合法
+                return false;
+        &#125;
+        int num = 0;
+        for (int i = start; i &lt;= end; i++) &#123;
+            if (s[i] &gt; &#39;9&#39; || s[i] &lt; &#39;0&#39;) &#123; // 遇到非数字字符不合法
+                return false;
+            &#125;
+            num = num * 10 + (s[i] - &#39;0&#39;);
+            if (num &gt; 255) &#123; // 如果大于255了不合法
+                return false;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+public:
+    vector&lt;string&gt; restoreIpAddresses(string s) &#123;
+        result.clear();
+        if (s.size() &lt; 4 || s.size() &gt; 12) return result; // 算是剪枝了
+        backtracking(s, 0, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="子集"><a href="#子集" class="headerlink" title="子集"></a>子集</h2><p>给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。</p>
+<p>解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,3]
+输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0]
+输出：[[],[0]]
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        result.push_back(path);
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            path.push_back(nums[i]);
+            result.push_back(path);
+            backtracking(nums,i+1,path);
+            path.pop_back();
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="子集-II"><a href="#子集-II" class="headerlink" title="子集 II"></a>子集 II</h2><p>给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。</p>
+<p>解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,2]
+输出：[[],[1],[1,2],[1,2,2],[2],[2,2]]  
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0]
+输出：[[],[0]]
+</code></pre>
+<p>思路: sort 再同一层去重</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        result.push_back(path);
+        sort(nums.begin(),nums.end());
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        int pre=-11;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            if(nums[i]==pre)&#123;
+                continue;
+            &#125;
+            path.push_back(nums[i]);
+            result.push_back(path);
+            backtracking(nums,i+1,path);
+            path.pop_back();
+            pre=nums[i];
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 30
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-27/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 27</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 28 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-28%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 28 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-28%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 28 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-28/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

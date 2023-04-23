@@ -1,0 +1,2068 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://example.com/page/4/index.html" />
+    <meta property="og:site_name" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "",
+            "description": "",
+            "publisher": {
+                "@type": "Organization",
+                "name": "John Doe"
+            },
+        }
+    </script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = false
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="index">
+  
+    
+      <article
+id="post-算法-day-16"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/31/%E7%AE%97%E6%B3%95-day-16/">算法 | day 16</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="二叉树的最大深度"><a href="#二叉树的最大深度" class="headerlink" title="二叉树的最大深度"></a>二叉树的最大深度</h2><p>给定一个二叉树，找出其最大深度。</p>
+<p>二叉树的深度为根节点到最远叶子节点的最长路径上的节点数。</p>
+<p>说明: 叶子节点是指没有子节点的节点。</p>
+<p>示例：</p>
+<pre><code class="bash">给定二叉树 [3,9,20,null,null,15,7]，
+
+    3
+   / \
+  9  20
+    /  \
+   15   7
+</code></pre>
+<p>返回它的最大深度 3 。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="bash">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    int maxDepth(TreeNode* root) &#123;
+        if(root==nullptr)&#123;
+            return 0;
+        &#125;
+        return max(maxDepth(root-&gt;left),maxDepth(root-&gt;right))+1;
+    &#125;
+&#125;;
+</code></pre>
+<p>也可以用回溯法:</p>
+<pre><code class="C++">class solution &#123;
+public:
+    int result;
+    void getdepth(treenode* node, int depth) &#123;
+        result = depth &gt; result ? depth : result; // 中
+
+        if (node-&gt;left == NULL &amp;&amp; node-&gt;right == NULL) return ;
+
+        if (node-&gt;left) &#123; // 左
+            depth++;    // 深度+1
+            getdepth(node-&gt;left, depth);
+            depth--;    // 回溯，深度-1
+        &#125;
+        if (node-&gt;right) &#123; // 右
+            depth++;    // 深度+1
+            getdepth(node-&gt;right, depth);
+            depth--;    // 回溯，深度-1
+        &#125;
+        return ;
+    &#125;
+    int maxdepth(treenode* root) &#123;
+        result = 0;
+        if (root == NULL) return result;
+        getdepth(root, 1);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="二叉树的最小深度"><a href="#二叉树的最小深度" class="headerlink" title="二叉树的最小深度"></a>二叉树的最小深度</h2><p>给定一个二叉树，找出其最小深度。</p>
+<p>最小深度是从根节点到最近叶子节点的最短路径上的节点数量。</p>
+<p>说明：叶子节点是指没有子节点的节点。</p>
+<p>思路:递归,但是要注意 <strong>从根节点到最近叶子节点的最短路径</strong></p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int minDepth(TreeNode* root) &#123;
+        if(root==nullptr)&#123;
+            return 0;
+        &#125;
+        if(root-&gt;left==nullptr&amp;&amp;root-&gt;right==nullptr)&#123;
+            return 1;
+        &#125;else if(root-&gt;left==nullptr)&#123;
+            return minDepth(root-&gt;right)+1;
+        &#125;else if(root-&gt;right==nullptr)&#123;
+            return minDepth(root-&gt;left)+1;
+        &#125;
+        return min(minDepth(root-&gt;left),minDepth(root-&gt;right))+1;
+    &#125;
+&#125;;
+</code></pre>
+<p>提交2: 回溯</p>
+<pre><code class="C++">class Solution &#123;
+    int depth=INT_MAX;
+public:
+    void getDepth(TreeNode* root,int length)&#123;
+        if(root==nullptr)&#123;
+            return ;
+        &#125;
+        if(root-&gt;right==nullptr&amp;&amp;root-&gt;left==nullptr)&#123;
+            depth=depth&lt;length?depth:length;
+        &#125;else if(root-&gt;right==nullptr)&#123;
+            getDepth(root-&gt;left,length+1);
+        &#125;else if(root-&gt;left==nullptr)&#123;
+            getDepth(root-&gt;right,length+1);
+        &#125;else &#123;
+            getDepth(root-&gt;left,length+1);
+            getDepth(root-&gt;right,length+1);
+        &#125;
+    &#125;
+
+    int minDepth(TreeNode* root) &#123;
+        if(root==nullptr)&#123;
+            return 0;
+        &#125;
+        getDepth(root,1);
+        return depth;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子: 层序遍历</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int minDepth(TreeNode* root) &#123;
+        if (root == NULL) return 0;
+        int depth = 0;
+        queue&lt;TreeNode*&gt; que;
+        que.push(root);
+        while(!que.empty()) &#123;
+            int size = que.size();
+            depth++; // 记录最小深度
+            for (int i = 0; i &lt; size; i++) &#123;
+                TreeNode* node = que.front();
+                que.pop();
+                if (node-&gt;left) que.push(node-&gt;left);
+                if (node-&gt;right) que.push(node-&gt;right);
+                if (!node-&gt;left &amp;&amp; !node-&gt;right) &#123; // 当左右孩子都为空的时候，说明是最低点的一层了，退出
+                    return depth;
+                &#125;
+            &#125;
+        &#125;
+        return depth;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="完全二叉树的节点个数"><a href="#完全二叉树的节点个数" class="headerlink" title="完全二叉树的节点个数"></a>完全二叉树的节点个数</h2><p>给你一棵 完全二叉树 的根节点 root ，求出该树的节点个数。</p>
+<p>完全二叉树 的定义如下：在完全二叉树中，除了最底层节点可能没填满外，其余每层节点数都达到最大值，并且最下面一层的节点都集中在该层最左边的若干位置。若最底层为第 h 层，则该层包含 1~ 2h 个节点。</p>
+<p>思路:只想到了普通二叉树的方法…</p>
+<p>这里要利用满二叉树的计算方法,完全二叉树实际上是由多个满二叉树组成.</p>
+<p><img src="/images/complete-binary-tree.png" alt="完全二叉树"></p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int countNodes(TreeNode* root) &#123;
+        if (root == nullptr) return 0;
+        TreeNode* left = root-&gt;left;
+        TreeNode* right = root-&gt;right;
+        int leftDepth = 0, rightDepth = 0; // 这里初始为0是有目的的，为了下面求指数方便
+        while (left) &#123;  // 求左子树深度
+            left = left-&gt;left;
+            leftDepth++;
+        &#125;
+        while (right) &#123; // 求右子树深度
+            right = right-&gt;right;
+            rightDepth++;
+        &#125;
+        if (leftDepth == rightDepth) &#123;
+            return (2 &lt;&lt; leftDepth) - 1; // 注意(2&lt;&lt;1) 相当于2^2，所以leftDepth初始为0
+        &#125;
+        return countNodes(root-&gt;left) + countNodes(root-&gt;right) + 1;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-31T01:54:51.000Z" itemprop="datePublished">2023-03-31</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-C-容器"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/24/C-%E5%AE%B9%E5%99%A8/">C++ | 容器</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-24T14:23:43.000Z" itemprop="datePublished">2023-03-24</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-C-长度"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/24/C-%E9%95%BF%E5%BA%A6/">C++ | 长度</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-24T14:17:33.000Z" itemprop="datePublished">2023-03-24</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-SNPE环境配置"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/22/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">SNPE环境配置</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="SNPE"><a href="#SNPE" class="headerlink" title="SNPE"></a>SNPE</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup.html">链接</a></p>
+</blockquote>
+<p><code>Currently the SNPE SDK development environment is limited to Ubuntu, specifically version 18.04.</code>只能用Ubuntu18.04配置snpe.</p>
+<p>下载并解压<a target="_blank" rel="noopener" href="https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools">snpe</a></p>
+<p>配置安卓NDK SDK(可选)</p>
+<pre><code class="bash">Android NDK (android-ndk-r17c-linux-x86)
+Android SDK (SDK version 23 and build tools version 23.0.2)
+</code></pre>
+<p>创建python3.6环境:</p>
+<pre><code class="bash">conda create -n snpe python=3.6
+</code></pre>
+<p>配置snpe必需环境</p>
+<pre><code class="bash">unzip -X snpe-X.Y.Z.zip
+source snpe-X.Y.Z/bin/dependencies.sh
+source snpe-X.Y.Z/bin/check_python_depends.sh
+</code></pre>
+<h2 id="TFLite-Setup"><a href="#TFLite-Setup" class="headerlink" title="TFLite Setup"></a>TFLite Setup</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
+</blockquote>
+<pre><code class="bash">pip install tflite==2.3.0
+
+source bin/envsetup.sh -o $TFLITE_DIR
+</code></pre>
+<h2 id="ONNX-setup"><a href="#ONNX-setup" class="headerlink" title="ONNX setup"></a>ONNX setup</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
+</blockquote>
+<pre><code class="bash">pip install onnx==1.6.0
+pip install numpy==1.16.5
+
+#貌似protobuf v3.6.0会导致冲突,可安装v3.6.1
+pip install protobuf==3.6.0
+
+#ONNX_DIR照描述是onnx安装位置,可以用 pip show package_name 找到,但是应该不需要这个参数...
+source bin/envsetup.sh -o $ONNX_DIR
+</code></pre>
+<h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/usergroup3.html">链接</a></p>
+</blockquote>
+<p>需要将模型转换为snpe需要的dlc文件.类似:</p>
+<pre><code class="bash">#在source bin/envsetup.sh之后会找到snpe-tflite-to-dlc工具
+snpe-tflite-to-dlc --input_network inception_v3.tflite
+                   --input_dim input &quot;1,299,299,3&quot;
+                   --output_path inception_v3.dlc
+</code></pre>
+<h2 id="模型输入"><a href="#模型输入" class="headerlink" title="模型输入"></a>模型输入</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/image_input.html">链接</a></p>
+</blockquote>
+<p>需要注意的是snpe只接受<code>NHWC</code>的图像输入.</p>
+<pre><code class="python">import numpy as np
+
+a=np.random.randint(low=-128,high=128,size=[1,224,224,1]).astype(np.int8)
+a.tofile(&#39;224.raw&#39;)
+</code></pre>
+<p>需要创建一个输入列表文件:</p>
+<pre><code class="bash">/path/to/input_01.raw
+/path/to/input_02.raw
+...
+/path/to/input_0N.raw
+</code></pre>
+<h2 id="运行模型"><a href="#运行模型" class="headerlink" title="运行模型"></a>运行模型</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/tutorial_inceptionv3.html">链接</a></p>
+</blockquote>
+<p>SNPE 为 armeabi-v7a 和 arm64-v8a 架构提供 Android 二进制文件.现在最新版本应该是 <code>arm-android-clang8.0</code> <code>aarch64-android-clang8.0</code></p>
+<pre><code class="bash"># architecture: armeabi-v7a - compiler: clang - STL: libc++
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+
+# architecture: arm64-v8a - compiler: clang - STL: libc++
+export SNPE_TARGET_ARCH=aarch64-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+</code></pre>
+<pre><code class="bash">export SNPE_TARGET_ARCH=arm-android-clang6.0
+export SNPE_TARGET_STL=libc++_shared.so
+
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin&quot;
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib&quot;
+adb shell &quot;mkdir -p /data/local/tmp/snpeexample/dsp/lib&quot;
+
+adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/$SNPE_TARGET_STL \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/*.so \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+adb push $SNPE_ROOT/lib/dsp/*.so \
+      /data/local/tmp/snpeexample/dsp/lib
+adb push $SNPE_ROOT/bin/$SNPE_TARGET_ARCH/snpe-net-run \
+      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+</code></pre>
+<p>在 adb shell 中设置库路径、路径变量和目标体系结构:</p>
+<pre><code class="bash">adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+snpe-net-run -h
+exit
+</code></pre>
+<p>执行:</p>
+<pre><code class="bash">cd $SNPE_ROOT/models/inception_v3
+mkdir data/rawfiles &amp;&amp; cp data/cropped/*.raw data/rawfiles/
+adb shell &quot;mkdir -p /data/local/tmp/inception_v3&quot;
+adb push data/rawfiles /data/local/tmp/inception_v3/cropped
+adb push data/target_raw_list.txt /data/local/tmp/inception_v3
+adb push dlc/inception_v3_quantized.dlc /data/local/tmp/inception_v3
+rm -rf data/rawfiles
+</code></pre>
+<pre><code>adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+cd /data/local/tmp/inception_v3
+snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt
+exit
+</code></pre>
+<p>推理的结果默认保存在output下,运行时,使用<code>--output_dir</code>参数,后面加上自己的输出路径.</p>
+<p>默认是使用CPU进行推理,要使用GPU需要加<code>--use_gpu</code>,<code>snpe-net-run --container inception_v3.dlc --input_list data/cropped/raw_list.txt --output_dir output_gpu --use_gpu</code></p>
+<p>在dsp执行:</p>
+<pre><code class="bash">adb shell
+export SNPE_TARGET_ARCH=arm-android-clang6.0
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
+export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
+export ADSP_LIBRARY_PATH=&quot;/data/local/tmp/snpeexample/dsp/lib;/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp&quot;
+cd /data/local/tmp/inception_v3
+snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt --use_dsp
+exit
+</code></pre>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><pre><code>adb pull /path/to/SNPEDiag.log
+
+snpe-diagview --input_log SNPEDiag.log
+</code></pre>
+<p>结果:</p>
+<pre><code class="bash">Interpreting file serialized with Flatbuffer
+CREATE NETWORK: 519317
+Log File Created: Tue Mar 21 23:56:12 2023
+Time Scale: 1e-06
+Epoch Timestamp: 1679468172677617 Steady Clock Timestamp: 2930295956
+Software library version: 2.7.0.4264
+
+Dnn Runtime Load/Deserialize/Create/De-Init Statistics:
+--------------------------------------------------
+Load: 86 us
+Deserialize: 346 us
+Create: 520165 us
+
+Init: 523624 us
+De-Init: 7621 us
+
+Create Network(s): 519317 us
+RPC Init Time: 0 NONE
+Snpe Accelerator Init Time: 0 NONE
+Accelerator Init Time: 0 NONE
+
+Average SNPE Statistics:
+------------------------------
+Total Inference Time: 19497 us
+Forward Propagate Time: 19473 us
+RPC Execute Time: 0 us
+Snpe Accelerator Time: 0 us
+Accelerator Time: 0 us
+Misc Accelerator Time: 0 us
+
+Layer Times:
+---------------
+0: 1650 us : GPU
+1: 0 NONE : GPU
+2: 9381 us : GPU
+3: 0 NONE : GPU
+4: 4777 us : GPU
+5: 0 NONE : GPU
+6: 1123 us : GPU
+7: 0 NONE : GPU
+8: 374 us : GPU
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-22T12:31:17.000Z" itemprop="datePublished">2023-03-22</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-4"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
+</blockquote>
+<h2 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h2><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
+<p>思路:创建虚拟头节点.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* node=top;
+        while(node-&gt;next!=nullptr&amp;&amp;node-&gt;next-&gt;next!=nullptr)&#123;
+            ListNode* tmp=node-&gt;next-&gt;next-&gt;next;
+            ListNode* tmp2=node-&gt;next-&gt;next;
+            node-&gt;next-&gt;next-&gt;next=node-&gt;next;
+            node-&gt;next-&gt;next=tmp;
+            node-&gt;next=tmp2;
+            node=node-&gt;next-&gt;next;
+        &#125;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* swapPairs(ListNode* head) &#123;
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while(cur-&gt;next != nullptr &amp;&amp; cur-&gt;next-&gt;next != nullptr) &#123;
+            ListNode* tmp = cur-&gt;next; // 记录临时节点
+            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next; // 记录临时节点
+
+            cur-&gt;next = cur-&gt;next-&gt;next;    // 步骤一
+            cur-&gt;next-&gt;next = tmp;          // 步骤二
+            cur-&gt;next-&gt;next-&gt;next = tmp1;   // 步骤三
+
+            cur = cur-&gt;next-&gt;next; // cur移动两位，准备下一轮交换
+        &#125;
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="删除链表的倒数第-N-个结点"><a href="#删除链表的倒数第-N-个结点" class="headerlink" title="删除链表的倒数第 N 个结点"></a>删除链表的倒数第 N 个结点</h2><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
+<p>思路:快慢指针,快指针先走n步,再同时走.</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* low=top;
+        ListNode* fast=top;
+        for(int i=0;i&lt;n;i++)&#123;
+            if(fast-&gt;next==nullptr)&#123;
+                ListNode* res=top-&gt;next;
+                delete top;
+                return res;
+            &#125;
+            fast=fast-&gt;next;
+        &#125;
+
+        while(fast-&gt;next!=nullptr)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        ListNode* tmp=low-&gt;next;
+        low-&gt;next=low-&gt;next-&gt;next;
+        delete tmp;
+        ListNode* res=top-&gt;next;
+        delete top;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
+        ListNode* dummyHead = new ListNode(0);
+        dummyHead-&gt;next = head;
+        ListNode* slow = dummyHead;
+        ListNode* fast = dummyHead;
+        while(n-- &amp;&amp; fast != NULL) &#123;
+            fast = fast-&gt;next;
+        &#125;
+        fast = fast-&gt;next; // fast再提前走一步，因为需要让slow指向删除节点的上一个节点
+        while (fast != NULL) &#123;
+            fast = fast-&gt;next;
+            slow = slow-&gt;next;
+        &#125;
+        slow-&gt;next = slow-&gt;next-&gt;next; 
+        
+        // ListNode *tmp = slow-&gt;next;  C++释放内存的逻辑
+        // slow-&gt;next = tmp-&gt;next;
+        // delete nth;
+        
+        return dummyHead-&gt;next;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="链表相交"><a href="#链表相交" class="headerlink" title="链表相交"></a>链表相交</h2><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</p>
+<p>思路:先计算两个链表的长度,再让长的链表先走插值步.</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) &#123;
+        ListNode* curA = headA;
+        ListNode* curB = headB;
+        int lenA = 0, lenB = 0;
+        while (curA != NULL) &#123; // 求链表A的长度
+            lenA++;
+            curA = curA-&gt;next;
+        &#125;
+        while (curB != NULL) &#123; // 求链表B的长度
+            lenB++;
+            curB = curB-&gt;next;
+        &#125;
+        curA = headA;
+        curB = headB;
+        // 让curA为最长链表的头，lenA为其长度
+        if (lenB &gt; lenA) &#123;
+            swap (lenA, lenB);
+            swap (curA, curB);
+        &#125;
+        // 求长度差
+        int gap = lenA - lenB;
+        // 让curA和curB在同一起点上（末尾位置对齐）
+        while (gap--) &#123;
+            curA = curA-&gt;next;
+        &#125;
+        // 遍历curA 和 curB，遇到相同则直接返回
+        while (curA != NULL) &#123;
+            if (curA == curB) &#123;
+                return curA;
+            &#125;
+            curA = curA-&gt;next;
+            curB = curB-&gt;next;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h2><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>思路:快慢指针,慢指针走一步,快指针走两步,当快指针和慢指针重合时,快指针走一步,慢指针从头开始走一步,再次重合的节点即为入环节点.</p>
+<p>证明:</p>
+<pre><code class="bash">设慢指针走了x步,链表的头到入环节点距离为t,环大小为r.
+(x-t)%r=(2x-t)%r
+x%r=2x%r
+x必为r倍数
+若x为kr+n
+则n%r=2n%r 显然不可能
+
+这说明快指针多走了x步,当快指针从当前位置走,慢指针从头节点走,它们一定相交与入环节点
+因为 t%r=(t+x)%r
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* top=new ListNode();
+        top-&gt;next=head;
+        ListNode* fast=top;
+        ListNode* low=top;
+        if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+            return NULL;
+        &#125;
+        fast=fast-&gt;next-&gt;next;
+        low=low-&gt;next;
+        while(fast!=low)&#123;
+            if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
+                return NULL;
+            &#125;
+            fast=fast-&gt;next-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        low=top;
+        while(fast!=low)&#123;
+            fast=fast-&gt;next;
+            low=low-&gt;next;
+        &#125;
+        return fast;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode *detectCycle(ListNode *head) &#123;
+        ListNode* fast = head;
+        ListNode* slow = head;
+        while(fast != NULL &amp;&amp; fast-&gt;next != NULL) &#123;
+            slow = slow-&gt;next;
+            fast = fast-&gt;next-&gt;next;
+            // 快慢指针相遇，此时从head 和 相遇点，同时查找直至相遇
+            if (slow == fast) &#123;
+                ListNode* index1 = fast;
+                ListNode* index2 = head;
+                while (index1 != index2) &#123;
+                    index1 = index1-&gt;next;
+                    index2 = index2-&gt;next;
+                &#125;
+                return index2; // 返回环的入口
+            &#125;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-22T10:57:24.000Z" itemprop="datePublished">2023-03-22</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-3"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
+</blockquote>
+<h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><pre><code class="C++">// 单链表
+struct ListNode &#123;
+    int val;  // 节点上存储的元素
+    ListNode *next;  // 指向下一个节点的指针
+    ListNode(int x) : val(x), next(NULL) &#123;&#125;  // 节点的构造函数
+&#125;;
+</code></pre>
+<blockquote>
+<p><font color="red">记得struct后面有分号</font></p>
+</blockquote>
+<h2 id="移除链表元素"><a href="#移除链表元素" class="headerlink" title="移除链表元素"></a>移除链表元素</h2><p>给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val &#x3D;&#x3D; val 的节点，并返回 新的头节点 。</p>
+<pre><code class="bash">输入：head = [1,2,6,3,4,5,6], val = 6
+输出：[1,2,3,4,5]
+</code></pre>
+<p>思路:设置一个空的头节点…</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    ListNode* removeElements(ListNode* head, int val) &#123;
+        ListNode* top=new ListNode(0,head);
+        ListNode* low=top;
+        ListNode* fast=top-&gt;next;
+        while(fast!=nullptr)&#123;
+            if(fast-&gt;val!=val)&#123;
+                fast=fast-&gt;next;
+                low=low-&gt;next;
+            &#125;else&#123;
+                ListNode* pre=fast;
+                fast=fast-&gt;next;
+                delete pre;
+                low-&gt;next=fast;
+            &#125;
+        &#125;
+        return top-&gt;next;
+
+    &#125;
+&#125;;
+</code></pre>
+<blockquote>
+<p><font color="red">但是写的不够简洁,实际上不需要fast low两个节点,并且没有将创建的虚拟头节点销毁.</font></p>
+</blockquote>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* removeElements(ListNode* head, int val) &#123;
+        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
+        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
+        ListNode* cur = dummyHead;
+        while (cur-&gt;next != NULL) &#123;
+            if(cur-&gt;next-&gt;val == val) &#123;
+                ListNode* tmp = cur-&gt;next;
+                cur-&gt;next = cur-&gt;next-&gt;next;
+                delete tmp;
+            &#125; else &#123;
+                cur = cur-&gt;next;
+            &#125;
+        &#125;
+        head = dummyHead-&gt;next;
+        delete dummyHead;
+        return head;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="设计链表"><a href="#设计链表" class="headerlink" title="设计链表"></a>设计链表</h2><p>你可以选择使用单链表或者双链表，设计并实现自己的链表。</p>
+<p>单链表中的节点应该具备两个属性：val 和 next 。val 是当前节点的值，next 是指向下一个节点的指针&#x2F;引用。</p>
+<p>如果是双向链表，则还需要属性 prev 以指示链表中的上一个节点。假设链表中的所有节点下标从 0 开始。</p>
+<p>实现 MyLinkedList 类：</p>
+<ul>
+<li>MyLinkedList() 初始化 MyLinkedList 对象。</li>
+<li>int get(int index) 获取链表中下标为 index 的节点的值。如果下标无效，则返回 -1 。</li>
+<li>void addAtHead(int val) 将一个值为 val 的节点插入到链表中第一个元素之前。在插入完成后，新节点会成为链表的第一个节点。</li>
+<li>void addAtTail(int val) 将一个值为 val 的节点追加到链表中作为链表的最后一个元素。</li>
+<li>void addAtIndex(int index, int val) 将一个值为 val 的节点插入到链表中下标为 index 的节点之前。如果 index 等于链表的长度，那么该节点会被追加到链表的末尾。如果 index 比长度更大，该节点将 不会插入 到链表中。</li>
+<li>void deleteAtIndex(int index) 如果下标有效，则删除链表中下标为 index 的节点。</li>
+</ul>
+<p>思路:可以设置虚拟头节点,并增加链表的size属性</p>
+<p>例子:</p>
+<pre><code class="C++">class MyLinkedList &#123;
+public:
+    // 定义链表节点结构体
+    struct LinkedNode &#123;
+        int val;
+        LinkedNode* next;
+        LinkedNode(int val):val(val), next(nullptr)&#123;&#125;
+    &#125;;
+
+    // 初始化链表
+    MyLinkedList() &#123;
+        _dummyHead = new LinkedNode(0); // 这里定义的头结点 是一个虚拟头结点，而不是真正的链表头结点
+        _size = 0;
+    &#125;
+
+    // 获取到第index个节点数值，如果index是非法数值直接返回-1， 注意index是从0开始的，第0个节点就是头结点
+    int get(int index) &#123;
+        if (index &gt; (_size - 1) || index &lt; 0) &#123;
+            return -1;
+        &#125;
+        LinkedNode* cur = _dummyHead-&gt;next;
+        while(index--)&#123; // 如果--index 就会陷入死循环
+            cur = cur-&gt;next;
+        &#125;
+        return cur-&gt;val;
+    &#125;
+
+    // 在链表最前面插入一个节点，插入完成后，新插入的节点为链表的新的头结点
+    void addAtHead(int val) &#123;
+        LinkedNode* newNode = new LinkedNode(val);
+        newNode-&gt;next = _dummyHead-&gt;next;
+        _dummyHead-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 在链表最后面添加一个节点
+    void addAtTail(int val) &#123;
+        LinkedNode* newNode = new LinkedNode(val);
+        LinkedNode* cur = _dummyHead;
+        while(cur-&gt;next != nullptr)&#123;
+            cur = cur-&gt;next;
+        &#125;
+        cur-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 在第index个节点之前插入一个新节点，例如index为0，那么新插入的节点为链表的新头节点。
+    // 如果index 等于链表的长度，则说明是新插入的节点为链表的尾结点
+    // 如果index大于链表的长度，则返回空
+    // 如果index小于0，则在头部插入节点
+    void addAtIndex(int index, int val) &#123;
+
+        if(index &gt; _size) return;
+        if(index &lt; 0) index = 0;        
+        LinkedNode* newNode = new LinkedNode(val);
+        LinkedNode* cur = _dummyHead;
+        while(index--) &#123;
+            cur = cur-&gt;next;
+        &#125;
+        newNode-&gt;next = cur-&gt;next;
+        cur-&gt;next = newNode;
+        _size++;
+    &#125;
+
+    // 删除第index个节点，如果index 大于等于链表的长度，直接return，注意index是从0开始的
+    void deleteAtIndex(int index) &#123;
+        if (index &gt;= _size || index &lt; 0) &#123;
+            return;
+        &#125;
+        LinkedNode* cur = _dummyHead;
+        while(index--) &#123;
+            cur = cur -&gt;next;
+        &#125;
+        LinkedNode* tmp = cur-&gt;next;
+        cur-&gt;next = cur-&gt;next-&gt;next;
+        delete tmp;
+        _size--;
+    &#125;
+
+    // 打印链表
+    void printLinkedList() &#123;
+        LinkedNode* cur = _dummyHead;
+        while (cur-&gt;next != nullptr) &#123;
+            cout &lt;&lt; cur-&gt;next-&gt;val &lt;&lt; &quot; &quot;;
+            cur = cur-&gt;next;
+        &#125;
+        cout &lt;&lt; endl;
+    &#125;
+private:
+    int _size;
+    LinkedNode* _dummyHead;
+
+&#125;;
+</code></pre>
+<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for singly-linked list.
+ * struct ListNode &#123;
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) &#123;&#125;
+ *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
+ *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+    ListNode* start;
+public:
+    ListNode* reverseList(ListNode* head) &#123;
+        if(head==nullptr)&#123;
+            return head;
+        &#125;
+        reverse(head);
+        return start;
+    &#125;
+
+    ListNode* reverse(ListNode* head)&#123;
+        if(head-&gt;next==nullptr)&#123;
+            start=head;
+            return head;
+        &#125;
+        ListNode* tmp=reverse(head-&gt;next);
+        head-&gt;next=nullptr;
+        tmp-&gt;next=head;
+        return head;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    ListNode* reverseList(ListNode* head) &#123;
+        // 边缘条件判断
+        if(head == NULL) return NULL;
+        if (head-&gt;next == NULL) return head;
+        
+        // 递归调用，翻转第二个节点开始往后的链表
+        ListNode *last = reverseList(head-&gt;next);
+        // 翻转头节点与第二个节点的指向
+        head-&gt;next-&gt;next = head;
+        // 此时的 head 节点为尾节点，next 需要指向 NULL
+        head-&gt;next = NULL;
+        return last;
+    &#125;
+&#125;; 
+</code></pre>
+<p>实际上不需要专门设置一个node指向最后一个节点供返回,只需要在每次迭代时返回反转后的头节点,而此时反转后的链表的尾节点可以直接通过head-&gt;next找到.</p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-21T11:04:10.000Z" itemprop="datePublished">2023-03-21</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-2"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
+</blockquote>
+<h2 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h2><p>给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</p>
+<p>示例 1： 输入：nums &#x3D; [-4,-1,0,3,10] 输出：[0,1,9,16,100] 解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]</p>
+<p>示例 2： 输入：nums &#x3D; [-7,-3,2,3,11] 输出：[4,9,9,49,121]</p>
+<p>我的思路:找到数组的正负分界,然后用归并排序.</p>
+<blockquote>
+<p><font color="red">使用双指针法更简单</font></p>
+</blockquote>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; nums) &#123;
+        int index1=0;
+        while(index1!=nums.size())&#123;
+            if(nums[index1]&gt;0)&#123;
+                break;
+            &#125;
+            index1++;
+        &#125;
+        int index2=index1-1;
+        //没有初始化长度
+        vector&lt;int&gt; ret;
+        while(index2!=-1&amp;&amp;index1!=nums.size())&#123;
+            if(nums[index1]*nums[index1]&lt;=nums[index2]*nums[index2])&#123;
+                ret.push_back(nums[index1]*nums[index1]);
+                index1++;
+            &#125;else&#123;
+                ret.push_back(nums[index2]*nums[index2]);
+                index2--;
+            &#125;
+        &#125;
+        for(;index1&lt;nums.size();index1++)&#123;
+            ret.push_back(nums[index1]*nums[index1]);
+        &#125;
+        for(;index2&gt;=0;index2--)&#123;
+            ret.push_back(nums[index2]*nums[index2]);
+        &#125;
+        return ret;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子,使用双指针法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; A) &#123;
+        int k = A.size() - 1;
+        vector&lt;int&gt; result(A.size(), 0);
+        for (int i = 0, j = A.size() - 1; i &lt;= j;) &#123; // 注意这里要i &lt;= j，因为最后要处理两个元素
+            if (A[i] * A[i] &lt; A[j] * A[j])  &#123;
+                result[k--] = A[j] * A[j];
+                j--;
+            &#125;
+            else &#123;
+                result[k--] = A[i] * A[i];
+                i++;
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h2><p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</p>
+<p>示例：</p>
+<p>输入：s &#x3D; 7, nums &#x3D; [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。</p>
+<p>思路:滑动窗口</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int minSubArrayLen(int target, vector&lt;int&gt;&amp; nums) &#123;
+        int left=0,right =0;
+        int length=nums.size()+1;
+        int sum=0;
+        for(;right&lt;nums.size();right++)&#123;
+            sum+=nums[right];
+            if(sum&gt;=target)&#123;
+                length=(right-left+1)&lt;length?(right-left+1):length;
+                for(;left&lt;right;)&#123;
+                    sum-=nums[left];
+                    left++;
+                    if(sum&gt;=target)&#123;
+                        length=(right-left+1)&lt;length?(right-left+1):length;
+                    &#125;else&#123;
+                        break;
+                    &#125;
+                &#125;
+            &#125;
+            
+        &#125;
+        if(length&gt;nums.size())&#123;
+            return 0;
+        &#125;else&#123;
+            return length;
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int minSubArrayLen(int s, vector&lt;int&gt;&amp; nums) &#123;
+        int result = INT32_MAX;
+        int sum = 0; // 滑动窗口数值之和
+        int i = 0; // 滑动窗口起始位置
+        int subLength = 0; // 滑动窗口的长度
+        for (int j = 0; j &lt; nums.size(); j++) &#123;
+            sum += nums[j];
+            // 注意这里使用while，每次更新 i（起始位置），并不断比较子序列是否符合条件
+            while (sum &gt;= s) &#123;
+                subLength = (j - i + 1); // 取子序列的长度
+                result = result &lt; subLength ? result : subLength;
+                sum -= nums[i++]; // 这里体现出滑动窗口的精髓之处，不断变更i（子序列的起始位置）
+            &#125;
+        &#125;
+        // 如果result没有被赋值的话，就返回0，说明没有符合条件的子序列
+        return result == INT32_MAX ? 0 : result;
+    &#125;
+&#125;;
+</code></pre>
+<p>思路其实一样,但写的更简洁</p>
+<h2 id="螺旋矩阵II"><a href="#螺旋矩阵II" class="headerlink" title="螺旋矩阵II"></a>螺旋矩阵II</h2><p>给定一个正整数 n，生成一个包含 1 到 n^2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p>
+<p>示例:</p>
+<p>输入: 3 输出: [ [ 1, 2, 3 ], [ 8, 9, 4 ], [ 7, 6, 5 ] ]</p>
+<p>思路:要利用循环层数</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; generateMatrix(int n)
+&#123;
+    int i = 0, j = 0;
+    int num = 1;
+    vector&lt;vector&lt;int&gt;&gt; res(n, vector&lt;int&gt;(n, 0));
+    int k = 1;
+    res[0][0] = k;
+    k++;
+    i++;
+    while (k &lt;= n * n)
+    &#123;
+        switch (num % 4)
+        &#123;
+        case 1:
+            for (; i &lt; n - num / 4; i++)
+            &#123;
+                res[j][i] = k;
+                k++;
+            &#125;
+            //这里第一次提交没有写,导致出错
+            i--;
+            j++;
+            num++;
+            break;
+        case 2:
+            for (; j &lt; n - num / 4; j++)
+            &#123;
+                res[j][i] = k;
+                k++;
+            &#125;
+            j--;
+            i--;
+            num++;
+            break;
+        case 3:
+            for (; i &gt;= num / 4; i--)
+            &#123;
+                res[j][i] = k;
+                k++;
+            &#125;
+            i++;
+            j--;
+            num++;
+            break;
+        case 0:
+            for (; j &gt;= num / 4; j--)
+            &#123;
+                res[j][i] = k;
+                k++;
+            &#125;
+            j++;
+            i++;
+            num++;
+            break;
+        &#125;
+    &#125;
+    return res;
+&#125;
+
+&#125;;
+</code></pre>
+<blockquote>
+<p><font color="red">要尤其注意for循环后的index值,是先变化值,再进行判断</font></p>
+</blockquote>
+<h2 id="水果成篮"><a href="#水果成篮" class="headerlink" title="水果成篮"></a>水果成篮</h2><blockquote>
+<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fruit-into-baskets/">leetcode</a></p>
+</blockquote>
+<p>&#x2F;&#x2F;TODO</p>
+<h2 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a>最小覆盖子串</h2><blockquote>
+<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-window-substring/">leetcode</a></p>
+</blockquote>
+<p>&#x2F;&#x2F;TODO</p>
+<h2 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h2><blockquote>
+<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/spiral-matrix/">leetcode</a></p>
+</blockquote>
+<p>&#x2F;&#x2F;TODO</p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-20T10:45:20.000Z" itemprop="datePublished">2023-03-20</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-1"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <blockquote>
+<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
+</blockquote>
+<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><p>数组是存放在连续内存空间上的相同类型数据的集合</p>
+<p>需要两点注意的是:</p>
+<ul>
+<li>数组下标都是从0开始的</li>
+<li>数组内存空间的地址是连续的</li>
+</ul>
+<p><strong>因为数组的在内存空间的地址是连续的,所以我们在删除或者增添元素的时候,就难免要移动其他元素的地址.数组的元素是不能删的,只能覆盖.</strong></p>
+<p>在C++中二维数组是连续分布的</p>
+<p>测试:</p>
+<pre><code class="c++">void test_arr() &#123;
+    int array[2][3] = &#123;
+        &#123;0, 1, 2&#125;,
+        &#123;3, 4, 5&#125;
+    &#125;;
+    cout &lt;&lt; &amp;array[0][0] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[0][1] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[0][2] &lt;&lt; endl;
+    cout &lt;&lt; &amp;array[1][0] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[1][1] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[1][2] &lt;&lt; endl;
+&#125;
+
+int main() &#123;
+    test_arr();
+&#125;
+</code></pre>
+<p>结果:</p>
+<pre><code>0x20d4dffc90 0x20d4dffc94 0x20d4dffc98
+0x20d4dffc9c 0x20d4dffca0 0x20d4dffca4
+</code></pre>
+<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target,写一个函数搜索 nums 中的 target,如果目标值存在返回下标,否则返回 -1</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 9     
+输出: 4       
+解释: 9 出现在 nums 中并且下标为 4     
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 2     
+输出: -1        
+解释: 2 不存在 nums 中因此返回 -1     
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int low=0;
+        int high=nums.size()-1;
+        while(high&gt;=low)&#123;
+            int mid=low+(high-low)/2;
+            if(nums[mid]&gt;target)&#123;
+                high=mid-1;
+            &#125;else if(nums[mid]&lt;target)&#123;
+                low=mid+1;
+            &#125;else&#123;
+                return mid;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<p>这道题目的前提是数组为有序数组,同时题目还强调数组中无重复元素,因为一旦有重复元素,使用二分查找法返回的元素下标可能不是唯一的.</p>
+<p>二分查找涉及的很多的边界条件,逻辑比较简单.但较容易分不清到底是 while(left &lt; right) 还是 while(left &lt;&#x3D; right),到底是right &#x3D; middle呢,还是要right &#x3D; middle - 1.</p>
+<p>写二分法,区间的定义一般为两种,左闭右闭即[left, right],或者左闭右开即[left, right).</p>
+<p>例子如下:</p>
+<pre><code class="C++">// 版本一
+class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1; // 定义target在左闭右闭的区间里,[left, right]
+        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效,所以用 &lt;=
+            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1; // target 在左区间,所以[left, middle - 1]
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,所以[middle + 1, right]
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值,直接返回下标
+            &#125;
+        &#125;
+        // 未找到目标值
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">// 版本二
+class Solution &#123;
+public:
+    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size(); // 定义target在左闭右开的区间里,即:[left, right)
+        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间,所以使用 &lt;
+            int middle = left + ((right - left) &gt;&gt; 1);
+            if (nums[middle] &gt; target) &#123;
+                right = middle; // target 在左区间,在[left, middle)中
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,在[middle + 1, right)中
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值,直接返回下标
+            &#125;
+        &#125;
+        // 未找到目标值
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h2><p>给定一个排序数组和一个目标值,在数组中找到目标值,并返回其索引.如果目标值不存在于数组中,返回它将会被按顺序插入的位置.</p>
+<p>你可以假设数组中无重复元素.</p>
+<p>示例 1:</p>
+<ul>
+<li><p>输入: [1,3,5,6], 5</p>
+</li>
+<li><p>输出: 2</p>
+</li>
+<li><p>示例 2:</p>
+</li>
+<li><p>输入: [1,3,5,6], 2</p>
+</li>
+<li><p>输出: 1</p>
+</li>
+</ul>
+<p>示例 3:</p>
+<ul>
+<li>输入: [1,3,5,6], 7</li>
+<li>输出: 4</li>
+</ul>
+<p>示例 4:</p>
+<ul>
+<li>输入: [1,3,5,6], 0</li>
+<li>输出: 0</li>
+</ul>
+<p><font color="red">未提交</font></p>
+<p>这题target插入有四种情况:</p>
+<ul>
+<li>target在数组所有元素之前</li>
+<li>target等于数组中某一个元素</li>
+<li>target插入数组中的位置</li>
+<li>target在数组所有元素之后</li>
+</ul>
+<p>二分查找(左闭右闭区间)如果一直没找到相等值,最终一定会 <code>low=high-1</code> -&gt; <code>low=high</code></p>
+<p>当<code>low=high</code>时</p>
+<ul>
+<li><code>target&lt;nums[mid]</code> -&gt; <code>high=mid-1</code>,即<code>high=low-1</code>,返回low、high+1</li>
+<li><code>target&gt;nums[mid]</code> -&gt; <code>low=mid+1</code> ,即<code>low=high+1</code>,返回low、high+1</li>
+</ul>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int n = nums.size();
+        int left = 0;
+        int right = n - 1; // 定义target在左闭右闭的区间里,[left, right]
+        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效
+            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1; // target 在左区间,所以[left, middle - 1]
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,所以[middle + 1, right]
+            &#125; else &#123; // nums[middle] == target
+                return middle;
+            &#125;
+        &#125;
+        // 分别处理如下四种情况
+        // 目标值在数组所有元素之前  [0, -1]
+        // 目标值等于数组中某一个元素  return middle;
+        // 目标值插入数组中的位置 [left, right],return  right + 1
+        // 目标值在数组所有元素之后的情况 [left, right], 因为是右闭区间,所以 return right + 1
+        return right + 1;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">class Solution &#123;
+public:
+    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int n = nums.size();
+        int left = 0;
+        int right = n; // 定义target在左闭右开的区间里,[left, right)  target
+        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间
+            int middle = left + ((right - left) &gt;&gt; 1);
+            if (nums[middle] &gt; target) &#123;
+                right = middle; // target 在左区间,在[left, middle)中
+            &#125; else if (nums[middle] &lt; target) &#123;
+                left = middle + 1; // target 在右区间,在 [middle+1, right)中
+            &#125; else &#123; // nums[middle] == target
+                return middle; // 数组中找到目标值的情况,直接返回下标
+            &#125;
+        &#125;
+        // 分别处理如下四种情况
+        // 目标值在数组所有元素之前 [0,0)
+        // 目标值等于数组中某一个元素 return middle
+        // 目标值插入数组中的位置 [left, right) ,return right 即可
+        // 目标值在数组所有元素之后的情况 [left, right),因为是右开区间,所以 return right
+        return right;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="在排序数组中查找元素的第一个和最后一个位置"><a href="#在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="在排序数组中查找元素的第一个和最后一个位置"></a>在排序数组中查找元素的第一个和最后一个位置</h2><p>给你一个按照非递减顺序排列的整数数组 nums,和一个目标值 target.请你找出给定目标值在数组中的开始位置和结束位置.</p>
+<p>如果数组中不存在目标值 target,返回 [-1, -1].</p>
+<p>你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题.</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 8
+输出:[3,4]
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 6
+输出:[-1,-1]
+</code></pre>
+<p>示例 3:</p>
+<pre><code class="bash">输入:nums = [], target = 0
+输出:[-1,-1]
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int low=0;
+        int high=nums.size()-1;
+        int mid=search(nums,target,low,high);
+        if(mid==-1)&#123;
+            return &#123;-1,-1&#125;;
+        &#125;
+        int right=mid,left=mid;
+        //注意可以在循环括号中赋值并判断,但不能初始化(重复初始化)
+        //重复计算,每次二分查找low都为0
+        while((mid=search(nums,target,low,left-1))!=-1)&#123;
+            left=mid;
+        &#125;
+        while((mid=search(nums,target,right + 1, high))!=-1)&#123;
+            right=mid;
+        &#125;
+        return &#123;left,right&#125;;
+    &#125;
+
+    int search(vector&lt;int&gt;&amp; nums, int target,int low,int high) &#123;
+        while(high&gt;=low)&#123;
+            int mid=low+(high-low)/2;
+            if(nums[mid]&gt;target)&#123;
+                high=mid-1;
+            &#125;else if(nums[mid]&lt;target)&#123;
+                low=mid+1;
+            &#125;else&#123;
+                return mid;
+            &#125;
+        &#125;
+        return -1;
+    &#125;
+&#125;;
+</code></pre>
+<p>思路先做一次二分查找,再不断向左向右二分查找,直到找不到值.</p>
+<p><font color="red">但是代码有重复计算,每次二分查找都是low&#x3D;0或者high&#x3D;nums.size()-1,实际上,在循环过程中,因为上次循环计算过low和high,下次循环应该从上次计算的边界开始.</font></p>
+<p><font color="red">leetcode优质回答:</font></p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        return &#123;find(nums, target, true), find(nums, target, false)&#125;;
+    &#125;
+
+    int find(vector&lt;int&gt; nums, int target, bool minType) &#123;
+        int left = 0, right = nums.size() - 1;
+        int ans = -1;
+        while (left &lt;= right) &#123;
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) &#123;
+                //只有在相等的时候才更新边界!
+                ans = mid;
+                if (minType) &#123;
+                    right = mid - 1;
+                &#125; else &#123;
+                    left = mid + 1;
+                &#125;
+            &#125; else if (target &lt; nums[mid]) &#123;
+                right = mid - 1;
+            &#125; else &#123;
+                left = mid + 1;
+            &#125;
+        &#125;
+        return ans;
+    &#125;
+&#125;;
+</code></pre>
+<p>寻找target在数组里的左右边界,有如下三种情况:</p>
+<ul>
+<li><p>情况一:target 在数组范围的右边或者左边,例如数组{3, 4, 5},target为2或者数组{3, 4, 5},target为6,此时应该返回{-1, -1}</p>
+</li>
+<li><p>情况二:target 在数组范围中,且数组中不存在target,例如数组{3,6,7},target为5,此时应该返回{-1, -1}</p>
+</li>
+<li><p>情况三:target 在数组范围中,且数组中存在target,例如数组{3,6,7},target为6,此时应该返回{1, 1}</p>
+</li>
+</ul>
+<p>示例代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int leftBorder = getLeftBorder(nums, target);
+        int rightBorder = getRightBorder(nums, target);
+        // 情况一
+        if (leftBorder == -2 || rightBorder == -2) return &#123;-1, -1&#125;;
+        // 情况三
+        if (rightBorder - leftBorder &gt; 1) return &#123;leftBorder + 1, rightBorder - 1&#125;;
+        // 情况二
+        return &#123;-1, -1&#125;;
+    &#125;
+private:
+     int getRightBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1;
+        int rightBorder = -2; // 记录一下rightBorder没有被赋值的情况
+        while (left &lt;= right) &#123;
+            int middle = left + ((right - left) / 2);
+            if (nums[middle] &gt; target) &#123;
+                right = middle - 1;
+            &#125; else &#123; // 寻找右边界,nums[middle] == target的时候更新left
+                left = middle + 1;
+                rightBorder = left;
+            &#125;
+        &#125;
+        return rightBorder;
+    &#125;
+    int getLeftBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
+        int left = 0;
+        int right = nums.size() - 1;
+        int leftBorder = -2; // 记录一下leftBorder没有被赋值的情况
+        while (left &lt;= right) &#123;
+            int middle = left + ((right - left) / 2);
+            if (nums[middle] &gt;= target) &#123; // 寻找左边界,nums[middle] == target的时候更新right
+                right = middle - 1;
+                leftBorder = right;
+            &#125; else &#123;
+                left = middle + 1;
+            &#125;
+        &#125;
+        return leftBorder;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h2><p>给你一个数组 nums 和一个值 val,你需要 原地 移除所有数值等于 val 的元素,并返回移除后数组的新长度.</p>
+<p>不要使用额外的数组空间,你必须仅使用 O(1) 额外空间并原地修改输入数组.</p>
+<p>元素的顺序可以改变.你不需要考虑数组中超出新长度后面的元素.</p>
+<p>示例 1: 给定 nums &#x3D; [3,2,2,3], val &#x3D; 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2. 你不需要考虑数组中超出新长度后面的元素.</p>
+<p>示例 2: 给定 nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4.</p>
+<p>你不需要考虑数组中超出新长度后面的元素.</p>
+<p>leetcode提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
+        if(nums.size()==0)&#123;
+            return 0;
+        &#125;
+        int slow=0,fast=0;
+        while(slow&lt;nums.size()&amp;&amp;nums[slow]!=val)&#123;
+            slow++;
+            fast++;
+        &#125;
+        for(;fast&lt;nums.size();fast++)&#123;
+            if(nums[fast]==val)&#123;
+                continue;
+            &#125;else&#123;
+                nums[slow]=nums[fast];
+                slow++;
+            &#125;
+        &#125;
+        return slow;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
+        int slowIndex = 0;
+        for (int fastIndex = 0; fastIndex &lt; nums.size(); fastIndex++) &#123;
+            if (val != nums[fastIndex]) &#123;
+                nums[slowIndex++] = nums[fastIndex];
+            &#125;
+        &#125;
+        return slowIndex;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-16T10:07:27.000Z" itemprop="datePublished">2023-03-16</time>
+</div>
+    
+    
+        <div class="article-tag">
+        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+        </div>
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-hello-world"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/03/16/hello-world/">Hello World</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-03-16T05:54:35.612Z" itemprop="datePublished">2023-03-16</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+
+  
+    <nav class="pagination">
+        <a class="extend prev" rel="prev" href="/page/3/">Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    </nav>
+  
+</div>
+
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

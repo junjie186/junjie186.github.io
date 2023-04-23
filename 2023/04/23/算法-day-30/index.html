@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 30 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 30 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-30/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 30 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-30/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 30 | Hexo",
+            "datePublished": "2023-04-23T10:39:41.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-30/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w32000hicuh6ho75g3d" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 30
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:39:41.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="重新安排行程"><a href="#重新安排行程" class="headerlink" title="重新安排行程"></a>重新安排行程</h2><p>给你一份航线列表 tickets ，其中 tickets[i] &#x3D; [fromi, toi] 表示飞机出发和降落的机场地点。请你对该行程进行重新规划排序。</p>
+<p>所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。如果存在多种有效的行程，请你按字典排序返回最小的行程组合。</p>
+<p>例如，行程 [“JFK”, “LGA”] 与 [“JFK”, “LGB”] 相比就更小，排序更靠前。<br>假定所有机票至少存在一种合理的行程。且所有的机票 必须都用一次 且 只能用一次。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：tickets = [[&quot;MUC&quot;,&quot;LHR&quot;],[&quot;JFK&quot;,&quot;MUC&quot;],[&quot;SFO&quot;,&quot;SJC&quot;],[&quot;LHR&quot;,&quot;SFO&quot;]]
+输出：[&quot;JFK&quot;,&quot;MUC&quot;,&quot;LHR&quot;,&quot;SFO&quot;,&quot;SJC&quot;]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：tickets = [[&quot;JFK&quot;,&quot;SFO&quot;],[&quot;JFK&quot;,&quot;ATL&quot;],[&quot;SFO&quot;,&quot;ATL&quot;],[&quot;ATL&quot;,&quot;JFK&quot;],[&quot;ATL&quot;,&quot;SFO&quot;]]
+输出：[&quot;JFK&quot;,&quot;ATL&quot;,&quot;JFK&quot;,&quot;SFO&quot;,&quot;ATL&quot;,&quot;SFO&quot;]
+解释：另一种有效的行程是 [&quot;JFK&quot;,&quot;SFO&quot;,&quot;ATL&quot;,&quot;JFK&quot;,&quot;ATL&quot;,&quot;SFO&quot;] ，但是它字典排序更大更靠后。
+</code></pre>
+<p>直接上代码以后慢慢看吧…</p>
+<pre><code class="C++">class Solution &#123;
+private:
+// unordered_map&lt;出发机场, map&lt;到达机场, 航班次数&gt;&gt; targets
+unordered_map&lt;string, map&lt;string, int&gt;&gt; targets;
+bool backtracking(int ticketNum, vector&lt;string&gt;&amp; result) &#123;
+    if (result.size() == ticketNum + 1) &#123;
+        return true;
+    &#125;
+    for (pair&lt;const string, int&gt;&amp; target : targets[result[result.size() - 1]]) &#123;
+        if (target.second &gt; 0 ) &#123; // 记录到达机场是否飞过了
+            result.push_back(target.first);
+            target.second--;
+            if (backtracking(ticketNum, result)) return true;
+            result.pop_back();
+            target.second++;
+        &#125;
+    &#125;
+    return false;
+&#125;
+public:
+    vector&lt;string&gt; findItinerary(vector&lt;vector&lt;string&gt;&gt;&amp; tickets) &#123;
+        targets.clear();
+        vector&lt;string&gt; result;
+        for (const vector&lt;string&gt;&amp; vec : tickets) &#123;
+            targets[vec[0]][vec[1]]++; // 记录映射关系
+        &#125;
+        result.push_back(&quot;JFK&quot;); // 起始机场
+        backtracking(tickets.size(), result);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="N-皇后"><a href="#N-皇后" class="headerlink" title="N 皇后"></a>N 皇后</h2><p>按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。</p>
+<p>n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p>给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。</p>
+<p>每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：n = 4
+输出：[[&quot;.Q..&quot;,&quot;...Q&quot;,&quot;Q...&quot;,&quot;..Q.&quot;],[&quot;..Q.&quot;,&quot;Q...&quot;,&quot;...Q&quot;,&quot;.Q..&quot;]]
+解释：如上图所示，4 皇后问题存在两个不同的解法。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：n = 1
+输出：[[&quot;Q&quot;]]
+</code></pre>
+<p>思路:这题相对简单,使用places数组记录不能填的位置.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+public:
+    vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) &#123;
+        vector&lt;int&gt; nums;
+        vector&lt;string&gt; path;
+        backtracking(n,nums,path,0);
+        return result;
+    &#125;
+
+    void backtracking(int n,vector&lt;int&gt;&amp; nums,vector&lt;string&gt;&amp; path,int k)&#123;
+        if(k==n)&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        vector&lt;bool&gt; places(n,true);
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            places[nums[i]]=false;
+            if(nums[i]-k+i&gt;=0)&#123;
+                places[nums[i]-k+i]=false;
+            &#125;
+            if(nums[i]+k-i&lt;n)&#123;
+                places[nums[i]+k-i]=false;
+            &#125;
+        &#125;
+        for(int i=0;i&lt;n;i++)&#123;
+            if(!places[i])&#123;
+                continue;
+            &#125;
+            string s(n-1,&#39;.&#39;);
+            s.insert(i,1,&#39;Q&#39;);
+            nums.push_back(i);
+            path.push_back(s);
+            backtracking(n,nums,path,k+1);
+            path.pop_back();
+            nums.pop_back();
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>注意一下 string 的insert方法.</p>
+<h2 id="解数独"><a href="#解数独" class="headerlink" title="解数独"></a>解数独</h2><p>编写一个程序，通过填充空格来解决数独问题。</p>
+<p>数独的解法需 遵循如下规则：</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）<br>数独部分空格内已填入了数字，空白格用 ‘.’ 表示。</p>
+<pre><code class="C++">class Solution &#123;
+private:
+bool backtracking(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+    for (int i = 0; i &lt; board.size(); i++) &#123;        // 遍历行
+        for (int j = 0; j &lt; board[0].size(); j++) &#123; // 遍历列
+            if (board[i][j] == &#39;.&#39;) &#123;
+                for (char k = &#39;1&#39;; k &lt;= &#39;9&#39;; k++) &#123;     // (i, j) 这个位置放k是否合适
+                    if (isValid(i, j, k, board)) &#123;
+                        board[i][j] = k;                // 放置k
+                        if (backtracking(board)) return true; // 如果找到合适一组立刻返回
+                        board[i][j] = &#39;.&#39;;              // 回溯，撤销k
+                    &#125;
+                &#125;
+                return false;  // 9个数都试完了，都不行，那么就返回false
+            &#125;
+        &#125;
+    &#125;
+    return true; // 遍历完没有返回false，说明找到了合适棋盘位置了
+&#125;
+bool isValid(int row, int col, char val, vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+    for (int i = 0; i &lt; 9; i++) &#123; // 判断行里是否重复
+        if (board[row][i] == val) &#123;
+            return false;
+        &#125;
+    &#125;
+    for (int j = 0; j &lt; 9; j++) &#123; // 判断列里是否重复
+        if (board[j][col] == val) &#123;
+            return false;
+        &#125;
+    &#125;
+    int startRow = (row / 3) * 3;
+    int startCol = (col / 3) * 3;
+    for (int i = startRow; i &lt; startRow + 3; i++) &#123; // 判断9方格里是否重复
+        for (int j = startCol; j &lt; startCol + 3; j++) &#123;
+            if (board[i][j] == val ) &#123;
+                return false;
+            &#125;
+        &#125;
+    &#125;
+    return true;
+&#125;
+public:
+    void solveSudoku(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+        backtracking(board);
+    &#125;
+&#125;;
+</code></pre>
+<p>思路:在回溯中使用二维遍历放棋子,单独判断这个位置能不能放.</p>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 31
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 28</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 30 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-30%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 30 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-30%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 30 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-30/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

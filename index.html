@@ -134,7 +134,7 @@
   
     
       <article
-id="post-SNPE环境配置"
+id="post-算法-day-34"
 class="article article-type-post"
 >
 
@@ -145,746 +145,112 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/2023/03/22/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">SNPE环境配置</a>
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <h2 id="SNPE"><a href="#SNPE" class="headerlink" title="SNPE"></a>SNPE</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup.html">链接</a></p>
-</blockquote>
-<p><code>Currently the SNPE SDK development environment is limited to Ubuntu, specifically version 18.04.</code>只能用Ubuntu18.04配置snpe.</p>
-<p>下载并解压<a target="_blank" rel="noopener" href="https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools">snpe</a></p>
-<p>配置安卓NDK SDK(可选)</p>
-<pre><code class="bash">Android NDK (android-ndk-r17c-linux-x86)
-Android SDK (SDK version 23 and build tools version 23.0.2)
+        <h2 id="K-次取反后最大化的数组和、"><a href="#K-次取反后最大化的数组和、" class="headerlink" title="K 次取反后最大化的数组和、"></a>K 次取反后最大化的数组和、</h2><p>给你一个整数数组 nums 和一个整数 k ，按以下方法修改该数组：</p>
+<p>选择某个下标 i 并将 nums[i] 替换为 -nums[i] 。<br>重复这个过程恰好 k 次。可以多次选择同一个下标 i 。</p>
+<p>以这种方式修改数组后，返回数组 可能的最大和 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [4,2,3], k = 1
+输出：5
+解释：选择下标 1 ，nums 变为 [4,-2,3] 。
 </code></pre>
-<p>创建python3.6环境:</p>
-<pre><code class="bash">conda create -n snpe python=3.6
-</code></pre>
-<p>配置snpe必需环境</p>
-<pre><code class="bash">unzip -X snpe-X.Y.Z.zip
-source snpe-X.Y.Z/bin/dependencies.sh
-source snpe-X.Y.Z/bin/check_python_depends.sh
-</code></pre>
-<h2 id="TFLite-Setup"><a href="#TFLite-Setup" class="headerlink" title="TFLite Setup"></a>TFLite Setup</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
-</blockquote>
-<pre><code class="bash">pip install tflite==2.3.0
-
-source bin/envsetup.sh -o $TFLITE_DIR
-</code></pre>
-<h2 id="ONNX-setup"><a href="#ONNX-setup" class="headerlink" title="ONNX setup"></a>ONNX setup</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/setup_tflite.html">链接</a></p>
-</blockquote>
-<pre><code class="bash">pip install onnx==1.6.0
-pip install numpy==1.16.5
-
-#貌似protobuf v3.6.0会导致冲突,可安装v3.6.1
-pip install protobuf==3.6.0
-
-#ONNX_DIR照描述是onnx安装位置,可以用 pip show package_name 找到,但是应该不需要这个参数...
-source bin/envsetup.sh -o $ONNX_DIR
-</code></pre>
-<h2 id="模型转换"><a href="#模型转换" class="headerlink" title="模型转换"></a>模型转换</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/usergroup3.html">链接</a></p>
-</blockquote>
-<p>需要将模型转换为snpe需要的dlc文件.类似:</p>
-<pre><code class="bash">#在source bin/envsetup.sh之后会找到snpe-tflite-to-dlc工具
-snpe-tflite-to-dlc --input_network inception_v3.tflite
-                   --input_dim input &quot;1,299,299,3&quot;
-                   --output_path inception_v3.dlc
-</code></pre>
-<h2 id="模型输入"><a href="#模型输入" class="headerlink" title="模型输入"></a>模型输入</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/image_input.html">链接</a></p>
-</blockquote>
-<p>需要注意的是snpe只接受<code>NHWC</code>的图像输入.</p>
-<pre><code class="python">import numpy as np
-
-a=np.random.randint(low=-128,high=128,size=[1,224,224,1]).astype(np.int8)
-a.tofile(&#39;224.raw&#39;)
-</code></pre>
-<p>需要创建一个输入列表文件:</p>
-<pre><code class="bash">/path/to/input_01.raw
-/path/to/input_02.raw
-...
-/path/to/input_0N.raw
-</code></pre>
-<h2 id="运行模型"><a href="#运行模型" class="headerlink" title="运行模型"></a>运行模型</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.qualcomm.com/sites/default/files/docs/snpe/tutorial_inceptionv3.html">链接</a></p>
-</blockquote>
-<p>SNPE 为 armeabi-v7a 和 arm64-v8a 架构提供 Android 二进制文件.现在最新版本应该是 <code>arm-android-clang8.0</code> <code>aarch64-android-clang8.0</code></p>
-<pre><code class="bash"># architecture: armeabi-v7a - compiler: clang - STL: libc++
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-
-# architecture: arm64-v8a - compiler: clang - STL: libc++
-export SNPE_TARGET_ARCH=aarch64-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-</code></pre>
-<pre><code class="bash">export SNPE_TARGET_ARCH=arm-android-clang6.0
-export SNPE_TARGET_STL=libc++_shared.so
-
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin&quot;
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib&quot;
-adb shell &quot;mkdir -p /data/local/tmp/snpeexample/dsp/lib&quot;
-
-adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/$SNPE_TARGET_STL \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-adb push $SNPE_ROOT/lib/$SNPE_TARGET_ARCH/*.so \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-adb push $SNPE_ROOT/lib/dsp/*.so \
-      /data/local/tmp/snpeexample/dsp/lib
-adb push $SNPE_ROOT/bin/$SNPE_TARGET_ARCH/snpe-net-run \
-      /data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-</code></pre>
-<p>在 adb shell 中设置库路径、路径变量和目标体系结构:</p>
-<pre><code class="bash">adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-snpe-net-run -h
-exit
-</code></pre>
-<p>执行:</p>
-<pre><code class="bash">cd $SNPE_ROOT/models/inception_v3
-mkdir data/rawfiles &amp;&amp; cp data/cropped/*.raw data/rawfiles/
-adb shell &quot;mkdir -p /data/local/tmp/inception_v3&quot;
-adb push data/rawfiles /data/local/tmp/inception_v3/cropped
-adb push data/target_raw_list.txt /data/local/tmp/inception_v3
-adb push dlc/inception_v3_quantized.dlc /data/local/tmp/inception_v3
-rm -rf data/rawfiles
-</code></pre>
-<pre><code>adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-cd /data/local/tmp/inception_v3
-snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt
-exit
-</code></pre>
-<p>推理的结果默认保存在output下,运行时,使用<code>--output_dir</code>参数,后面加上自己的输出路径.</p>
-<p>默认是使用CPU进行推理,要使用GPU需要加<code>--use_gpu</code>,<code>snpe-net-run --container inception_v3.dlc --input_list data/cropped/raw_list.txt --output_dir output_gpu --use_gpu</code></p>
-<p>在dsp执行:</p>
-<pre><code class="bash">adb shell
-export SNPE_TARGET_ARCH=arm-android-clang6.0
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/lib
-export PATH=$PATH:/data/local/tmp/snpeexample/$SNPE_TARGET_ARCH/bin
-export ADSP_LIBRARY_PATH=&quot;/data/local/tmp/snpeexample/dsp/lib;/system/lib/rfsa/adsp;/system/vendor/lib/rfsa/adsp;/dsp&quot;
-cd /data/local/tmp/inception_v3
-snpe-net-run --container inception_v3_quantized.dlc --input_list target_raw_list.txt --use_dsp
-exit
-</code></pre>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><pre><code>adb pull /path/to/SNPEDiag.log
-
-snpe-diagview --input_log SNPEDiag.log
-</code></pre>
-<p>结果:</p>
-<pre><code class="bash">Interpreting file serialized with Flatbuffer
-CREATE NETWORK: 519317
-Log File Created: Tue Mar 21 23:56:12 2023
-Time Scale: 1e-06
-Epoch Timestamp: 1679468172677617 Steady Clock Timestamp: 2930295956
-Software library version: 2.7.0.4264
-
-Dnn Runtime Load/Deserialize/Create/De-Init Statistics:
---------------------------------------------------
-Load: 86 us
-Deserialize: 346 us
-Create: 520165 us
-
-Init: 523624 us
-De-Init: 7621 us
-
-Create Network(s): 519317 us
-RPC Init Time: 0 NONE
-Snpe Accelerator Init Time: 0 NONE
-Accelerator Init Time: 0 NONE
-
-Average SNPE Statistics:
-------------------------------
-Total Inference Time: 19497 us
-Forward Propagate Time: 19473 us
-RPC Execute Time: 0 us
-Snpe Accelerator Time: 0 us
-Accelerator Time: 0 us
-Misc Accelerator Time: 0 us
-
-Layer Times:
----------------
-0: 1650 us : GPU
-1: 0 NONE : GPU
-2: 9381 us : GPU
-3: 0 NONE : GPU
-4: 4777 us : GPU
-5: 0 NONE : GPU
-6: 1123 us : GPU
-7: 0 NONE : GPU
-8: 374 us : GPU
-</code></pre>
-
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2023-03-22T12:31:17.000Z" itemprop="datePublished">2023-03-22</time>
-</div>
-    
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
-id="post-算法-day-4"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <h2 id="两两交换链表中的节点"><a href="#两两交换链表中的节点" class="headerlink" title="两两交换链表中的节点"></a>两两交换链表中的节点</h2><p>给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。</p>
-<p>思路:创建虚拟头节点.</p>
-<p>提交:</p>
-<pre><code class="C++">/**
- * Definition for singly-linked list.
- * struct ListNode &#123;
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) &#123;&#125;
- *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
- *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
- * &#125;;
- */
-class Solution &#123;
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+static bool cmp(int a, int b) &#123;
+    return abs(a) &gt; abs(b);
+&#125;
 public:
-    ListNode* swapPairs(ListNode* head) &#123;
-        ListNode* top=new ListNode();
-        top-&gt;next=head;
-        ListNode* node=top;
-        while(node-&gt;next!=nullptr&amp;&amp;node-&gt;next-&gt;next!=nullptr)&#123;
-            ListNode* tmp=node-&gt;next-&gt;next-&gt;next;
-            ListNode* tmp2=node-&gt;next-&gt;next;
-            node-&gt;next-&gt;next-&gt;next=node-&gt;next;
-            node-&gt;next-&gt;next=tmp;
-            node-&gt;next=tmp2;
-            node=node-&gt;next-&gt;next;
+    int largestSumAfterKNegations(vector&lt;int&gt;&amp; A, int K) &#123;
+        sort(A.begin(), A.end(), cmp);       // 第一步
+        for (int i = 0; i &lt; A.size(); i++) &#123; // 第二步
+            if (A[i] &lt; 0 &amp;&amp; K &gt; 0) &#123;
+                A[i] *= -1;
+                K--;
+            &#125;
         &#125;
-        ListNode* res=top-&gt;next;
-        delete top;
-        return res;
+        if (K % 2 == 1) A[A.size() - 1] *= -1; // 第三步
+        int result = 0;
+        for (int a : A) result += a;        // 第四步
+        return result;
     &#125;
 &#125;;
 </code></pre>
-<p>例子:</p>
+<h2 id="加油站"><a href="#加油站" class="headerlink" title="加油站"></a>加油站</h2><p>在一条环路上有 n 个加油站，其中第 i 个加油站有汽油 gas[i] 升。</p>
+<p>你有一辆油箱容量无限的的汽车，从第 i 个加油站开往第 i+1 个加油站需要消耗汽油 cost[i] 升。你从其中的一个加油站出发，开始时油箱为空。</p>
+<p>给定两个整数数组 gas 和 cost ，如果你可以绕环路行驶一周，则返回出发时加油站的编号，否则返回 -1 。如果存在解，则 保证 它是 唯一 的。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: gas = [1,2,3,4,5], cost = [3,4,5,1,2]
+输出: 3
+解释:
+从 3 号加油站(索引为 3 处)出发，可获得 4 升汽油。此时油箱有 = 0 + 4 = 4 升汽油
+开往 4 号加油站，此时油箱有 4 - 1 + 5 = 8 升汽油
+开往 0 号加油站，此时油箱有 8 - 2 + 1 = 7 升汽油
+开往 1 号加油站，此时油箱有 7 - 3 + 2 = 6 升汽油
+开往 2 号加油站，此时油箱有 6 - 4 + 3 = 5 升汽油
+开往 3 号加油站，你需要消耗 5 升汽油，正好足够你返回到 3 号加油站。
+因此，3 可为起始索引。
+</code></pre>
+<p>没想出来…</p>
+<p>思路:贪心,从某一点开始,一直计算往下计算需要油量,如果油量小于0则从下一点开始,那么有没有可能在这中间的点是正确结果呢?不可能,这个中间节点的前部分油和大于0,从左点都走不到结尾,中间点更不可能走到.</p>
 <pre><code class="C++">class Solution &#123;
 public:
-    ListNode* swapPairs(ListNode* head) &#123;
-        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
-        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
-        ListNode* cur = dummyHead;
-        while(cur-&gt;next != nullptr &amp;&amp; cur-&gt;next-&gt;next != nullptr) &#123;
-            ListNode* tmp = cur-&gt;next; // 记录临时节点
-            ListNode* tmp1 = cur-&gt;next-&gt;next-&gt;next; // 记录临时节点
-
-            cur-&gt;next = cur-&gt;next-&gt;next;    // 步骤一
-            cur-&gt;next-&gt;next = tmp;          // 步骤二
-            cur-&gt;next-&gt;next-&gt;next = tmp1;   // 步骤三
-
-            cur = cur-&gt;next-&gt;next; // cur移动两位，准备下一轮交换
-        &#125;
-        return dummyHead-&gt;next;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="删除链表的倒数第-N-个结点"><a href="#删除链表的倒数第-N-个结点" class="headerlink" title="删除链表的倒数第 N 个结点"></a>删除链表的倒数第 N 个结点</h2><p>给你一个链表，删除链表的倒数第 n 个结点，并且返回链表的头结点。</p>
-<p>思路:快慢指针,快指针先走n步,再同时走.</p>
-<p>提交:</p>
-<pre><code class="C++">/**
- * Definition for singly-linked list.
- * struct ListNode &#123;
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) &#123;&#125;
- *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
- *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
- * &#125;;
- */
-class Solution &#123;
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
-        ListNode* top=new ListNode();
-        top-&gt;next=head;
-        ListNode* low=top;
-        ListNode* fast=top;
-        for(int i=0;i&lt;n;i++)&#123;
-            if(fast-&gt;next==nullptr)&#123;
-                ListNode* res=top-&gt;next;
-                delete top;
-                return res;
-            &#125;
-            fast=fast-&gt;next;
-        &#125;
-
-        while(fast-&gt;next!=nullptr)&#123;
-            fast=fast-&gt;next;
-            low=low-&gt;next;
-        &#125;
-        ListNode* tmp=low-&gt;next;
-        low-&gt;next=low-&gt;next-&gt;next;
-        delete tmp;
-        ListNode* res=top-&gt;next;
-        delete top;
-        return res;
-    &#125;
-&#125;;
-</code></pre>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    ListNode* removeNthFromEnd(ListNode* head, int n) &#123;
-        ListNode* dummyHead = new ListNode(0);
-        dummyHead-&gt;next = head;
-        ListNode* slow = dummyHead;
-        ListNode* fast = dummyHead;
-        while(n-- &amp;&amp; fast != NULL) &#123;
-            fast = fast-&gt;next;
-        &#125;
-        fast = fast-&gt;next; // fast再提前走一步，因为需要让slow指向删除节点的上一个节点
-        while (fast != NULL) &#123;
-            fast = fast-&gt;next;
-            slow = slow-&gt;next;
-        &#125;
-        slow-&gt;next = slow-&gt;next-&gt;next; 
-        
-        // ListNode *tmp = slow-&gt;next;  C++释放内存的逻辑
-        // slow-&gt;next = tmp-&gt;next;
-        // delete nth;
-        
-        return dummyHead-&gt;next;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="链表相交"><a href="#链表相交" class="headerlink" title="链表相交"></a>链表相交</h2><p>给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。</p>
-<p>思路:先计算两个链表的长度,再让长的链表先走插值步.</p>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) &#123;
-        ListNode* curA = headA;
-        ListNode* curB = headB;
-        int lenA = 0, lenB = 0;
-        while (curA != NULL) &#123; // 求链表A的长度
-            lenA++;
-            curA = curA-&gt;next;
-        &#125;
-        while (curB != NULL) &#123; // 求链表B的长度
-            lenB++;
-            curB = curB-&gt;next;
-        &#125;
-        curA = headA;
-        curB = headB;
-        // 让curA为最长链表的头，lenA为其长度
-        if (lenB &gt; lenA) &#123;
-            swap (lenA, lenB);
-            swap (curA, curB);
-        &#125;
-        // 求长度差
-        int gap = lenA - lenB;
-        // 让curA和curB在同一起点上（末尾位置对齐）
-        while (gap--) &#123;
-            curA = curA-&gt;next;
-        &#125;
-        // 遍历curA 和 curB，遇到相同则直接返回
-        while (curA != NULL) &#123;
-            if (curA == curB) &#123;
-                return curA;
-            &#125;
-            curA = curA-&gt;next;
-            curB = curB-&gt;next;
-        &#125;
-        return NULL;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="环形链表-II"><a href="#环形链表-II" class="headerlink" title="环形链表 II"></a>环形链表 II</h2><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
-<p>思路:快慢指针,慢指针走一步,快指针走两步,当快指针和慢指针重合时,快指针走一步,慢指针从头开始走一步,再次重合的节点即为入环节点.</p>
-<p>证明:</p>
-<pre><code class="bash">设慢指针走了x步,链表的头到入环节点距离为t,环大小为r.
-(x-t)%r=(2x-t)%r
-x%r=2x%r
-x必为r倍数
-若x为kr+n
-则n%r=2n%r 显然不可能
-
-这说明快指针多走了x步,当快指针从当前位置走,慢指针从头节点走,它们一定相交与入环节点
-因为 t%r=(t+x)%r
-</code></pre>
-<p>提交:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    ListNode *detectCycle(ListNode *head) &#123;
-        ListNode* top=new ListNode();
-        top-&gt;next=head;
-        ListNode* fast=top;
-        ListNode* low=top;
-        if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
-            return NULL;
-        &#125;
-        fast=fast-&gt;next-&gt;next;
-        low=low-&gt;next;
-        while(fast!=low)&#123;
-            if(fast==nullptr||fast-&gt;next==nullptr||fast-&gt;next-&gt;next==nullptr)&#123;
-                return NULL;
-            &#125;
-            fast=fast-&gt;next-&gt;next;
-            low=low-&gt;next;
-        &#125;
-        low=top;
-        while(fast!=low)&#123;
-            fast=fast-&gt;next;
-            low=low-&gt;next;
-        &#125;
-        return fast;
-    &#125;
-&#125;;
-</code></pre>
-<p>例子:</p>
-<pre><code class="C++">/**
- * Definition for singly-linked list.
- * struct ListNode &#123;
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) &#123;&#125;
- * &#125;;
- */
-class Solution &#123;
-public:
-    ListNode *detectCycle(ListNode *head) &#123;
-        ListNode* fast = head;
-        ListNode* slow = head;
-        while(fast != NULL &amp;&amp; fast-&gt;next != NULL) &#123;
-            slow = slow-&gt;next;
-            fast = fast-&gt;next-&gt;next;
-            // 快慢指针相遇，此时从head 和 相遇点，同时查找直至相遇
-            if (slow == fast) &#123;
-                ListNode* index1 = fast;
-                ListNode* index2 = head;
-                while (index1 != index2) &#123;
-                    index1 = index1-&gt;next;
-                    index2 = index2-&gt;next;
-                &#125;
-                return index2; // 返回环的入口
+    int canCompleteCircuit(vector&lt;int&gt;&amp; gas, vector&lt;int&gt;&amp; cost) &#123;
+        int curSum = 0;
+        int totalSum = 0;
+        int start = 0;
+        for (int i = 0; i &lt; gas.size(); i++) &#123;
+            curSum += gas[i] - cost[i];
+            totalSum += gas[i] - cost[i];
+            if (curSum &lt; 0) &#123;   // 当前累加rest[i]和 curSum一旦小于0
+                start = i + 1;  // 起始位置更新为i+1
+                curSum = 0;     // curSum从0开始
             &#125;
         &#125;
-        return NULL;
-    &#125;
-&#125;;
-</code></pre>
-
-        
-    </div>
-    </div>
-
-    <div class="article-badge">
-        
-        
-    </div>
-
-</div>
-
-<footer class="article-footer">
-    <div class="article-more-info">
-    <div class="article-date">
-  <time datetime="2023-03-22T10:57:24.000Z" itemprop="datePublished">2023-03-22</time>
-</div>
-    
-    
-    </div>
-</footer>
-
-</article>
-
-    
-  
-    
-      <article
-id="post-算法-day-3"
-class="article article-type-post"
->
-
-
-
-<div class="article-inner">
-    
-
-    <div class="article-body">
-    <header class="article-title">
-        <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
-    </header>
-    <div class="article-entry post-inner-html">
-        
-        <blockquote>
-<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
-</blockquote>
-<h2 id="链表的定义"><a href="#链表的定义" class="headerlink" title="链表的定义"></a>链表的定义</h2><pre><code class="C++">// 单链表
-struct ListNode &#123;
-    int val;  // 节点上存储的元素
-    ListNode *next;  // 指向下一个节点的指针
-    ListNode(int x) : val(x), next(NULL) &#123;&#125;  // 节点的构造函数
-&#125;;
-</code></pre>
-<blockquote>
-<p><font color="red">记得struct后面有分号</font></p>
-</blockquote>
-<h2 id="移除链表元素"><a href="#移除链表元素" class="headerlink" title="移除链表元素"></a>移除链表元素</h2><p>给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val &#x3D;&#x3D; val 的节点，并返回 新的头节点 。</p>
-<pre><code class="bash">输入：head = [1,2,6,3,4,5,6], val = 6
-输出：[1,2,3,4,5]
-</code></pre>
-<p>思路:设置一个空的头节点…</p>
-<p>提交:</p>
-<pre><code class="C++">/**
- * Definition for singly-linked list.
- * struct ListNode &#123;
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) &#123;&#125;
- *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
- *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
- * &#125;;
- */
-class Solution &#123;
-public:
-    ListNode* removeElements(ListNode* head, int val) &#123;
-        ListNode* top=new ListNode(0,head);
-        ListNode* low=top;
-        ListNode* fast=top-&gt;next;
-        while(fast!=nullptr)&#123;
-            if(fast-&gt;val!=val)&#123;
-                fast=fast-&gt;next;
-                low=low-&gt;next;
-            &#125;else&#123;
-                ListNode* pre=fast;
-                fast=fast-&gt;next;
-                delete pre;
-                low-&gt;next=fast;
-            &#125;
-        &#125;
-        return top-&gt;next;
-
-    &#125;
-&#125;;
-</code></pre>
-<blockquote>
-<p><font color="red">但是写的不够简洁,实际上不需要fast low两个节点,并且没有将创建的虚拟头节点销毁.</font></p>
-</blockquote>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    ListNode* removeElements(ListNode* head, int val) &#123;
-        ListNode* dummyHead = new ListNode(0); // 设置一个虚拟头结点
-        dummyHead-&gt;next = head; // 将虚拟头结点指向head，这样方面后面做删除操作
-        ListNode* cur = dummyHead;
-        while (cur-&gt;next != NULL) &#123;
-            if(cur-&gt;next-&gt;val == val) &#123;
-                ListNode* tmp = cur-&gt;next;
-                cur-&gt;next = cur-&gt;next-&gt;next;
-                delete tmp;
-            &#125; else &#123;
-                cur = cur-&gt;next;
-            &#125;
-        &#125;
-        head = dummyHead-&gt;next;
-        delete dummyHead;
-        return head;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="设计链表"><a href="#设计链表" class="headerlink" title="设计链表"></a>设计链表</h2><p>你可以选择使用单链表或者双链表，设计并实现自己的链表。</p>
-<p>单链表中的节点应该具备两个属性：val 和 next 。val 是当前节点的值，next 是指向下一个节点的指针&#x2F;引用。</p>
-<p>如果是双向链表，则还需要属性 prev 以指示链表中的上一个节点。假设链表中的所有节点下标从 0 开始。</p>
-<p>实现 MyLinkedList 类：</p>
-<ul>
-<li>MyLinkedList() 初始化 MyLinkedList 对象。</li>
-<li>int get(int index) 获取链表中下标为 index 的节点的值。如果下标无效，则返回 -1 。</li>
-<li>void addAtHead(int val) 将一个值为 val 的节点插入到链表中第一个元素之前。在插入完成后，新节点会成为链表的第一个节点。</li>
-<li>void addAtTail(int val) 将一个值为 val 的节点追加到链表中作为链表的最后一个元素。</li>
-<li>void addAtIndex(int index, int val) 将一个值为 val 的节点插入到链表中下标为 index 的节点之前。如果 index 等于链表的长度，那么该节点会被追加到链表的末尾。如果 index 比长度更大，该节点将 不会插入 到链表中。</li>
-<li>void deleteAtIndex(int index) 如果下标有效，则删除链表中下标为 index 的节点。</li>
-</ul>
-<p>思路:可以设置虚拟头节点,并增加链表的size属性</p>
-<p>例子:</p>
-<pre><code class="C++">class MyLinkedList &#123;
-public:
-    // 定义链表节点结构体
-    struct LinkedNode &#123;
-        int val;
-        LinkedNode* next;
-        LinkedNode(int val):val(val), next(nullptr)&#123;&#125;
-    &#125;;
-
-    // 初始化链表
-    MyLinkedList() &#123;
-        _dummyHead = new LinkedNode(0); // 这里定义的头结点 是一个虚拟头结点，而不是真正的链表头结点
-        _size = 0;
-    &#125;
-
-    // 获取到第index个节点数值，如果index是非法数值直接返回-1， 注意index是从0开始的，第0个节点就是头结点
-    int get(int index) &#123;
-        if (index &gt; (_size - 1) || index &lt; 0) &#123;
-            return -1;
-        &#125;
-        LinkedNode* cur = _dummyHead-&gt;next;
-        while(index--)&#123; // 如果--index 就会陷入死循环
-            cur = cur-&gt;next;
-        &#125;
-        return cur-&gt;val;
-    &#125;
-
-    // 在链表最前面插入一个节点，插入完成后，新插入的节点为链表的新的头结点
-    void addAtHead(int val) &#123;
-        LinkedNode* newNode = new LinkedNode(val);
-        newNode-&gt;next = _dummyHead-&gt;next;
-        _dummyHead-&gt;next = newNode;
-        _size++;
-    &#125;
-
-    // 在链表最后面添加一个节点
-    void addAtTail(int val) &#123;
-        LinkedNode* newNode = new LinkedNode(val);
-        LinkedNode* cur = _dummyHead;
-        while(cur-&gt;next != nullptr)&#123;
-            cur = cur-&gt;next;
-        &#125;
-        cur-&gt;next = newNode;
-        _size++;
-    &#125;
-
-    // 在第index个节点之前插入一个新节点，例如index为0，那么新插入的节点为链表的新头节点。
-    // 如果index 等于链表的长度，则说明是新插入的节点为链表的尾结点
-    // 如果index大于链表的长度，则返回空
-    // 如果index小于0，则在头部插入节点
-    void addAtIndex(int index, int val) &#123;
-
-        if(index &gt; _size) return;
-        if(index &lt; 0) index = 0;        
-        LinkedNode* newNode = new LinkedNode(val);
-        LinkedNode* cur = _dummyHead;
-        while(index--) &#123;
-            cur = cur-&gt;next;
-        &#125;
-        newNode-&gt;next = cur-&gt;next;
-        cur-&gt;next = newNode;
-        _size++;
-    &#125;
-
-    // 删除第index个节点，如果index 大于等于链表的长度，直接return，注意index是从0开始的
-    void deleteAtIndex(int index) &#123;
-        if (index &gt;= _size || index &lt; 0) &#123;
-            return;
-        &#125;
-        LinkedNode* cur = _dummyHead;
-        while(index--) &#123;
-            cur = cur -&gt;next;
-        &#125;
-        LinkedNode* tmp = cur-&gt;next;
-        cur-&gt;next = cur-&gt;next-&gt;next;
-        delete tmp;
-        _size--;
-    &#125;
-
-    // 打印链表
-    void printLinkedList() &#123;
-        LinkedNode* cur = _dummyHead;
-        while (cur-&gt;next != nullptr) &#123;
-            cout &lt;&lt; cur-&gt;next-&gt;val &lt;&lt; &quot; &quot;;
-            cur = cur-&gt;next;
-        &#125;
-        cout &lt;&lt; endl;
-    &#125;
-private:
-    int _size;
-    LinkedNode* _dummyHead;
-
-&#125;;
-</code></pre>
-<h2 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h2><p>给你单链表的头节点 head ，请你反转链表，并返回反转后的链表。</p>
-<p>思路:递归</p>
-<p>提交:</p>
-<pre><code class="C++">/**
- * Definition for singly-linked list.
- * struct ListNode &#123;
- *     int val;
- *     ListNode *next;
- *     ListNode() : val(0), next(nullptr) &#123;&#125;
- *     ListNode(int x) : val(x), next(nullptr) &#123;&#125;
- *     ListNode(int x, ListNode *next) : val(x), next(next) &#123;&#125;
- * &#125;;
- */
-class Solution &#123;
-    ListNode* start;
-public:
-    ListNode* reverseList(ListNode* head) &#123;
-        if(head==nullptr)&#123;
-            return head;
-        &#125;
-        reverse(head);
+        if (totalSum &lt; 0) return -1; // 说明怎么走都不可能跑一圈了
         return start;
     &#125;
-
-    ListNode* reverse(ListNode* head)&#123;
-        if(head-&gt;next==nullptr)&#123;
-            start=head;
-            return head;
+&#125;;
+</code></pre>
+<h2 id="分发糖果"><a href="#分发糖果" class="headerlink" title="分发糖果"></a>分发糖果</h2><p>n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。</p>
+<p>你需要按照以下要求，给这些孩子分发糖果：</p>
+<p>每个孩子至少分配到 1 个糖果。<br>相邻两个孩子评分更高的孩子会获得更多的糖果。<br>请你给每个孩子分发糖果，计算并返回需要准备的 最少糖果数目 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：ratings = [1,0,2]
+输出：5
+解释：你可以分别给第一个、第二个、第三个孩子分发 2、1、2 颗糖果。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：ratings = [1,2,2]
+输出：4
+解释：你可以分别给第一个、第二个、第三个孩子分发 1、2、1 颗糖果。
+     第三个孩子只得到 1 颗糖果，这满足题面中的两个条件。
+</code></pre>
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int candy(vector&lt;int&gt;&amp; ratings) &#123;
+        vector&lt;int&gt; candyVec(ratings.size(), 1);
+        // 从前向后
+        for (int i = 1; i &lt; ratings.size(); i++) &#123;
+            if (ratings[i] &gt; ratings[i - 1]) candyVec[i] = candyVec[i - 1] + 1;
         &#125;
-        ListNode* tmp=reverse(head-&gt;next);
-        head-&gt;next=nullptr;
-        tmp-&gt;next=head;
-        return head;
+        // 从后向前
+        for (int i = ratings.size() - 2; i &gt;= 0; i--) &#123;
+            if (ratings[i] &gt; ratings[i + 1] ) &#123;
+                candyVec[i] = max(candyVec[i], candyVec[i + 1] + 1);
+            &#125;
+        &#125;
+        // 统计结果
+        int result = 0;
+        for (int i = 0; i &lt; candyVec.size(); i++) result += candyVec[i];
+        return result;
     &#125;
 &#125;;
 </code></pre>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    ListNode* reverseList(ListNode* head) &#123;
-        // 边缘条件判断
-        if(head == NULL) return NULL;
-        if (head-&gt;next == NULL) return head;
-        
-        // 递归调用，翻转第二个节点开始往后的链表
-        ListNode *last = reverseList(head-&gt;next);
-        // 翻转头节点与第二个节点的指向
-        head-&gt;next-&gt;next = head;
-        // 此时的 head 节点为尾节点，next 需要指向 NULL
-        head-&gt;next = NULL;
-        return last;
-    &#125;
-&#125;; 
-</code></pre>
-<p>实际上不需要专门设置一个node指向最后一个节点供返回,只需要在每次迭代时返回反转后的头节点,而此时反转后的链表的尾节点可以直接通过head-&gt;next找到.</p>
+<p>思路:先从前往后遍历再从后往前遍历. 不需要考虑相等的情况,因为如果一个孩子评分左右相等的话,那他得一个糖果,如果左右两边有一个不等的话,那就是前后遍历要考虑的了.</p>
 
         
     </div>
@@ -900,7 +266,7 @@ public:
 <footer class="article-footer">
     <div class="article-more-info">
     <div class="article-date">
-  <time datetime="2023-03-21T11:04:10.000Z" itemprop="datePublished">2023-03-21</time>
+  <time datetime="2023-04-23T10:41:03.000Z" itemprop="datePublished">2023-04-23</time>
 </div>
     
     
@@ -913,7 +279,7 @@ public:
   
     
       <article
-id="post-算法-day-2"
+id="post-算法-day-32"
 class="article article-type-post"
 >
 
@@ -924,214 +290,507 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <blockquote>
-<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
-</blockquote>
-<h2 id="有序数组的平方"><a href="#有序数组的平方" class="headerlink" title="有序数组的平方"></a>有序数组的平方</h2><p>给你一个按 非递减顺序 排序的整数数组 nums，返回 每个数字的平方 组成的新数组，要求也按 非递减顺序 排序。</p>
-<p>示例 1： 输入：nums &#x3D; [-4,-1,0,3,10] 输出：[0,1,9,16,100] 解释：平方后，数组变为 [16,1,0,9,100]，排序后，数组变为 [0,1,9,16,100]</p>
-<p>示例 2： 输入：nums &#x3D; [-7,-3,2,3,11] 输出：[4,9,9,49,121]</p>
-<p>我的思路:找到数组的正负分界,然后用归并排序.</p>
-<blockquote>
-<p><font color="red">使用双指针法更简单</font></p>
-</blockquote>
-<p>提交:</p>
+        <h2 id="买卖股票的最佳时机-II"><a href="#买卖股票的最佳时机-II" class="headerlink" title="买卖股票的最佳时机 II"></a>买卖股票的最佳时机 II</h2><p>给你一个整数数组 prices ，其中 prices[i] 表示某支股票第 i 天的价格。</p>
+<p>在每一天，你可以决定是否购买和&#x2F;或出售股票。你在任何时候 最多 只能持有 一股 股票。你也可以先购买，然后在 同一天 出售。</p>
+<p>返回 你能获得的 最大 利润 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：prices = [7,1,5,3,6,4]
+输出：7
+解释：在第 2 天（股票价格 = 1）的时候买入，在第 3 天（股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4 。
+     随后，在第 4 天（股票价格 = 3）的时候买入，在第 5 天（股票价格 = 6）的时候卖出, 这笔交易所能获得利润 = 6 - 3 = 3 。
+     总利润为 4 + 3 = 7 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：prices = [1,2,3,4,5]
+输出：4
+解释：在第 1 天（股票价格 = 1）的时候买入，在第 5 天 （股票价格 = 5）的时候卖出, 这笔交易所能获得利润 = 5 - 1 = 4 。
+     总利润为 4 。
+</code></pre>
+<p>思路:所有上升序列的差值和即为最大收益.</p>
 <pre><code class="C++">class Solution &#123;
 public:
-    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; nums) &#123;
-        int index1=0;
-        while(index1!=nums.size())&#123;
-            if(nums[index1]&gt;0)&#123;
-                break;
+    int maxProfit(vector&lt;int&gt;&amp; prices) &#123;
+        int max=0;
+        int tmp=prices[0];
+        for(int i=1;i&lt;prices.size();i++)&#123;
+            if(prices[i]&gt;tmp)&#123;
+                max+=prices[i]-tmp;
             &#125;
-            index1++;
+            tmp=prices[i];
         &#125;
-        int index2=index1-1;
-        //没有初始化长度
-        vector&lt;int&gt; ret;
-        while(index2!=-1&amp;&amp;index1!=nums.size())&#123;
-            if(nums[index1]*nums[index1]&lt;=nums[index2]*nums[index2])&#123;
-                ret.push_back(nums[index1]*nums[index1]);
-                index1++;
-            &#125;else&#123;
-                ret.push_back(nums[index2]*nums[index2]);
-                index2--;
-            &#125;
-        &#125;
-        for(;index1&lt;nums.size();index1++)&#123;
-            ret.push_back(nums[index1]*nums[index1]);
-        &#125;
-        for(;index2&gt;=0;index2--)&#123;
-            ret.push_back(nums[index2]*nums[index2]);
-        &#125;
-        return ret;
+        return max;
     &#125;
 &#125;;
 </code></pre>
-<p>例子,使用双指针法:</p>
+<h2 id="跳跃游戏"><a href="#跳跃游戏" class="headerlink" title="跳跃游戏"></a>跳跃游戏</h2><p>给定一个非负整数数组 nums ，你最初位于数组的 第一个下标 。</p>
+<p>数组中的每个元素代表你在该位置可以跳跃的最大长度。</p>
+<p>判断你是否能够到达最后一个下标。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [2,3,1,1,4]
+输出：true
+解释：可以先跳 1 步，从下标 0 到达下标 1, 然后再从下标 1 跳 3 步到达最后一个下标。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [3,2,1,0,4]
+输出：false
+解释：无论怎样，总会到达下标为 3 的位置。但该下标的最大跳跃长度是 0 ， 所以永远不可能到达最后一个下标。
+</code></pre>
+<p>提交:</p>
 <pre><code class="C++">class Solution &#123;
 public:
-    vector&lt;int&gt; sortedSquares(vector&lt;int&gt;&amp; A) &#123;
-        int k = A.size() - 1;
-        vector&lt;int&gt; result(A.size(), 0);
-        for (int i = 0, j = A.size() - 1; i &lt;= j;) &#123; // 注意这里要i &lt;= j，因为最后要处理两个元素
-            if (A[i] * A[i] &lt; A[j] * A[j])  &#123;
-                result[k--] = A[j] * A[j];
-                j--;
+    bool canJump(vector&lt;int&gt;&amp; nums) &#123;
+        if(nums.size()==1)&#123;
+            return true;
+        &#125;
+        int length=nums[0]+1;
+        for(int i=1;i&lt;length;i++)&#123;
+            if(i+1+nums[i]&gt;length)&#123;
+                length=i+1+nums[i];
             &#125;
-            else &#123;
-                result[k--] = A[i] * A[i];
-                i++;
+            if(length&gt;=nums.size())&#123;
+                return true;
+            &#125;   
+        &#125;
+
+        return false;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:40:38.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-31"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="分发饼干"><a href="#分发饼干" class="headerlink" title="分发饼干"></a>分发饼干</h2><p>假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。</p>
+<p>对每个孩子 i，都有一个胃口值 g[i]，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j，都有一个尺寸 s[j] 。如果 s[j] &gt;&#x3D; g[i]，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: g = [1,2,3], s = [1,1]
+输出: 1
+解释: 
+你有三个孩子和两块小饼干，3个孩子的胃口值分别是：1,2,3。
+虽然你有两块小饼干，由于他们的尺寸都是1，你只能让胃口值是1的孩子满足。
+所以你应该输出1。
+</code></pre>
+<p>示例 2:</p>
+<pre><code>输入: g = [1,2], s = [1,2,3]
+输出: 2
+解释: 
+你有两个孩子和三块小饼干，2个孩子的胃口值分别是1,2。
+你拥有的饼干数量和尺寸都足以让所有孩子满足。
+所以你应该输出2.
+</code></pre>
+<p>思路:直觉是,先分配最大的饼干给最大胃口的孩子,一直往小分配.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int findContentChildren(vector&lt;int&gt;&amp; g, vector&lt;int&gt;&amp; s) &#123;
+        sort(g.begin(),g.end());
+        sort(s.begin(),s.end());
+        int k=g.size()-1;
+        int num=0;;
+        for(int i=s.size()-1;i&gt;=0;i--)&#123;
+            for(;k&gt;=0;k--)&#123;
+                if(s[i]&gt;=g[k])&#123;
+                    num++;
+                    k--;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        return num;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="摆动序列"><a href="#摆动序列" class="headerlink" title="摆动序列"></a>摆动序列</h2><p>如果连续数字之间的差严格地在正数和负数之间交替，则数字序列称为 摆动序列 。第一个差（如果存在的话）可能是正数或负数。仅有一个元素或者含两个不等元素的序列也视作摆动序列。</p>
+<p>例如， [1, 7, 4, 9, 2, 5] 是一个 摆动序列 ，因为差值 (6, -3, 5, -7, 3) 是正负交替出现的。</p>
+<p>相反，[1, 4, 7, 2, 5] 和 [1, 7, 4, 5, 5] 不是摆动序列，第一个序列是因为它的前两个差值都是正数，第二个序列是因为它的最后一个差值为零。<br>子序列 可以通过从原始序列中删除一些（也可以不删除）元素来获得，剩下的元素保持其原始顺序。</p>
+<p>给你一个整数数组 nums ，返回 nums 中作为 摆动序列 的 最长子序列的长度 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,7,4,9,2,5]
+输出：6
+解释：整个序列均为摆动序列，各元素之间的差值为 (6, -3, 5, -7, 3) 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [1,17,5,10,13,15,10,5,16,8]
+输出：7
+解释：这个序列包含几个长度为 7 摆动序列。
+其中一个是 [1, 17, 10, 13, 10, 16, 8] ，各元素之间的差值为 (16, -7, 3, -3, 6, -8) 。
+</code></pre>
+<p>没想出来…</p>
+<p>贪心算法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        if (nums.size() &lt;= 1) return nums.size();
+        int curDiff = 0; // 当前一对差值
+        int preDiff = 0; // 前一对差值
+        int result = 1;  // 记录峰值个数，序列默认序列最右边有一个峰值
+        for (int i = 0; i &lt; nums.size() - 1; i++) &#123;
+            curDiff = nums[i + 1] - nums[i];
+            // 出现峰值
+            if ((preDiff &lt;= 0 &amp;&amp; curDiff &gt; 0) || (preDiff &gt;= 0 &amp;&amp; curDiff &lt; 0)) &#123;
+                result++;
+                preDiff = curDiff; // 注意这里，只在摆动变化的时候更新prediff 
             &#125;
         &#125;
         return result;
     &#125;
 &#125;;
 </code></pre>
-<h2 id="长度最小的子数组"><a href="#长度最小的子数组" class="headerlink" title="长度最小的子数组"></a>长度最小的子数组</h2><p>给定一个含有 n 个正整数的数组和一个正整数 s ，找出该数组中满足其和 ≥ s 的长度最小的 连续 子数组，并返回其长度。如果不存在符合条件的子数组，返回 0。</p>
-<p>示例：</p>
-<p>输入：s &#x3D; 7, nums &#x3D; [2,3,1,2,4,3] 输出：2 解释：子数组 [4,3] 是该条件下的长度最小的子数组。</p>
-<p>思路:滑动窗口</p>
+<p>动态规划:</p>
+<ul>
+<li>设dp状态dp[i][0]，表示考虑前i个数，第i个数作为山峰的摆动子序列的最长长度</li>
+<li>设dp状态dp[i][1]，表示考虑前i个数，第i个数作为山谷的摆动子序列的最长长度</li>
+</ul>
+<p>则转移方程为：</p>
+<ul>
+<li>dp[i][0] &#x3D; max(dp[i][0], dp[j][1] + 1)，其中0 &lt; j &lt; i且nums[j] &lt; nums[i]，表示将nums[i]接到前面某个山谷后面，作为山峰。</li>
+<li>dp[i][1] &#x3D; max(dp[i][1], dp[j][0] + 1)，其中0 &lt; j &lt; i且nums[j] &gt; nums[i]，表示将nums[i]接到前面某个山峰后面，作为山谷。</li>
+</ul>
+<pre><code class="C++">class Solution &#123;
+public:
+    int dp[1005][2];
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        memset(dp, 0, sizeof dp);
+        dp[0][0] = dp[0][1] = 1;
+        for (int i = 1; i &lt; nums.size(); ++i) &#123;
+            dp[i][0] = dp[i][1] = 1;
+            for (int j = 0; j &lt; i; ++j) &#123;
+                if (nums[j] &gt; nums[i]) dp[i][1] = max(dp[i][1], dp[j][0] + 1);
+            &#125;
+            for (int j = 0; j &lt; i; ++j) &#123;
+                if (nums[j] &lt; nums[i]) dp[i][0] = max(dp[i][0], dp[j][1] + 1);
+            &#125;
+        &#125;
+        return max(dp[nums.size() - 1][0], dp[nums.size() - 1][1]);
+    &#125;
+&#125;;
+</code></pre>
+<p>更简单的动态规划:</p>
+<p>每当我们选择一个元素作为摆动序列的一部分时，这个元素要么是上升的，要么是下降的，这取决于前一个元素的大小。那么列出状态表达式为：</p>
+<ul>
+<li><p>up[i] 表示以前 i 个元素中的某一个为结尾的最长的「上升摆动序列」的长度。</p>
+</li>
+<li><p>down[i] 表示以前 i 个元素中的某一个为结尾的最长的「下降摆动序列」的长度。</p>
+</li>
+</ul>
+<p>则转移方程为:</p>
+<p><img src="/./%E8%BD%AC%E7%A7%BB%E6%96%B9%E7%A8%8B.png"></p>
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int wiggleMaxLength(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        if (n &lt; 2) &#123;
+            return n;
+        &#125;
+        vector&lt;int&gt; up(n), down(n);
+        up[0] = down[0] = 1;
+        for (int i = 1; i &lt; n; i++) &#123;
+            if (nums[i] &gt; nums[i - 1]) &#123;
+                up[i] = max(up[i - 1], down[i - 1] + 1);
+                down[i] = down[i - 1];
+            &#125; else if (nums[i] &lt; nums[i - 1]) &#123;
+                up[i] = up[i - 1];
+                down[i] = max(up[i - 1] + 1, down[i - 1]);
+            &#125; else &#123;
+                up[i] = up[i - 1];
+                down[i] = down[i - 1];
+            &#125;
+        &#125;
+        return max(up[n - 1], down[n - 1]);
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="最大子数组和"><a href="#最大子数组和" class="headerlink" title="最大子数组和"></a>最大子数组和</h2><p>给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和。</p>
+<p>子数组 是数组中的一个连续部分。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [-2,1,-3,4,-1,2,1,-5,4]
+输出：6
+解释：连续子数组 [4,-1,2,1] 的和最大，为 6 。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [1]
+输出：1
+</code></pre>
+<p>思路:数组从头开始加,如果sum小于0了,则重新设置sum为0.</p>
 <p>提交:</p>
 <pre><code class="C++">class Solution &#123;
 public:
-    int minSubArrayLen(int target, vector&lt;int&gt;&amp; nums) &#123;
-        int left=0,right =0;
-        int length=nums.size()+1;
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int max=INT_MIN;
         int sum=0;
-        for(;right&lt;nums.size();right++)&#123;
-            sum+=nums[right];
-            if(sum&gt;=target)&#123;
-                length=(right-left+1)&lt;length?(right-left+1):length;
-                for(;left&lt;right;)&#123;
-                    sum-=nums[left];
-                    left++;
-                    if(sum&gt;=target)&#123;
-                        length=(right-left+1)&lt;length?(right-left+1):length;
-                    &#125;else&#123;
-                        break;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            sum+=nums[i];
+            if(sum&gt;max)&#123;
+                max=sum;
+            &#125;
+            if(sum&lt;0)&#123;
+                sum=0;
+            &#125;
+        &#125;
+
+        return max;
+    &#125;
+&#125;;
+</code></pre>
+<p>动态规划,设dp[i]为以第i个数结尾的最大子序列之和.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int maxSubArray(vector&lt;int&gt;&amp; nums) &#123;
+        int dp[nums.size()];
+        dp[0]=nums[0];
+        int max=dp[0];
+        for(int i=1;i&lt;nums.size();i++)&#123;
+            if(dp[i-1]&gt;=0)&#123;
+                dp[i]=dp[i-1]+nums[i];
+            &#125;else&#123;
+                dp[i]=nums[i];
+            &#125;
+            if(dp[i]&gt;max)&#123;
+                max=dp[i];
+            &#125;
+        &#125;
+        return max;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:40:20.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-30"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="重新安排行程"><a href="#重新安排行程" class="headerlink" title="重新安排行程"></a>重新安排行程</h2><p>给你一份航线列表 tickets ，其中 tickets[i] &#x3D; [fromi, toi] 表示飞机出发和降落的机场地点。请你对该行程进行重新规划排序。</p>
+<p>所有这些机票都属于一个从 JFK（肯尼迪国际机场）出发的先生，所以该行程必须从 JFK 开始。如果存在多种有效的行程，请你按字典排序返回最小的行程组合。</p>
+<p>例如，行程 [“JFK”, “LGA”] 与 [“JFK”, “LGB”] 相比就更小，排序更靠前。<br>假定所有机票至少存在一种合理的行程。且所有的机票 必须都用一次 且 只能用一次。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：tickets = [[&quot;MUC&quot;,&quot;LHR&quot;],[&quot;JFK&quot;,&quot;MUC&quot;],[&quot;SFO&quot;,&quot;SJC&quot;],[&quot;LHR&quot;,&quot;SFO&quot;]]
+输出：[&quot;JFK&quot;,&quot;MUC&quot;,&quot;LHR&quot;,&quot;SFO&quot;,&quot;SJC&quot;]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：tickets = [[&quot;JFK&quot;,&quot;SFO&quot;],[&quot;JFK&quot;,&quot;ATL&quot;],[&quot;SFO&quot;,&quot;ATL&quot;],[&quot;ATL&quot;,&quot;JFK&quot;],[&quot;ATL&quot;,&quot;SFO&quot;]]
+输出：[&quot;JFK&quot;,&quot;ATL&quot;,&quot;JFK&quot;,&quot;SFO&quot;,&quot;ATL&quot;,&quot;SFO&quot;]
+解释：另一种有效的行程是 [&quot;JFK&quot;,&quot;SFO&quot;,&quot;ATL&quot;,&quot;JFK&quot;,&quot;ATL&quot;,&quot;SFO&quot;] ，但是它字典排序更大更靠后。
+</code></pre>
+<p>直接上代码以后慢慢看吧…</p>
+<pre><code class="C++">class Solution &#123;
+private:
+// unordered_map&lt;出发机场, map&lt;到达机场, 航班次数&gt;&gt; targets
+unordered_map&lt;string, map&lt;string, int&gt;&gt; targets;
+bool backtracking(int ticketNum, vector&lt;string&gt;&amp; result) &#123;
+    if (result.size() == ticketNum + 1) &#123;
+        return true;
+    &#125;
+    for (pair&lt;const string, int&gt;&amp; target : targets[result[result.size() - 1]]) &#123;
+        if (target.second &gt; 0 ) &#123; // 记录到达机场是否飞过了
+            result.push_back(target.first);
+            target.second--;
+            if (backtracking(ticketNum, result)) return true;
+            result.pop_back();
+            target.second++;
+        &#125;
+    &#125;
+    return false;
+&#125;
+public:
+    vector&lt;string&gt; findItinerary(vector&lt;vector&lt;string&gt;&gt;&amp; tickets) &#123;
+        targets.clear();
+        vector&lt;string&gt; result;
+        for (const vector&lt;string&gt;&amp; vec : tickets) &#123;
+            targets[vec[0]][vec[1]]++; // 记录映射关系
+        &#125;
+        result.push_back(&quot;JFK&quot;); // 起始机场
+        backtracking(tickets.size(), result);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="N-皇后"><a href="#N-皇后" class="headerlink" title="N 皇后"></a>N 皇后</h2><p>按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。</p>
+<p>n 皇后问题 研究的是如何将 n 个皇后放置在 n×n 的棋盘上，并且使皇后彼此之间不能相互攻击。</p>
+<p>给你一个整数 n ，返回所有不同的 n 皇后问题 的解决方案。</p>
+<p>每一种解法包含一个不同的 n 皇后问题 的棋子放置方案，该方案中 ‘Q’ 和 ‘.’ 分别代表了皇后和空位。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：n = 4
+输出：[[&quot;.Q..&quot;,&quot;...Q&quot;,&quot;Q...&quot;,&quot;..Q.&quot;],[&quot;..Q.&quot;,&quot;Q...&quot;,&quot;...Q&quot;,&quot;.Q..&quot;]]
+解释：如上图所示，4 皇后问题存在两个不同的解法。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：n = 1
+输出：[[&quot;Q&quot;]]
+</code></pre>
+<p>思路:这题相对简单,使用places数组记录不能填的位置.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+public:
+    vector&lt;vector&lt;string&gt;&gt; solveNQueens(int n) &#123;
+        vector&lt;int&gt; nums;
+        vector&lt;string&gt; path;
+        backtracking(n,nums,path,0);
+        return result;
+    &#125;
+
+    void backtracking(int n,vector&lt;int&gt;&amp; nums,vector&lt;string&gt;&amp; path,int k)&#123;
+        if(k==n)&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        vector&lt;bool&gt; places(n,true);
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            places[nums[i]]=false;
+            if(nums[i]-k+i&gt;=0)&#123;
+                places[nums[i]-k+i]=false;
+            &#125;
+            if(nums[i]+k-i&lt;n)&#123;
+                places[nums[i]+k-i]=false;
+            &#125;
+        &#125;
+        for(int i=0;i&lt;n;i++)&#123;
+            if(!places[i])&#123;
+                continue;
+            &#125;
+            string s(n-1,&#39;.&#39;);
+            s.insert(i,1,&#39;Q&#39;);
+            nums.push_back(i);
+            path.push_back(s);
+            backtracking(n,nums,path,k+1);
+            path.pop_back();
+            nums.pop_back();
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>注意一下 string 的insert方法.</p>
+<h2 id="解数独"><a href="#解数独" class="headerlink" title="解数独"></a>解数独</h2><p>编写一个程序，通过填充空格来解决数独问题。</p>
+<p>数独的解法需 遵循如下规则：</p>
+<p>数字 1-9 在每一行只能出现一次。<br>数字 1-9 在每一列只能出现一次。<br>数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。（请参考示例图）<br>数独部分空格内已填入了数字，空白格用 ‘.’ 表示。</p>
+<pre><code class="C++">class Solution &#123;
+private:
+bool backtracking(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+    for (int i = 0; i &lt; board.size(); i++) &#123;        // 遍历行
+        for (int j = 0; j &lt; board[0].size(); j++) &#123; // 遍历列
+            if (board[i][j] == &#39;.&#39;) &#123;
+                for (char k = &#39;1&#39;; k &lt;= &#39;9&#39;; k++) &#123;     // (i, j) 这个位置放k是否合适
+                    if (isValid(i, j, k, board)) &#123;
+                        board[i][j] = k;                // 放置k
+                        if (backtracking(board)) return true; // 如果找到合适一组立刻返回
+                        board[i][j] = &#39;.&#39;;              // 回溯，撤销k
                     &#125;
                 &#125;
+                return false;  // 9个数都试完了，都不行，那么就返回false
             &#125;
-            
-        &#125;
-        if(length&gt;nums.size())&#123;
-            return 0;
-        &#125;else&#123;
-            return length;
         &#125;
     &#125;
-&#125;;
-</code></pre>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    int minSubArrayLen(int s, vector&lt;int&gt;&amp; nums) &#123;
-        int result = INT32_MAX;
-        int sum = 0; // 滑动窗口数值之和
-        int i = 0; // 滑动窗口起始位置
-        int subLength = 0; // 滑动窗口的长度
-        for (int j = 0; j &lt; nums.size(); j++) &#123;
-            sum += nums[j];
-            // 注意这里使用while，每次更新 i（起始位置），并不断比较子序列是否符合条件
-            while (sum &gt;= s) &#123;
-                subLength = (j - i + 1); // 取子序列的长度
-                result = result &lt; subLength ? result : subLength;
-                sum -= nums[i++]; // 这里体现出滑动窗口的精髓之处，不断变更i（子序列的起始位置）
-            &#125;
-        &#125;
-        // 如果result没有被赋值的话，就返回0，说明没有符合条件的子序列
-        return result == INT32_MAX ? 0 : result;
-    &#125;
-&#125;;
-</code></pre>
-<p>思路其实一样,但写的更简洁</p>
-<h2 id="螺旋矩阵II"><a href="#螺旋矩阵II" class="headerlink" title="螺旋矩阵II"></a>螺旋矩阵II</h2><p>给定一个正整数 n，生成一个包含 1 到 n^2 所有元素，且元素按顺时针顺序螺旋排列的正方形矩阵。</p>
-<p>示例:</p>
-<p>输入: 3 输出: [ [ 1, 2, 3 ], [ 8, 9, 4 ], [ 7, 6, 5 ] ]</p>
-<p>思路:要利用循环层数</p>
-<p>提交:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    vector&lt;vector&lt;int&gt;&gt; generateMatrix(int n)
-&#123;
-    int i = 0, j = 0;
-    int num = 1;
-    vector&lt;vector&lt;int&gt;&gt; res(n, vector&lt;int&gt;(n, 0));
-    int k = 1;
-    res[0][0] = k;
-    k++;
-    i++;
-    while (k &lt;= n * n)
-    &#123;
-        switch (num % 4)
-        &#123;
-        case 1:
-            for (; i &lt; n - num / 4; i++)
-            &#123;
-                res[j][i] = k;
-                k++;
-            &#125;
-            //这里第一次提交没有写,导致出错
-            i--;
-            j++;
-            num++;
-            break;
-        case 2:
-            for (; j &lt; n - num / 4; j++)
-            &#123;
-                res[j][i] = k;
-                k++;
-            &#125;
-            j--;
-            i--;
-            num++;
-            break;
-        case 3:
-            for (; i &gt;= num / 4; i--)
-            &#123;
-                res[j][i] = k;
-                k++;
-            &#125;
-            i++;
-            j--;
-            num++;
-            break;
-        case 0:
-            for (; j &gt;= num / 4; j--)
-            &#123;
-                res[j][i] = k;
-                k++;
-            &#125;
-            j++;
-            i++;
-            num++;
-            break;
-        &#125;
-    &#125;
-    return res;
+    return true; // 遍历完没有返回false，说明找到了合适棋盘位置了
 &#125;
-
+bool isValid(int row, int col, char val, vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+    for (int i = 0; i &lt; 9; i++) &#123; // 判断行里是否重复
+        if (board[row][i] == val) &#123;
+            return false;
+        &#125;
+    &#125;
+    for (int j = 0; j &lt; 9; j++) &#123; // 判断列里是否重复
+        if (board[j][col] == val) &#123;
+            return false;
+        &#125;
+    &#125;
+    int startRow = (row / 3) * 3;
+    int startCol = (col / 3) * 3;
+    for (int i = startRow; i &lt; startRow + 3; i++) &#123; // 判断9方格里是否重复
+        for (int j = startCol; j &lt; startCol + 3; j++) &#123;
+            if (board[i][j] == val ) &#123;
+                return false;
+            &#125;
+        &#125;
+    &#125;
+    return true;
+&#125;
+public:
+    void solveSudoku(vector&lt;vector&lt;char&gt;&gt;&amp; board) &#123;
+        backtracking(board);
+    &#125;
 &#125;;
 </code></pre>
-<blockquote>
-<p><font color="red">要尤其注意for循环后的index值,是先变化值,再进行判断</font></p>
-</blockquote>
-<h2 id="水果成篮"><a href="#水果成篮" class="headerlink" title="水果成篮"></a>水果成篮</h2><blockquote>
-<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/fruit-into-baskets/">leetcode</a></p>
-</blockquote>
-<p>&#x2F;&#x2F;TODO</p>
-<h2 id="最小覆盖子串"><a href="#最小覆盖子串" class="headerlink" title="最小覆盖子串"></a>最小覆盖子串</h2><blockquote>
-<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/minimum-window-substring/">leetcode</a></p>
-</blockquote>
-<p>&#x2F;&#x2F;TODO</p>
-<h2 id="螺旋矩阵"><a href="#螺旋矩阵" class="headerlink" title="螺旋矩阵"></a>螺旋矩阵</h2><blockquote>
-<p>题目链接 <a target="_blank" rel="noopener" href="https://leetcode.cn/problems/spiral-matrix/">leetcode</a></p>
-</blockquote>
-<p>&#x2F;&#x2F;TODO</p>
+<p>思路:在回溯中使用二维遍历放棋子,单独判断这个位置能不能放.</p>
 
         
     </div>
@@ -1147,7 +806,7 @@ public:
 <footer class="article-footer">
     <div class="article-more-info">
     <div class="article-date">
-  <time datetime="2023-03-20T10:45:20.000Z" itemprop="datePublished">2023-03-20</time>
+  <time datetime="2023-04-23T10:39:41.000Z" itemprop="datePublished">2023-04-23</time>
 </div>
     
     
@@ -1160,7 +819,7 @@ public:
   
     
       <article
-id="post-算法-day-1"
+id="post-算法-day-28"
 class="article article-type-post"
 >
 
@@ -1171,386 +830,145 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <blockquote>
-<p>本文参考自 <a target="_blank" rel="noopener" href="https://programmercarl.com/">代码随想录</a></p>
-</blockquote>
-<h2 id="数组基础"><a href="#数组基础" class="headerlink" title="数组基础"></a>数组基础</h2><p>数组是存放在连续内存空间上的相同类型数据的集合</p>
-<p>需要两点注意的是:</p>
-<ul>
-<li>数组下标都是从0开始的</li>
-<li>数组内存空间的地址是连续的</li>
-</ul>
-<p><strong>因为数组的在内存空间的地址是连续的,所以我们在删除或者增添元素的时候,就难免要移动其他元素的地址.数组的元素是不能删的,只能覆盖.</strong></p>
-<p>在C++中二维数组是连续分布的</p>
-<p>测试:</p>
-<pre><code class="c++">void test_arr() &#123;
-    int array[2][3] = &#123;
-        &#123;0, 1, 2&#125;,
-        &#123;3, 4, 5&#125;
-    &#125;;
-    cout &lt;&lt; &amp;array[0][0] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[0][1] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[0][2] &lt;&lt; endl;
-    cout &lt;&lt; &amp;array[1][0] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[1][1] &lt;&lt; &quot; &quot; &lt;&lt; &amp;array[1][2] &lt;&lt; endl;
-&#125;
-
-int main() &#123;
-    test_arr();
-&#125;
+        <h2 id="复原-IP-地址"><a href="#复原-IP-地址" class="headerlink" title="复原 IP 地址"></a>复原 IP 地址</h2><p>有效 IP 地址 正好由四个整数（每个整数位于 0 到 255 之间组成，且不能含有前导 0），整数之间用 ‘.’ 分隔。</p>
+<p>例如：”0.1.2.201” 和 “192.168.1.1” 是 有效 IP 地址，但是 “0.011.255.245”、”192.168.1.312” 和 “<a href="mailto:&#49;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#64;&#x31;&#x2e;&#x31;">&#49;&#x39;&#50;&#x2e;&#49;&#x36;&#56;&#64;&#x31;&#x2e;&#x31;</a>“ 是 无效 IP 地址。<br>给定一个只包含数字的字符串 s ，用以表示一个 IP 地址，返回所有可能的有效 IP 地址，这些地址可以通过在 s 中插入 ‘.’ 来形成。你 不能 重新排序或删除 s 中的任何数字。你可以按 任何 顺序返回答案。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;25525511135&quot;
+输出：[&quot;255.255.11.135&quot;,&quot;255.255.111.35&quot;]
 </code></pre>
-<p>结果:</p>
-<pre><code>0x20d4dffc90 0x20d4dffc94 0x20d4dffc98
-0x20d4dffc9c 0x20d4dffca0 0x20d4dffca4
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;0000&quot;
+输出：[&quot;0.0.0.0&quot;]
 </code></pre>
-<h2 id="二分查找"><a href="#二分查找" class="headerlink" title="二分查找"></a>二分查找</h2><p>给定一个 n 个元素有序的（升序）整型数组 nums 和一个目标值 target,写一个函数搜索 nums 中的 target,如果目标值存在返回下标,否则返回 -1</p>
-<p>示例 1:</p>
-<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 9     
-输出: 4       
-解释: 9 出现在 nums 中并且下标为 4     
+<p>示例 3：</p>
+<pre><code class="bash">输入：s = &quot;101023&quot;
+输出：[&quot;1.0.10.23&quot;,&quot;1.0.102.3&quot;,&quot;10.1.0.23&quot;,&quot;10.10.2.3&quot;,&quot;101.0.2.3&quot;]
 </code></pre>
-<p>示例 2:</p>
-<pre><code class="bash">输入: nums = [-1,0,3,5,9,12], target = 2     
-输出: -1        
-解释: 2 不存在 nums 中因此返回 -1     
-</code></pre>
-<p>提交:</p>
+<p>没写出来…</p>
 <pre><code class="C++">class Solution &#123;
-public:
-    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int low=0;
-        int high=nums.size()-1;
-        while(high&gt;=low)&#123;
-            int mid=low+(high-low)/2;
-            if(nums[mid]&gt;target)&#123;
-                high=mid-1;
-            &#125;else if(nums[mid]&lt;target)&#123;
-                low=mid+1;
-            &#125;else&#123;
-                return mid;
-            &#125;
-        &#125;
-        return -1;
-    &#125;
-&#125;;
-</code></pre>
-<p>这道题目的前提是数组为有序数组,同时题目还强调数组中无重复元素,因为一旦有重复元素,使用二分查找法返回的元素下标可能不是唯一的.</p>
-<p>二分查找涉及的很多的边界条件,逻辑比较简单.但较容易分不清到底是 while(left &lt; right) 还是 while(left &lt;&#x3D; right),到底是right &#x3D; middle呢,还是要right &#x3D; middle - 1.</p>
-<p>写二分法,区间的定义一般为两种,左闭右闭即[left, right],或者左闭右开即[left, right).</p>
-<p>例子如下:</p>
-<pre><code class="C++">// 版本一
-class Solution &#123;
-public:
-    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int left = 0;
-        int right = nums.size() - 1; // 定义target在左闭右闭的区间里,[left, right]
-        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效,所以用 &lt;=
-            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
-            if (nums[middle] &gt; target) &#123;
-                right = middle - 1; // target 在左区间,所以[left, middle - 1]
-            &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间,所以[middle + 1, right]
-            &#125; else &#123; // nums[middle] == target
-                return middle; // 数组中找到目标值,直接返回下标
-            &#125;
-        &#125;
-        // 未找到目标值
-        return -1;
-    &#125;
-&#125;;
-</code></pre>
-<pre><code class="C++">// 版本二
-class Solution &#123;
-public:
-    int search(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int left = 0;
-        int right = nums.size(); // 定义target在左闭右开的区间里,即:[left, right)
-        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间,所以使用 &lt;
-            int middle = left + ((right - left) &gt;&gt; 1);
-            if (nums[middle] &gt; target) &#123;
-                right = middle; // target 在左区间,在[left, middle)中
-            &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间,在[middle + 1, right)中
-            &#125; else &#123; // nums[middle] == target
-                return middle; // 数组中找到目标值,直接返回下标
-            &#125;
-        &#125;
-        // 未找到目标值
-        return -1;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h2><p>给定一个排序数组和一个目标值,在数组中找到目标值,并返回其索引.如果目标值不存在于数组中,返回它将会被按顺序插入的位置.</p>
-<p>你可以假设数组中无重复元素.</p>
-<p>示例 1:</p>
-<ul>
-<li><p>输入: [1,3,5,6], 5</p>
-</li>
-<li><p>输出: 2</p>
-</li>
-<li><p>示例 2:</p>
-</li>
-<li><p>输入: [1,3,5,6], 2</p>
-</li>
-<li><p>输出: 1</p>
-</li>
-</ul>
-<p>示例 3:</p>
-<ul>
-<li>输入: [1,3,5,6], 7</li>
-<li>输出: 4</li>
-</ul>
-<p>示例 4:</p>
-<ul>
-<li>输入: [1,3,5,6], 0</li>
-<li>输出: 0</li>
-</ul>
-<p><font color="red">未提交</font></p>
-<p>这题target插入有四种情况:</p>
-<ul>
-<li>target在数组所有元素之前</li>
-<li>target等于数组中某一个元素</li>
-<li>target插入数组中的位置</li>
-<li>target在数组所有元素之后</li>
-</ul>
-<p>二分查找(左闭右闭区间)如果一直没找到相等值,最终一定会 <code>low=high-1</code> -&gt; <code>low=high</code></p>
-<p>当<code>low=high</code>时</p>
-<ul>
-<li><code>target&lt;nums[mid]</code> -&gt; <code>high=mid-1</code>,即<code>high=low-1</code>,返回low、high+1</li>
-<li><code>target&gt;nums[mid]</code> -&gt; <code>low=mid+1</code> ,即<code>low=high+1</code>,返回low、high+1</li>
-</ul>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int n = nums.size();
-        int left = 0;
-        int right = n - 1; // 定义target在左闭右闭的区间里,[left, right]
-        while (left &lt;= right) &#123; // 当left==right,区间[left, right]依然有效
-            int middle = left + ((right - left) / 2);// 防止溢出 等同于(left + right)/2
-            if (nums[middle] &gt; target) &#123;
-                right = middle - 1; // target 在左区间,所以[left, middle - 1]
-            &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间,所以[middle + 1, right]
-            &#125; else &#123; // nums[middle] == target
-                return middle;
-            &#125;
-        &#125;
-        // 分别处理如下四种情况
-        // 目标值在数组所有元素之前  [0, -1]
-        // 目标值等于数组中某一个元素  return middle;
-        // 目标值插入数组中的位置 [left, right],return  right + 1
-        // 目标值在数组所有元素之后的情况 [left, right], 因为是右闭区间,所以 return right + 1
-        return right + 1;
-    &#125;
-&#125;;
-</code></pre>
-<pre><code class="C++">class Solution &#123;
-public:
-    int searchInsert(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int n = nums.size();
-        int left = 0;
-        int right = n; // 定义target在左闭右开的区间里,[left, right)  target
-        while (left &lt; right) &#123; // 因为left == right的时候,在[left, right)是无效的空间
-            int middle = left + ((right - left) &gt;&gt; 1);
-            if (nums[middle] &gt; target) &#123;
-                right = middle; // target 在左区间,在[left, middle)中
-            &#125; else if (nums[middle] &lt; target) &#123;
-                left = middle + 1; // target 在右区间,在 [middle+1, right)中
-            &#125; else &#123; // nums[middle] == target
-                return middle; // 数组中找到目标值的情况,直接返回下标
-            &#125;
-        &#125;
-        // 分别处理如下四种情况
-        // 目标值在数组所有元素之前 [0,0)
-        // 目标值等于数组中某一个元素 return middle
-        // 目标值插入数组中的位置 [left, right) ,return right 即可
-        // 目标值在数组所有元素之后的情况 [left, right),因为是右开区间,所以 return right
-        return right;
-    &#125;
-&#125;;
-</code></pre>
-<h2 id="在排序数组中查找元素的第一个和最后一个位置"><a href="#在排序数组中查找元素的第一个和最后一个位置" class="headerlink" title="在排序数组中查找元素的第一个和最后一个位置"></a>在排序数组中查找元素的第一个和最后一个位置</h2><p>给你一个按照非递减顺序排列的整数数组 nums,和一个目标值 target.请你找出给定目标值在数组中的开始位置和结束位置.</p>
-<p>如果数组中不存在目标值 target,返回 [-1, -1].</p>
-<p>你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题.</p>
-<p>示例 1:</p>
-<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 8
-输出:[3,4]
-</code></pre>
-<p>示例 2:</p>
-<pre><code class="bash">输入:nums = [5,7,7,8,8,10], target = 6
-输出:[-1,-1]
-</code></pre>
-<p>示例 3:</p>
-<pre><code class="bash">输入:nums = [], target = 0
-输出:[-1,-1]
-</code></pre>
-<p>提交:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int low=0;
-        int high=nums.size()-1;
-        int mid=search(nums,target,low,high);
-        if(mid==-1)&#123;
-            return &#123;-1,-1&#125;;
-        &#125;
-        int right=mid,left=mid;
-        //注意可以在循环括号中赋值并判断,但不能初始化(重复初始化)
-        //重复计算,每次二分查找low都为0
-        while((mid=search(nums,target,low,left-1))!=-1)&#123;
-            left=mid;
-        &#125;
-        while((mid=search(nums,target,right + 1, high))!=-1)&#123;
-            right=mid;
-        &#125;
-        return &#123;left,right&#125;;
-    &#125;
-
-    int search(vector&lt;int&gt;&amp; nums, int target,int low,int high) &#123;
-        while(high&gt;=low)&#123;
-            int mid=low+(high-low)/2;
-            if(nums[mid]&gt;target)&#123;
-                high=mid-1;
-            &#125;else if(nums[mid]&lt;target)&#123;
-                low=mid+1;
-            &#125;else&#123;
-                return mid;
-            &#125;
-        &#125;
-        return -1;
-    &#125;
-&#125;;
-</code></pre>
-<p>思路先做一次二分查找,再不断向左向右二分查找,直到找不到值.</p>
-<p><font color="red">但是代码有重复计算,每次二分查找都是low&#x3D;0或者high&#x3D;nums.size()-1,实际上,在循环过程中,因为上次循环计算过low和high,下次循环应该从上次计算的边界开始.</font></p>
-<p><font color="red">leetcode优质回答:</font></p>
-<pre><code class="C++">class Solution &#123;
-public:
-    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
-        return &#123;find(nums, target, true), find(nums, target, false)&#125;;
-    &#125;
-
-    int find(vector&lt;int&gt; nums, int target, bool minType) &#123;
-        int left = 0, right = nums.size() - 1;
-        int ans = -1;
-        while (left &lt;= right) &#123;
-            int mid = left + (right - left) / 2;
-            if (nums[mid] == target) &#123;
-                //只有在相等的时候才更新边界!
-                ans = mid;
-                if (minType) &#123;
-                    right = mid - 1;
-                &#125; else &#123;
-                    left = mid + 1;
-                &#125;
-            &#125; else if (target &lt; nums[mid]) &#123;
-                right = mid - 1;
-            &#125; else &#123;
-                left = mid + 1;
-            &#125;
-        &#125;
-        return ans;
-    &#125;
-&#125;;
-</code></pre>
-<p>寻找target在数组里的左右边界,有如下三种情况:</p>
-<ul>
-<li><p>情况一:target 在数组范围的右边或者左边,例如数组{3, 4, 5},target为2或者数组{3, 4, 5},target为6,此时应该返回{-1, -1}</p>
-</li>
-<li><p>情况二:target 在数组范围中,且数组中不存在target,例如数组{3,6,7},target为5,此时应该返回{-1, -1}</p>
-</li>
-<li><p>情况三:target 在数组范围中,且数组中存在target,例如数组{3,6,7},target为6,此时应该返回{1, 1}</p>
-</li>
-</ul>
-<p>示例代码:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    vector&lt;int&gt; searchRange(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int leftBorder = getLeftBorder(nums, target);
-        int rightBorder = getRightBorder(nums, target);
-        // 情况一
-        if (leftBorder == -2 || rightBorder == -2) return &#123;-1, -1&#125;;
-        // 情况三
-        if (rightBorder - leftBorder &gt; 1) return &#123;leftBorder + 1, rightBorder - 1&#125;;
-        // 情况二
-        return &#123;-1, -1&#125;;
-    &#125;
 private:
-     int getRightBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int left = 0;
-        int right = nums.size() - 1;
-        int rightBorder = -2; // 记录一下rightBorder没有被赋值的情况
-        while (left &lt;= right) &#123;
-            int middle = left + ((right - left) / 2);
-            if (nums[middle] &gt; target) &#123;
-                right = middle - 1;
-            &#125; else &#123; // 寻找右边界,nums[middle] == target的时候更新left
-                left = middle + 1;
-                rightBorder = left;
+    vector&lt;string&gt; result;// 记录结果
+    // startIndex: 搜索的起始位置，pointNum:添加逗点的数量
+    void backtracking(string&amp; s, int startIndex, int pointNum) &#123;
+        if (pointNum == 3) &#123; // 逗点数量为3时，分隔结束
+            // 判断第四段子字符串是否合法，如果合法就放进result中
+            if (isValid(s, startIndex, s.size() - 1)) &#123;
+                result.push_back(s);
             &#125;
+            return;
         &#125;
-        return rightBorder;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isValid(s, startIndex, i)) &#123; // 判断 [startIndex,i] 这个区间的子串是否合法
+                s.insert(s.begin() + i + 1 , &#39;.&#39;);  // 在i的后面插入一个逗点
+                pointNum++;
+                backtracking(s, i + 2, pointNum);   // 插入逗点之后下一个子串的起始位置为i+2
+                pointNum--;                         // 回溯
+                s.erase(s.begin() + i + 1);         // 回溯删掉逗点
+            &#125; else break; // 不合法，直接结束本层循环
+        &#125;
     &#125;
-    int getLeftBorder(vector&lt;int&gt;&amp; nums, int target) &#123;
-        int left = 0;
-        int right = nums.size() - 1;
-        int leftBorder = -2; // 记录一下leftBorder没有被赋值的情况
-        while (left &lt;= right) &#123;
-            int middle = left + ((right - left) / 2);
-            if (nums[middle] &gt;= target) &#123; // 寻找左边界,nums[middle] == target的时候更新right
-                right = middle - 1;
-                leftBorder = right;
-            &#125; else &#123;
-                left = middle + 1;
+    // 判断字符串s在左闭又闭区间[start, end]所组成的数字是否合法
+    bool isValid(const string&amp; s, int start, int end) &#123;
+        if (start &gt; end) &#123;
+            return false;
+        &#125;
+        if (s[start] == &#39;0&#39; &amp;&amp; start != end) &#123; // 0开头的数字不合法
+                return false;
+        &#125;
+        int num = 0;
+        for (int i = start; i &lt;= end; i++) &#123;
+            if (s[i] &gt; &#39;9&#39; || s[i] &lt; &#39;0&#39;) &#123; // 遇到非数字字符不合法
+                return false;
+            &#125;
+            num = num * 10 + (s[i] - &#39;0&#39;);
+            if (num &gt; 255) &#123; // 如果大于255了不合法
+                return false;
             &#125;
         &#125;
-        return leftBorder;
+        return true;
+    &#125;
+public:
+    vector&lt;string&gt; restoreIpAddresses(string s) &#123;
+        result.clear();
+        if (s.size() &lt; 4 || s.size() &gt; 12) return result; // 算是剪枝了
+        backtracking(s, 0, 0);
+        return result;
     &#125;
 &#125;;
 </code></pre>
-<h2 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a>移除元素</h2><p>给你一个数组 nums 和一个值 val,你需要 原地 移除所有数值等于 val 的元素,并返回移除后数组的新长度.</p>
-<p>不要使用额外的数组空间,你必须仅使用 O(1) 额外空间并原地修改输入数组.</p>
-<p>元素的顺序可以改变.你不需要考虑数组中超出新长度后面的元素.</p>
-<p>示例 1: 给定 nums &#x3D; [3,2,2,3], val &#x3D; 3, 函数应该返回新的长度 2, 并且 nums 中的前两个元素均为 2. 你不需要考虑数组中超出新长度后面的元素.</p>
-<p>示例 2: 给定 nums &#x3D; [0,1,2,2,3,0,4,2], val &#x3D; 2, 函数应该返回新的长度 5, 并且 nums 中的前五个元素为 0, 1, 3, 0, 4.</p>
-<p>你不需要考虑数组中超出新长度后面的元素.</p>
-<p>leetcode提交:</p>
+<h2 id="子集"><a href="#子集" class="headerlink" title="子集"></a>子集</h2><p>给你一个整数数组 nums ，数组中的元素 互不相同 。返回该数组所有可能的子集（幂集）。</p>
+<p>解集 不能 包含重复的子集。你可以按 任意顺序 返回解集。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,3]
+输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0]
+输出：[[],[0]]
+</code></pre>
+<p>提交:</p>
 <pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
 public:
-    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
-        if(nums.size()==0)&#123;
-            return 0;
+    vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        result.push_back(path);
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            path.push_back(nums[i]);
+            result.push_back(path);
+            backtracking(nums,i+1,path);
+            path.pop_back();
         &#125;
-        int slow=0,fast=0;
-        while(slow&lt;nums.size()&amp;&amp;nums[slow]!=val)&#123;
-            slow++;
-            fast++;
-        &#125;
-        for(;fast&lt;nums.size();fast++)&#123;
-            if(nums[fast]==val)&#123;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="子集-II"><a href="#子集-II" class="headerlink" title="子集 II"></a>子集 II</h2><p>给你一个整数数组 nums ，其中可能包含重复元素，请你返回该数组所有可能的子集（幂集）。</p>
+<p>解集 不能 包含重复的子集。返回的解集中，子集可以按 任意顺序 排列。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,2]
+输出：[[],[1],[1,2],[1,2,2],[2],[2,2]]  
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0]
+输出：[[],[0]]
+</code></pre>
+<p>思路: sort 再同一层去重</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; subsetsWithDup(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        result.push_back(path);
+        sort(nums.begin(),nums.end());
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        int pre=-11;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            if(nums[i]==pre)&#123;
                 continue;
-            &#125;else&#123;
-                nums[slow]=nums[fast];
-                slow++;
             &#125;
+            path.push_back(nums[i]);
+            result.push_back(path);
+            backtracking(nums,i+1,path);
+            path.pop_back();
+            pre=nums[i];
         &#125;
-        return slow;
-    &#125;
-&#125;;
-</code></pre>
-<p>例子:</p>
-<pre><code class="C++">class Solution &#123;
-public:
-    int removeElement(vector&lt;int&gt;&amp; nums, int val) &#123;
-        int slowIndex = 0;
-        for (int fastIndex = 0; fastIndex &lt; nums.size(); fastIndex++) &#123;
-            if (val != nums[fastIndex]) &#123;
-                nums[slowIndex++] = nums[fastIndex];
-            &#125;
-        &#125;
-        return slowIndex;
     &#125;
 &#125;;
 </code></pre>
@@ -1569,13 +987,9 @@ public:
 <footer class="article-footer">
     <div class="article-more-info">
     <div class="article-date">
-  <time datetime="2023-03-16T10:07:27.000Z" itemprop="datePublished">2023-03-16</time>
+  <time datetime="2023-04-23T10:37:44.000Z" itemprop="datePublished">2023-04-23</time>
 </div>
     
-    
-        <div class="article-tag">
-        <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
-        </div>
     
     </div>
 </footer>
@@ -1586,7 +1000,7 @@ public:
   
     
       <article
-id="post-hello-world"
+id="post-算法-day-27"
 class="article article-type-post"
 >
 
@@ -1597,23 +1011,287 @@ class="article article-type-post"
 
     <div class="article-body">
     <header class="article-title">
-        <a href="/2023/03/16/hello-world/">Hello World</a>
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-27/">算法 | day 27</a>
     </header>
     <div class="article-entry post-inner-html">
         
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+        <p>给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。</p>
+<p>candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。 </p>
+<p>对于给定的输入，保证和为 target 的不同组合数少于 150 个。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：candidates = [2,3,6,7], target = 7
+输出：[[2,2,3],[7]]
+解释：
+2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+7 也是一个候选， 7 = 7 。
+仅有这两种组合。
+</code></pre>
+<p>没写出来…</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target, int sum, int startIndex) &#123;
+        if (sum == target) &#123;
+            result.push_back(path);
+            return;
+        &#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+        // 如果 sum + candidates[i] &gt; target 就终止遍历
+        for (int i = startIndex; i &lt; candidates.size() &amp;&amp; sum + candidates[i] &lt;= target; i++) &#123;
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            backtracking(candidates, target, sum, i);
+            sum -= candidates[i];
+            path.pop_back();
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        result.clear();
+        path.clear();
+        sort(candidates.begin(), candidates.end()); // 需要排序
+        backtracking(candidates, target, 0, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>实际上不难 <code>backtracking(candidates, target, sum, i);</code> 就重复利用了所有元素.<br>先将数组sort方便了剪枝.</p>
+<h2 id="组合总和-II"><a href="#组合总和-II" class="headerlink" title="组合总和 II"></a>组合总和 II</h2><p>给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的每个数字在每个组合中只能使用 一次 。</p>
+<p>注意：解集不能包含重复的组合。 </p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: candidates = [10,1,2,7,6,1,5], target = 8,
+输出:
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: candidates = [2,5,2,1,2], target = 5,
+输出:
+[
+[1,2,2],
+[5]
+]
+</code></pre>
+<p>思路 有重复元素就要考虑去重,先<code>sort</code>,在看当前元素是不是和前一个元素相同.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        vector&lt;int&gt; nums;
+        nums.clear();
+        result.clear();
+        sort(candidates.begin(),candidates.end());
+        backtracking(candidates,target,nums,0);
+        return result;
+    &#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target,vector&lt;int&gt;&amp; nums,int start)&#123;
+        if(target==0)&#123;
+            result.push_back(nums);
+        &#125;
+        int pre=0;
+        for(int i=start;i&lt;candidates.size()&amp;&amp;candidates[i]&lt;=target;i++)&#123;
+            if(candidates[i]==pre)&#123;
+                continue;
+            &#125;
+            nums.push_back(candidates[i]);
+            backtracking(candidates,target-candidates[i],nums,i+1);
+            nums.pop_back();
+            pre=candidates[i];
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>或者使用一个used数组:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target, int sum, int startIndex, vector&lt;bool&gt;&amp; used) &#123;
+        if (sum == target) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; candidates.size() &amp;&amp; sum + candidates[i] &lt;= target; i++) &#123;
+            // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
+            // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
+            // 要对同一树层使用过的元素进行跳过
+            if (i &gt; 0 &amp;&amp; candidates[i] == candidates[i - 1] &amp;&amp; used[i - 1] == false) &#123;
+                continue;
+            &#125;
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            used[i] = true;
+            backtracking(candidates, target, sum, i + 1, used); // 和39.组合总和的区别1，这里是i+1，每个数字在每个组合中只能使用一次
+            used[i] = false;
+            sum -= candidates[i];
+            path.pop_back();
+        &#125;
+    &#125;
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        vector&lt;bool&gt; used(candidates.size(), false);
+        path.clear();
+        result.clear();
+        // 首先把给candidates排序，让其相同的元素都挨在一起。
+        sort(candidates.begin(), candidates.end());
+        backtracking(candidates, target, 0, 0, used);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="分割回文串"><a href="#分割回文串" class="headerlink" title="分割回文串"></a>分割回文串</h2><p>给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。</p>
+<p>回文串 是正着读和反着读都一样的字符串。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;aab&quot;
+输出：[[&quot;a&quot;,&quot;a&quot;,&quot;b&quot;],[&quot;aa&quot;,&quot;b&quot;]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;a&quot;
+输出：[[&quot;a&quot;]]
+</code></pre>
+<p>刚开始判断回文串没转过弯来…</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        vector&lt;string&gt; path;
+        path.clear();
+        result.clear();
+        backtracking(s,0,path);
+        return result;
+    &#125;
+
+    void backtracking(const string&amp; s,int start,vector&lt;string&gt;&amp; path)&#123;
+        if(start==s.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for(int end=start;end&lt;=s.size();end++)&#123;
+            if(judge(s,start,end))&#123;
+                string a(s.begin()+start,s.begin()+end+1);
+                path.push_back(a);
+                backtracking(s,end+1,path);
+                path.pop_back();
+            &#125;
+        &#125;
+    &#125;
+
+    bool judge(const string&amp; s,int start,int end)&#123;
+        int left=start;
+        int right=end;
+        while(left&lt;right)&#123;
+            if(s[left]!=s[right])&#123;
+                return false;
+            &#125;
+            left++;
+            right--;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+    vector&lt;string&gt; path; // 放已经回文的子串
+    void backtracking (const string&amp; s, int startIndex) &#123;
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex &gt;= s.size()) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isPalindrome(s, startIndex, i)) &#123;   // 是回文子串
+                // 获取[startIndex,i]在s中的子串
+                string str = s.substr(startIndex, i - startIndex + 1);
+                path.push_back(str);
+            &#125; else &#123;                                // 不是回文，跳过
+                continue;
+            &#125;
+            backtracking(s, i + 1); // 寻找i+1为起始位置的子串
+            path.pop_back(); // 回溯过程，弹出本次已经填在的子串
+        &#125;
+    &#125;
+    bool isPalindrome(const string&amp; s, int start, int end) &#123;
+        for (int i = start, j = end; i &lt; j; i++, j--) &#123;
+            if (s[i] != s[j]) &#123;
+                return false;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        result.clear();
+        path.clear();
+        backtracking(s, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>string有<code>substr</code>函数</p>
+<p>优化:<br>上面的代码还存在一定的优化空间, 在于如何更高效的计算一个子字符串是否是回文字串。上述代码isPalindrome函数运用双指针的方法来判定对于一个字符串s, 给定起始下标和终止下标, 截取出的子字符串是否是回文字串。但是其中有一定的重复计算存在:</p>
+<p>例如给定字符串”abcde”, 在已知”bcd”不是回文字串时, 不再需要去双指针操作”abcde”而可以直接判定它一定不是回文字串。</p>
+<p>具体来说, 给定一个字符串s, 长度为n, 它成为回文字串的充分必要条件是s[0] &#x3D;&#x3D; s[n-1]且s[1:n-1]是回文字串。</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+    vector&lt;string&gt; path; // 放已经回文的子串
+    vector&lt;vector&lt;bool&gt;&gt; isPalindrome; // 放事先计算好的是否回文子串的结果
+    void backtracking (const string&amp; s, int startIndex) &#123;
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex &gt;= s.size()) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isPalindrome[startIndex][i]) &#123;   // 是回文子串
+                // 获取[startIndex,i]在s中的子串
+                string str = s.substr(startIndex, i - startIndex + 1);
+                path.push_back(str);
+            &#125; else &#123;                                // 不是回文，跳过
+                continue;
+            &#125;
+            backtracking(s, i + 1); // 寻找i+1为起始位置的子串
+            path.pop_back(); // 回溯过程，弹出本次已经填在的子串
+        &#125;
+    &#125;
+    void computePalindrome(const string&amp; s) &#123;
+        // isPalindrome[i][j] 代表 s[i:j](双边包括)是否是回文字串 
+        isPalindrome.resize(s.size(), vector&lt;bool&gt;(s.size(), false)); // 根据字符串s, 刷新布尔矩阵的大小
+        for (int i = s.size() - 1; i &gt;= 0; i--) &#123; 
+            // 需要倒序计算, 保证在i行时, i+1行已经计算好了
+            for (int j = i; j &lt; s.size(); j++) &#123;
+                if (j == i) &#123;isPalindrome[i][j] = true;&#125;
+                else if (j - i == 1) &#123;isPalindrome[i][j] = (s[i] == s[j]);&#125;
+                else &#123;isPalindrome[i][j] = (s[i] == s[j] &amp;&amp; isPalindrome[i+1][j-1]);&#125;
+            &#125;
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        result.clear();
+        path.clear();
+        computePalindrome(s);
+        backtracking(s, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
 
         
     </div>
@@ -1629,7 +1307,550 @@ class="article article-type-post"
 <footer class="article-footer">
     <div class="article-more-info">
     <div class="article-date">
-  <time datetime="2023-03-16T05:54:35.612Z" itemprop="datePublished">2023-03-16</time>
+  <time datetime="2023-04-23T10:37:26.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-23"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-23/">算法 | day 23</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:37:06.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-22"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-22/">算法 | day 22</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:36:34.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-21"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-21/">算法 | day 21</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="二叉搜索树的最小绝对差"><a href="#二叉搜索树的最小绝对差" class="headerlink" title="二叉搜索树的最小绝对差"></a>二叉搜索树的最小绝对差</h2><p>给你一个二叉搜索树的根节点 root ，返回 树中任意两不同节点值之间的最小差值 。</p>
+<p>差值是一个正数，其数值等于两值之差的绝对值。</p>
+<p>思路:中序遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    int preValue;
+    bool init=false;
+    int min=INT_MAX;
+public:
+    int getMinimumDifference(TreeNode* root) &#123;
+        traversal(root);
+        return min;
+    &#125;
+
+    void traversal(TreeNode* root)&#123;
+        if(root==NULL)&#123;
+            return;
+        &#125;
+        traversal(root-&gt;left);
+        int value;
+        if(!init)&#123;
+            init=true;
+        &#125;else if((value=root-&gt;val-preValue)&lt;min)&#123;
+            min=value;
+        &#125;
+        preValue=root-&gt;val;
+        traversal(root-&gt;right);
+    &#125;
+&#125;;
+</code></pre>
+<p>提交的迭代法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int getMinimumDifference(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        TreeNode* cur;
+        TreeNode* pre=NULL;
+        int min=INT_MAX;
+        cur=root;
+        while(cur!=NULL||!st.empty())&#123;
+            if(cur!=NULL)&#123;
+                st.push(cur);
+                cur=cur-&gt;left;
+            &#125;else&#123;
+                cur=st.top();
+                if(pre!=NULL&amp;&amp;cur-&gt;val-pre-&gt;val&lt;min)&#123;
+                    min=cur-&gt;val-pre-&gt;val;
+                &#125;
+                pre=cur;
+                st.pop();
+                cur=cur-&gt;right;
+            &#125;
+        &#125;
+
+        return min;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="二叉搜索树中的众数"><a href="#二叉搜索树中的众数" class="headerlink" title="二叉搜索树中的众数"></a>二叉搜索树中的众数</h2><p>给你一个含重复值的二叉搜索树（BST）的根节点 root ，找出并返回 BST 中的所有 众数（即，出现频率最高的元素）。</p>
+<p>如果树中有不止一个众数，可以按 任意顺序 返回。</p>
+<p>假定 BST 满足如下定义：</p>
+<ul>
+<li>结点左子树中所含节点的值 小于等于 当前节点的值</li>
+<li>结点右子树中所含节点的值 大于等于 当前节点的值</li>
+<li>左子树和右子树都是二叉搜索树</li>
+</ul>
+<p>思路:使用中序遍历 迭代法…</p>
+<p>提交:迭代法</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    
+public:
+    vector&lt;int&gt; findMode(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        vector&lt;int&gt; res;
+        TreeNode* cur;
+        TreeNode* pre=NULL;
+        int maxNum=1;
+        int tmp=1;
+
+        cur=root;
+        while(cur!=NULL||!st.empty())&#123;
+            if(cur!=NULL)&#123;
+                st.push(cur);
+                cur=cur-&gt;left;
+            &#125;else&#123;
+                cur=st.top();
+                if(pre!=NULL&amp;&amp;cur-&gt;val==pre-&gt;val)&#123;
+                    tmp+=1;
+                &#125;else if(pre!=NULL)&#123;
+                    tmp=1;
+                &#125;
+
+                if(tmp==maxNum)&#123;
+                    res.push_back(cur-&gt;val);
+                &#125;else if(tmp&gt;maxNum)&#123;
+                    maxNum=tmp;
+                    res.clear();
+                    res.push_back(cur-&gt;val);
+                &#125;
+
+                pre=cur;
+                st.pop();
+                cur=cur-&gt;right;
+            &#125;
+        &#125;
+
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:35:31.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-20"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-20/">算法 | day 20</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="最大二叉树"><a href="#最大二叉树" class="headerlink" title="最大二叉树"></a>最大二叉树</h2><p>给定一个不重复的整数数组 nums 。 最大二叉树 可以用下面的算法从 nums 递归地构建:</p>
+<p>创建一个根节点，其值为 nums 中的最大值。<br>递归地在最大值 左边 的 子数组前缀上 构建左子树。<br>递归地在最大值 右边 的 子数组后缀上 构建右子树。<br>返回 nums 构建的 最大二叉树 。</p>
+<p>思路:暴力找出最大值,但是多了重复的遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        if(nums.empty())&#123;
+            return NULL;
+        &#125;
+        return construct(nums,0,nums.size()-1);
+    &#125;
+
+    TreeNode* construct(vector&lt;int&gt;&amp; nums,int start,int end)&#123;
+        if(end&lt;start)&#123;
+            return NULL;
+        &#125;
+        int max=INT_MIN;
+        int k=start;
+        for(int i=start;i&lt;=end;i++)&#123;
+            if(nums[i]&gt;max)&#123;
+                max=nums[i];
+                k=i;
+            &#125;
+        &#125;
+        TreeNode* node=new TreeNode(max);
+        node-&gt;left=construct(nums,start,k-1);
+        node-&gt;right=construct(nums,k+1,end);
+        return node;
+    &#125;
+&#125;;
+</code></pre>
+<p>方法:单调栈</p>
+<p>在最终构造出的树上，以 nums[i]为根节点的子树，在原数组中对应的区间，左边界为 nums[i]左侧第一个比它大的元素所在的位置，右边界为 nums[i]右侧第一个比它大的元素所在的位置。左右边界均为开边界。</p>
+<p>如果某一侧边界不存在，则那一侧边界为数组的边界。如果两侧边界均不存在，说明其为最大值，即根节点。</p>
+<p>并且：nums[i]的父结点是两个边界中较小的那个元素对应的节点。</p>
+<p>因此，我们的任务变为：找出每一个元素左侧和右侧第一个比它大的元素所在的位置。这就是一个经典的单调栈问题了。</p>
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        vector&lt;int&gt; stk;
+        vector&lt;int&gt; left(n, -1), right(n, -1);
+        vector&lt;TreeNode*&gt; tree(n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            tree[i] = new TreeNode(nums[i]);
+            while (!stk.empty() &amp;&amp; nums[i] &gt; nums[stk.back()]) &#123;
+                right[stk.back()] = i;
+                stk.pop_back();
+            &#125;
+            if (!stk.empty()) &#123;
+                left[i] = stk.back();
+            &#125;
+            stk.push_back(i);
+        &#125;
+
+        TreeNode* root = nullptr;
+        for (int i = 0; i &lt; n; ++i) &#123;
+            if (left[i] == -1 &amp;&amp; right[i] == -1) &#123;
+                root = tree[i];
+            &#125;
+            else if (right[i] == -1 || (left[i] != -1 &amp;&amp; nums[left[i]] &lt; nums[right[i]])) &#123;
+                tree[left[i]]-&gt;right = tree[i];
+            &#125;
+            else &#123;
+                tree[right[i]]-&gt;left = tree[i];
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;;
+</code></pre>
+<p>我们还可以把最后构造树的过程放进单调栈求解的步骤中，省去用来存储左右边界的数组。</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        vector&lt;int&gt; stk;
+        vector&lt;TreeNode*&gt; tree(n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            tree[i] = new TreeNode(nums[i]);
+            while (!stk.empty() &amp;&amp; nums[i] &gt; nums[stk.back()]) &#123;
+                tree[i]-&gt;left = tree[stk.back()];
+                stk.pop_back();
+            &#125;
+            if (!stk.empty()) &#123;
+                tree[stk.back()]-&gt;right = tree[i];
+            &#125;
+            stk.push_back(i);
+        &#125;
+        return tree[stk[0]];
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="合并二叉树"><a href="#合并二叉树" class="headerlink" title="合并二叉树"></a>合并二叉树</h2><p>给你两棵二叉树： root1 和 root2 。</p>
+<p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，不为 null 的节点将直接作为新二叉树的节点。</p>
+<p>返回合并后的二叉树。</p>
+<p>注意: 合并过程必须从两个树的根节点开始。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) &#123;
+        if(root1==NULL)&#123;
+            return root2;
+        &#125;else if(root2==NULL)&#123;
+            return root1;
+        &#125;
+        root1-&gt;val+=root2-&gt;val;
+        root1-&gt;left=mergeTrees(root1-&gt;left,root2-&gt;left);
+        root1-&gt;right=mergeTrees(root1-&gt;right,root2-&gt;right);
+        return root1;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法,使用队列(层序遍历):</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) &#123;
+        if (t1 == NULL) return t2;
+        if (t2 == NULL) return t1;
+        queue&lt;TreeNode*&gt; que;
+        que.push(t1);
+        que.push(t2);
+        while(!que.empty()) &#123;
+            TreeNode* node1 = que.front(); que.pop();
+            TreeNode* node2 = que.front(); que.pop();
+            // 此时两个节点一定不为空，val相加
+            node1-&gt;val += node2-&gt;val;
+
+            // 如果两棵树左节点都不为空，加入队列
+            if (node1-&gt;left != NULL &amp;&amp; node2-&gt;left != NULL) &#123;
+                que.push(node1-&gt;left);
+                que.push(node2-&gt;left);
+            &#125;
+            // 如果两棵树右节点都不为空，加入队列
+            if (node1-&gt;right != NULL &amp;&amp; node2-&gt;right != NULL) &#123;
+                que.push(node1-&gt;right);
+                que.push(node2-&gt;right);
+            &#125;
+
+            // 当t1的左节点 为空 t2左节点不为空，就赋值过去
+            if (node1-&gt;left == NULL &amp;&amp; node2-&gt;left != NULL) &#123;
+                node1-&gt;left = node2-&gt;left;
+            &#125;
+            // 当t1的右节点 为空 t2右节点不为空，就赋值过去
+            if (node1-&gt;right == NULL &amp;&amp; node2-&gt;right != NULL) &#123;
+                node1-&gt;right = node2-&gt;right;
+            &#125;
+        &#125;
+        return t1;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="二叉搜索树中的搜索"><a href="#二叉搜索树中的搜索" class="headerlink" title="二叉搜索树中的搜索"></a>二叉搜索树中的搜索</h2><p>给定二叉搜索树（BST）的根节点 root 和一个整数值 val。</p>
+<p>你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 null 。</p>
+<p>思路:二叉搜索树用中序遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* searchBST(TreeNode* root, int val) &#123;
+        if(!root)&#123;
+            return NULL;
+        &#125;
+        if(root-&gt;val==val)&#123;
+            return root;
+        &#125;else if(root-&gt;val&gt;val)&#123;
+            return searchBST(root-&gt;left, val);
+        &#125;else&#123;
+            return searchBST(root-&gt;right, val);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* searchBST(TreeNode* root, int val) &#123;
+        while (root != NULL) &#123;
+            if (root-&gt;val &gt; val) root = root-&gt;left;
+            else if (root-&gt;val &lt; val) root = root-&gt;right;
+            else return root;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h2><p>给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</p>
+<p>有效 二叉搜索树定义如下：</p>
+<ul>
+<li>节点的左子树只包含 小于 当前节点的数。</li>
+<li>节点的右子树只包含 大于 当前节点的数。</li>
+<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
+</ul>
+<p>思路:中序遍历</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    int curVal;
+    int init=false;
+public:
+    bool isValidBST(TreeNode* root) &#123;
+        if(root==NULL)&#123;
+            return true;
+        &#125;
+        bool b1=isValidBST(root-&gt;left);
+        if(!init)&#123;
+            curVal=root-&gt;val;
+            init=true;
+        &#125;else if(root-&gt;val&lt;=curVal)&#123;
+            return false;
+        &#125;
+        curVal=root-&gt;val;
+        bool b2=isValidBST(root-&gt;right);
+        return b1&amp;&amp;b2;
+    &#125;
+&#125;;
+</code></pre>
+<p>可以把上述代码中的curVal改为TreeNode节点,这样就不需要判断是否初始化:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* pre = NULL; // 用来记录前一个节点
+    bool isValidBST(TreeNode* root) &#123;
+        if (root == NULL) return true;
+        bool left = isValidBST(root-&gt;left);
+
+        if (pre != NULL &amp;&amp; pre-&gt;val &gt;= root-&gt;val) return false;
+        pre = root; // 记录前一个节点
+
+        bool right = isValidBST(root-&gt;right);
+        return left &amp;&amp; right;
+    &#125;
+&#125;;
+</code></pre>
+<p>也可以用迭代法,在二叉树的中序遍历基础上修改一下:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool isValidBST(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        TreeNode* cur = root;
+        TreeNode* pre = NULL; // 记录前一个节点
+        while (cur != NULL || !st.empty()) &#123;
+            if (cur != NULL) &#123;
+                st.push(cur);
+                cur = cur-&gt;left;                // 左
+            &#125; else &#123;
+                cur = st.top();                 // 中
+                st.pop();
+                if (pre != NULL &amp;&amp; cur-&gt;val &lt;= pre-&gt;val)
+                return false;
+                pre = cur; //保存前一个访问的结点
+
+                cur = cur-&gt;right;               // 右
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:34:22.000Z" itemprop="datePublished">2023-04-23</time>
 </div>
     
     
@@ -1641,6 +1862,10 @@ class="article article-type-post"
     
   
 
+  
+    <nav class="pagination">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next</a>
+    </nav>
   
 </div>
 
@@ -1676,23 +1901,23 @@ class="article article-type-post"
       <ul>
         
           <li>
-            <a href="/2023/03/22/SNPE%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">SNPE环境配置</a>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
           </li>
         
           <li>
-            <a href="/2023/03/22/%E7%AE%97%E6%B3%95-day-4/">算法 | day 4</a>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
           </li>
         
           <li>
-            <a href="/2023/03/21/%E7%AE%97%E6%B3%95-day-3/">算法 | day 3</a>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
           </li>
         
           <li>
-            <a href="/2023/03/20/%E7%AE%97%E6%B3%95-day-2/">算法 | day 2</a>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
           </li>
         
           <li>
-            <a href="/2023/03/16/%E7%AE%97%E6%B3%95-day-1/">算法 | day 1</a>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
           </li>
         
       </ul>

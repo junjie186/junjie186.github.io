@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:title" content=""/>
+    <meta property="og:description" content=""/>
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://example.com/page/2/index.html" />
+    <meta property="og:site_name" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "",
+            "description": "",
+            "publisher": {
+                "@type": "Organization",
+                "name": "John Doe"
+            },
+        }
+    </script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = false
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="index">
+  
+    
+      <article
+id="post-算法-day-15"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-15/">算法 | day 15</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="二叉树的层序遍历"><a href="#二叉树的层序遍历" class="headerlink" title="二叉树的层序遍历"></a>二叉树的层序遍历</h2><pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) &#123;
+        queue&lt;TreeNode*&gt; que;
+        if (root != NULL) que.push(root);
+        vector&lt;vector&lt;int&gt;&gt; result;
+        while (!que.empty()) &#123;
+            int size = que.size();
+            vector&lt;int&gt; vec;
+            // 这里一定要使用固定大小size，不要使用que.size()，因为que.size是不断变化的
+            for (int i = 0; i &lt; size; i++) &#123;
+                TreeNode* node = que.front();
+                que.pop();
+                vec.push_back(node-&gt;val);
+                if (node-&gt;left) que.push(node-&gt;left);
+                if (node-&gt;right) que.push(node-&gt;right);
+            &#125;
+            result.push_back(vec);
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="翻转二叉树"><a href="#翻转二叉树" class="headerlink" title="翻转二叉树"></a>翻转二叉树</h2><p>给你一棵二叉树的根节点 root ，翻转这棵二叉树，并返回其根节点。</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    TreeNode* invertTree(TreeNode* root) &#123;
+        reversal(root);
+        return root;
+    &#125;
+
+    void reversal(TreeNode* root)&#123;
+        if(root==nullptr)&#123;
+            return;
+        &#125;
+        reversal(root-&gt;right);
+        reversal(root-&gt;left);
+        TreeNode* tmp=root-&gt;right;
+        root-&gt;right=root-&gt;left;
+        root-&gt;left=tmp;
+    &#125;
+&#125;;
+</code></pre>
+<p>可以使用迭代法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* invertTree(TreeNode* root) &#123;
+        if (root == NULL) return root;
+        stack&lt;TreeNode*&gt; st;
+        st.push(root);
+        while(!st.empty()) &#123;
+            TreeNode* node = st.top();              // 中
+            st.pop();
+            swap(node-&gt;left, node-&gt;right);
+            if(node-&gt;right) st.push(node-&gt;right);   // 右
+            if(node-&gt;left) st.push(node-&gt;left);     // 左
+        &#125;
+        return root;
+    &#125;
+&#125;;
+</code></pre>
+<p>统一写法的迭代法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* invertTree(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();
+            if (node != NULL) &#123;
+                st.pop();
+                if (node-&gt;right) st.push(node-&gt;right);  // 右
+                if (node-&gt;left) st.push(node-&gt;left);    // 左
+                st.push(node);                          // 中
+                st.push(NULL);
+            &#125; else &#123;
+                st.pop();
+                node = st.top();
+                st.pop();
+                swap(node-&gt;left, node-&gt;right);          // 节点处理逻辑
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;;
+</code></pre>
+<p>广度优先遍历法</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* invertTree(TreeNode* root) &#123;
+        queue&lt;TreeNode*&gt; que;
+        if (root != NULL) que.push(root);
+        while (!que.empty()) &#123;
+            int size = que.size();
+            for (int i = 0; i &lt; size; i++) &#123;
+                TreeNode* node = que.front();
+                que.pop();
+                swap(node-&gt;left, node-&gt;right); // 节点处理
+                if (node-&gt;left) que.push(node-&gt;left);
+                if (node-&gt;right) que.push(node-&gt;right);
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="对称二叉树"><a href="#对称二叉树" class="headerlink" title="对称二叉树"></a>对称二叉树</h2><p>给你一个二叉树的根节点 root ， 检查它是否轴对称。</p>
+<p>思路:用递归</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    bool isSymmetric(TreeNode* root) &#123;
+        return compare(root-&gt;left,root-&gt;right);
+    &#125;
+
+    bool compare(TreeNode* left,TreeNode* right)&#123;
+        if(left==nullptr&amp;&amp;right==nullptr)&#123;
+            return true;
+        &#125;else if(left==nullptr||right==nullptr)&#123;
+            return false;
+        &#125;
+        return right-&gt;val==left-&gt;val&amp;&amp;compare(left-&gt;right,right-&gt;left)&amp;&amp;compare(left-&gt;left,right-&gt;right);
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:33:36.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-14"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-14/">算法 | day 14</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="二叉树的定义"><a href="#二叉树的定义" class="headerlink" title="二叉树的定义"></a>二叉树的定义</h2><pre><code class="C++">struct TreeNode &#123;
+    int val;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int x) : val(x), left(NULL), right(NULL) &#123;&#125;
+&#125;;
+</code></pre>
+<h2 id="二叉树的遍历"><a href="#二叉树的遍历" class="headerlink" title="二叉树的遍历"></a>二叉树的遍历</h2><p>前序遍历：</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    void traversal(TreeNode* cur, vector&lt;int&gt;&amp; vec) &#123;
+        if (cur == NULL) return;
+        vec.push_back(cur-&gt;val);    // 中
+        traversal(cur-&gt;left, vec);  // 左
+        traversal(cur-&gt;right, vec); // 右
+    &#125;
+    vector&lt;int&gt; preorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; result;
+        traversal(root, result);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>中序遍历：</p>
+<pre><code class="C++">void traversal(TreeNode* cur, vector&lt;int&gt;&amp; vec) &#123;
+    if (cur == NULL) return;
+    traversal(cur-&gt;left, vec);  // 左
+    vec.push_back(cur-&gt;val);    // 中
+    traversal(cur-&gt;right, vec); // 右
+&#125;
+</code></pre>
+<p>后序遍历:</p>
+<pre><code class="C++">void traversal(TreeNode* cur, vector&lt;int&gt;&amp; vec) &#123;
+    if (cur == NULL) return;
+    traversal(cur-&gt;left, vec);  // 左
+    traversal(cur-&gt;right, vec); // 右
+    vec.push_back(cur-&gt;val);    // 中
+&#125;
+</code></pre>
+<h2 id="二叉树的迭代遍历"><a href="#二叉树的迭代遍历" class="headerlink" title="二叉树的迭代遍历"></a>二叉树的迭代遍历</h2><p>前序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; preorderTraversal(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        vector&lt;int&gt; result;
+        if (root == NULL) return result;
+        st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();                       // 中
+            st.pop();
+            result.push_back(node-&gt;val);
+            if (node-&gt;right) st.push(node-&gt;right);           // 右（空节点不入栈）
+            if (node-&gt;left) st.push(node-&gt;left);             // 左（空节点不入栈）
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>中序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; result;
+        stack&lt;TreeNode*&gt; st;
+        TreeNode* cur = root;
+        while (cur != NULL || !st.empty()) &#123;
+            if (cur != NULL) &#123; // 指针来访问节点，访问到最底层
+                st.push(cur); // 将访问的节点放进栈
+                cur = cur-&gt;left;                // 左
+            &#125; else &#123;
+                cur = st.top(); // 从栈里弹出的数据，就是要处理的数据（放进result数组里的数据）
+                st.pop();
+                result.push_back(cur-&gt;val);     // 中
+                cur = cur-&gt;right;               // 右
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>后序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; postorderTraversal(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        vector&lt;int&gt; result;
+        if (root == NULL) return result;
+        st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();
+            st.pop();
+            result.push_back(node-&gt;val);
+            if (node-&gt;left) st.push(node-&gt;left); // 相对于前序遍历，这更改一下入栈顺序 （空节点不入栈）
+            if (node-&gt;right) st.push(node-&gt;right); // 空节点不入栈
+        &#125;
+        reverse(result.begin(), result.end()); // 将结果反转之后就是左右中的顺序了
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="二叉树的统一迭代法"><a href="#二叉树的统一迭代法" class="headerlink" title="二叉树的统一迭代法"></a>二叉树的统一迭代法</h2><p>迭代法前序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; preorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; result;
+        stack&lt;TreeNode*&gt; st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();
+            if (node != NULL) &#123;
+                st.pop();
+                if (node-&gt;right) st.push(node-&gt;right);  // 右
+                if (node-&gt;left) st.push(node-&gt;left);    // 左
+                st.push(node);                          // 中
+                st.push(NULL);
+            &#125; else &#123;
+                st.pop();
+                node = st.top();
+                st.pop();
+                result.push_back(node-&gt;val);
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法中序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; inorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; result;
+        stack&lt;TreeNode*&gt; st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();
+            if (node != NULL) &#123;
+                st.pop(); // 将该节点弹出，避免重复操作，下面再将右中左节点添加到栈中
+                if (node-&gt;right) st.push(node-&gt;right);  // 添加右节点（空节点不入栈）
+
+                st.push(node);                          // 添加中节点
+                st.push(NULL); // 中节点访问过，但是还没有处理，加入空节点做为标记。
+
+                if (node-&gt;left) st.push(node-&gt;left);    // 添加左节点（空节点不入栈）
+            &#125; else &#123; // 只有遇到空节点的时候，才将下一个节点放进结果集
+                st.pop();           // 将空节点弹出
+                node = st.top();    // 重新取出栈中元素
+                st.pop();
+                result.push_back(node-&gt;val); // 加入到结果集
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法后序遍历:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; postorderTraversal(TreeNode* root) &#123;
+        vector&lt;int&gt; result;
+        stack&lt;TreeNode*&gt; st;
+        if (root != NULL) st.push(root);
+        while (!st.empty()) &#123;
+            TreeNode* node = st.top();
+            if (node != NULL) &#123;
+                st.pop();
+                st.push(node);                          // 中
+                st.push(NULL);
+
+                if (node-&gt;right) st.push(node-&gt;right);  // 右
+                if (node-&gt;left) st.push(node-&gt;left);    // 左
+
+            &#125; else &#123;
+                st.pop();
+                node = st.top();
+                st.pop();
+                result.push_back(node-&gt;val);
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:32:40.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-9"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-9/">算法 | day 9</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:32:08.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-8"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-8/">算法 | day 8</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="反转字符串"><a href="#反转字符串" class="headerlink" title="反转字符串"></a>反转字符串</h2><p>编写一个函数，其作用是将输入的字符串反转过来。输入字符串以字符数组 s 的形式给出。</p>
+<p>不要给另外的数组分配额外的空间，你必须原地修改输入数组、使用 O(1) 的额外空间解决这一问题。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = [&quot;h&quot;,&quot;e&quot;,&quot;l&quot;,&quot;l&quot;,&quot;o&quot;]
+输出：[&quot;o&quot;,&quot;l&quot;,&quot;l&quot;,&quot;e&quot;,&quot;h&quot;]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = [&quot;H&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;h&quot;]
+输出：[&quot;h&quot;,&quot;a&quot;,&quot;n&quot;,&quot;n&quot;,&quot;a&quot;,&quot;H&quot;]
+</code></pre>
+<p>思路:双指针</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    void reverseString(vector&lt;char&gt;&amp; s) &#123;
+        int left=0;
+        int right=s.size()-1;
+        while(left&lt;right)&#123;
+            char tmp=s[left];
+            s[left]=s[right];
+            s[right]=tmp;
+            left++;
+            right--;
+        &#125;
+        
+    &#125;
+&#125;;
+</code></pre>
+<p>直接用库函数:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    void reverseString(vector&lt;char&gt;&amp; s) &#123;
+        reverse(s.begin(),s.end());
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    void reverseString(vector&lt;char&gt;&amp; s) &#123;
+        for (int i = 0, j = s.size() - 1; i &lt; s.size()/2; i++, j--) &#123;
+            swap(s[i],s[j]);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="反转字符串-II"><a href="#反转字符串-II" class="headerlink" title="反转字符串 II"></a>反转字符串 II</h2><p>给定一个字符串 s 和一个整数 k，从字符串开头算起，每计数至 2k 个字符，就反转这 2k 字符中的前 k 个字符。</p>
+<ul>
+<li>如果剩余字符少于 k 个，则将剩余字符全部反转。</li>
+<li>如果剩余字符小于 2k 但大于或等于 k 个，则反转前 k 个字符，其余字符保持原样。</li>
+</ul>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;abcdefg&quot;, k = 2
+输出：&quot;bacdfeg&quot;
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;abcd&quot;, k = 2
+输出：&quot;bacd&quot;
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    string reverseStr(string s, int k) &#123;
+        for(int i=0;i&lt;s.size();i+=2*k)&#123;
+            reverseString(s,i,i+k-1);
+        &#125;
+        return s;
+    &#125;
+
+    void reverseString(string&amp; s,int start,int end) &#123;
+        if(end&gt;=s.size())&#123;
+            end=s.size()-1;
+        &#125;
+        int left=start;
+        int right=end;
+        while(left&lt;right)&#123;
+            char tmp=s[left];
+            s[left]=s[right];
+            s[right]=tmp;
+            left++;
+            right--;
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">class Solution &#123;
+public:
+    string reverseStr(string s, int k) &#123;
+        for(int i=0;i&lt;s.size();i+=(2*k))&#123;
+            if(i+k&gt;s.size())&#123;
+                reverse(s.begin()+i,s.end());
+            &#125;else&#123;
+                //注意这里是s.begin()+i+k不是s.begin()+i+k-1
+                reverse(s.begin()+i,s.begin()+i+k);
+            &#125;
+        &#125;
+        return s;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="替换空格"><a href="#替换空格" class="headerlink" title="替换空格"></a>替换空格</h2><p>请实现一个函数，把字符串 s 中的每个空格替换成”%20”。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;We are happy.&quot;
+输出：&quot;We%20are%20happy.&quot;
+</code></pre>
+<p>思路:原地resize并替换</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    string replaceSpace(string s) &#123;
+        int count = 0;
+        for(int i=0;i&lt;s.size();i++)&#123;
+            if(s[i]==&#39; &#39;)&#123;
+                count+=1;
+            &#125;
+        &#125;
+        int left=s.size()-1;
+        int right=left+2*count;
+        s.resize(right+1);
+        while(left&lt;right)&#123;
+            if(s[left]==&#39; &#39;)&#123;
+                s[right--]=&#39;0&#39;;
+                s[right--]=&#39;2&#39;;
+                s[right--]=&#39;%&#39;;
+            &#125;else&#123;
+                s[right--]=s[left];
+            &#125;
+            left--;
+        &#125;
+        return s;
+    &#125;
+&#125;;
+</code></pre>
+<p>关于string的测试:</p>
+<pre><code class="C++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main()&#123;
+    /这里char数组的最小长度是4,因为最后一个要放&#39;\0&#39;
+    char a[4] = &quot;asd&quot;;
+    for (int i = 0; a[i] != &#39;\0&#39;; i++) &#123;
+        std::cout&lt;&lt;a[i];
+    &#125;
+
+    std::cout&lt;&lt;std::endl;
+    std::string b = &quot;asd&quot;;
+
+    for (int i = 0; i &lt; b.size(); i++) &#123;
+        std::cout&lt;&lt;b[i];
+    &#125;
+&#125;
+</code></pre>
+<h2 id="反转字符串中的单词"><a href="#反转字符串中的单词" class="headerlink" title="反转字符串中的单词"></a>反转字符串中的单词</h2><p>给你一个字符串 s ，请你反转字符串中 单词 的顺序。</p>
+<p>单词 是由非空格字符组成的字符串。s 中使用至少一个空格将字符串中的 单词 分隔开。</p>
+<p>返回 单词 顺序颠倒且 单词 之间用单个空格连接的结果字符串。</p>
+<p>注意：输入字符串 s中可能会存在前导空格、尾随空格或者单词间的多个空格。返回的结果字符串中，单词间应当仅用单个空格分隔，且不包含任何额外的空格。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;the sky is blue&quot;
+输出：&quot;blue is sky the&quot;
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;  hello world  &quot;
+输出：&quot;world hello&quot;
+解释：反转后的字符串中不能存在前导空格和尾随空格。
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：s = &quot;a good   example&quot;
+输出：&quot;example good a&quot;
+解释：如果两个单词间有多余的空格，反转后的字符串需要将单词间的空格减少到仅有一个。
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    string reverseWords(string s) &#123;
+        vector&lt;string&gt; keys;
+        for(int i=0;i&lt;s.size();i++)&#123;
+            if(s[i]==&#39; &#39;)&#123;
+                continue;
+            &#125;
+            int j=i;
+            while(j&lt;s.size()&amp;&amp;s[j]!=&#39; &#39;)&#123;
+                j++;
+            &#125;
+            //注意substr的参数是开始位置和截取个数
+            string tmp=s.substr(i,j-i);
+            i=j;
+            keys.push_back(tmp);
+        &#125;
+        string res;
+        for(int i=keys.size()-1;i&gt;0;i--)&#123;
+            res+=keys[i];
+            res+=&#39; &#39;;
+        &#125;
+        res+=keys[0];
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>原地修改的例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    void reverse(string&amp; s, int start, int end)&#123; //翻转，区间写法：左闭右闭 []
+        for (int i = start, j = end; i &lt; j; i++, j--) &#123;
+            swap(s[i], s[j]);
+        &#125;
+    &#125;
+
+    void removeExtraSpaces(string&amp; s) &#123;//去除所有空格并在相邻单词之间添加空格, 快慢指针。
+        int slow = 0;   //整体思想参考https://programmercarl.com/0027.移除元素.html
+        for (int i = 0; i &lt; s.size(); ++i) &#123; //
+            if (s[i] != &#39; &#39;) &#123; //遇到非空格就处理，即删除所有空格。
+                if (slow != 0) s[slow++] = &#39; &#39;; //手动控制空格，给单词之间添加空格。slow != 0说明不是第一个单词，需要在单词前添加空格。
+                while (i &lt; s.size() &amp;&amp; s[i] != &#39; &#39;) &#123; //补上该单词，遇到空格说明单词结束。
+                    s[slow++] = s[i++];
+                &#125;
+            &#125;
+        &#125;
+        s.resize(slow); //slow的大小即为去除多余空格后的大小。
+    &#125;
+
+    string reverseWords(string s) &#123;
+        removeExtraSpaces(s); //去除多余空格，保证单词之间之只有一个空格，且字符串首尾没空格。
+        reverse(s, 0, s.size() - 1);
+        int start = 0; //removeExtraSpaces后保证第一个单词的开始下标一定是0。
+        for (int i = 0; i &lt;= s.size(); ++i) &#123;
+            if (i == s.size() || s[i] == &#39; &#39;) &#123; //到达空格或者串尾，说明一个单词结束。进行翻转。
+                reverse(s, start, i - 1); //翻转，注意是左闭右闭 []的翻转。
+                start = i + 1; //更新下一个单词的开始下标start
+            &#125;
+        &#125;
+        return s;
+    &#125;
+&#125;;
+</code></pre>
+<p>思路:先去除多余的空格,再把整个字符串反转,再分别反转字符串中的单词</p>
+<h2 id="左旋转字符串"><a href="#左旋转字符串" class="headerlink" title="左旋转字符串"></a>左旋转字符串</h2><p>字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串”abcdefg”和数字2，该函数将返回左旋转两位得到的结果”cdefgab”。</p>
+<p>示例 1：</p>
+<pre><code>输入: s = &quot;abcdefg&quot;, k = 2
+输出: &quot;cdefgab&quot;
+</code></pre>
+<p>示例 2：</p>
+<pre><code>输入: s = &quot;lrloseumgh&quot;, k = 6
+输出: &quot;umghlrlose&quot;
+</code></pre>
+<p>没想到好方法</p>
+<p>例子思路:</p>
+<ol>
+<li>反转区间为前n的子串</li>
+<li>反转区间为n到末尾的子串</li>
+<li>反转整个字符串</li>
+</ol>
+<pre><code class="bash">class Solution &#123;
+public:
+    string reverseLeftWords(string s, int n) &#123;
+        reverse(s.begin(), s.begin() + n);
+        reverse(s.begin() + n, s.end());
+        reverse(s.begin(), s.end());
+        return s;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:31:30.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-7"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-7/">算法 | day 7</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="四数相加-II"><a href="#四数相加-II" class="headerlink" title="四数相加 II"></a>四数相加 II</h2><p>给你四个整数数组 nums1、nums2、nums3 和 nums4 ，数组长度都是 n ，请你计算有多少个元组 (i, j, k, l) 能满足：</p>
+<ul>
+<li>0 &lt;&#x3D; i, j, k, l &lt; n</li>
+<li>nums1[i] + nums2[j] + nums3[k] + nums4[l] &#x3D;&#x3D; 0</li>
+</ul>
+<p>思路:先遍历前两个数组,再遍历后两个数组,这样时间复杂度会是n^2</p>
+<p>写代码时把<code>map[a+b]</code>写成了<code>map(a+b)</code>,map不是函数…</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int fourSumCount(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2, vector&lt;int&gt;&amp; nums3, vector&lt;int&gt;&amp; nums4) &#123;
+        unordered_map&lt;int,int&gt; map;
+        int count = 0;
+        for(auto a : nums1)&#123;
+            for(auto b : nums2)&#123;
+                map[a+b]++;
+            &#125;
+        &#125;
+
+        for(auto c : nums3)&#123;
+            for(auto d : nums4)&#123;
+                if(map.find(-(c+d))!=map.end())&#123;
+                    count+=map[-(c+d)];
+                &#125;
+            &#125;
+        &#125;
+
+        return count;
+    &#125;
+&#125;;
+</code></pre>
+<h3 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h3><p>给你两个字符串：ransomNote 和 magazine ，判断 ransomNote 能不能由 magazine 里面的字符构成。</p>
+<p>如果可以，返回 true ；否则返回 false 。</p>
+<p>magazine 中的每个字符只能在 ransomNote 中使用一次。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：ransomNote = &quot;a&quot;, magazine = &quot;b&quot;
+输出：false
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：ransomNote = &quot;aa&quot;, magazine = &quot;ab&quot;
+输出：false
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：ransomNote = &quot;aa&quot;, magazine = &quot;aab&quot;
+输出：true
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool canConstruct(string ransomNote, string magazine) &#123;
+        int nums[26]=&#123;0&#125;;
+        for(int i=0;i&lt;magazine.size();i++)&#123;
+            nums[magazine[i]-&#39;a&#39;]++;
+        &#125;
+
+        for(int i=0;i&lt;ransomNote.size();i++)&#123;
+            if(nums[ransomNote[i]-&#39;a&#39;]==0)&#123;
+                return false;
+            &#125;
+
+            nums[ransomNote[i]-&#39;a&#39;]--;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><p>给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i !&#x3D; j、i !&#x3D; k 且 j !&#x3D; k ，同时还满足 nums[i] + nums[j] + nums[k] &#x3D;&#x3D; 0 。请你返回所有和为 0 且不重复的三元组。</p>
+<p>注意：<strong>答案中不可以包含重复的三元组。</strong></p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+解释：
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+注意，输出的顺序和三元组的顺序并不重要。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0,1,1]
+输出：[]
+解释：唯一可能的三元组和不为 0 。
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：nums = [0,0,0]
+输出：[[0,0,0]]
+解释：唯一可能的三元组和为 0 。
+</code></pre>
+<p>思路:先对整个数组进行排序,遍历一遍数组,使用双指针法.难在去重!</p>
+<p>看视频后的提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) &#123;
+        sort(nums.begin(),nums.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        for(int i=0;i&lt;nums.size()-2;i++)&#123;
+            //对a进行去重
+            if(i&gt;0&amp;&amp;nums[i]==nums[i-1])&#123;
+                continue;
+            &#125;
+            int left=i+1;
+            int right=nums.size()-1;
+            int a=nums[i];
+            while(left&lt;right)&#123;
+                int b=nums[left];
+                int c=nums[right];
+                if(a+b+c==0)&#123;
+                    vector&lt;int&gt; tmp=&#123;a,b,c&#125;;
+                    res.push_back(tmp);
+                    left++;
+                    right--;
+
+                    //对b c去重
+                    while(left&lt;right&amp;&amp;nums[left]==nums[left-1])&#123;
+                        left++;
+                    &#125;
+
+                    while(left&lt;right&amp;&amp;nums[right]==nums[right+1])&#123;
+                        right--;
+                    &#125;
+                &#125;else if(a+b+c&lt;0)&#123;
+                    left++;
+                &#125;else&#123;
+                    right--;
+                &#125;
+            &#125;
+        &#125;
+
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h2><p>给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] （若两个四元组元素一一对应，则认为两个四元组重复）：</p>
+<ul>
+<li>0 &lt;&#x3D; a, b, c, d &lt; n</li>
+<li>a、b、c 和 d 互不相同</li>
+<li>nums[a] + nums[b] + nums[c] + nums[d] &#x3D;&#x3D; target<br>你可以按 任意顺序 返回答案 。</li>
+</ul>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,0,-1,0,-2,2], target = 0
+输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [2,2,2,2,2], target = 8
+输出：[[2,2,2,2]]
+</code></pre>
+<p>思路:三数之和套个for循环</p>
+<p>因为可能会加法溢出,在加的时候转成long</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        if(nums.size()&lt;4)&#123;
+            return &#123;&#125;;
+        &#125;
+        sort(nums.begin(),nums.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        for(int j=0;j&lt;nums.size()-3;j++)&#123;
+            if(j&gt;0&amp;&amp;nums[j]==nums[j-1])&#123;
+                continue;
+            &#125;
+
+            int target2=target-nums[j];
+
+            for(int i=j+1;i&lt;nums.size()-2;i++)&#123;
+                //对a进行去重
+                if(i&gt;j+1&amp;&amp;nums[i]==nums[i-1])&#123;
+                    continue;
+                &#125;
+                int left=i+1;
+                int right=nums.size()-1;
+                int a=nums[i];
+                while(left&lt;right)&#123;
+                    int b=nums[left];
+                    int c=nums[right];
+                    //防止溢出
+                    if((long)a+b+c==target2)&#123;
+                        vector&lt;int&gt; tmp=&#123;nums[j],a,b,c&#125;;
+                        res.push_back(tmp);
+                        left++;
+                        right--;
+
+                        //对b c去重
+                        while(left&lt;right&amp;&amp;nums[left]==nums[left-1])&#123;
+                            left++;
+                        &#125;
+
+                        while(left&lt;right&amp;&amp;nums[right]==nums[right+1])&#123;
+                            right--;
+                        &#125;
+                    &#125;else if((long)a+b+c&lt;target2)&#123;
+                        left++;
+                    &#125;else&#123;
+                        right--;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        sort(nums.begin(), nums.end());
+        for (int k = 0; k &lt; nums.size(); k++) &#123;
+            // 剪枝处理
+            if (nums[k] &gt; target &amp;&amp; nums[k] &gt;= 0) &#123;
+                break; // 这里使用break，统一通过最后的return返回
+            &#125;
+            // 对nums[k]去重
+            if (k &gt; 0 &amp;&amp; nums[k] == nums[k - 1]) &#123;
+                continue;
+            &#125;
+            for (int i = k + 1; i &lt; nums.size(); i++) &#123;
+                // 2级剪枝处理
+                if (nums[k] + nums[i] &gt; target &amp;&amp; nums[k] + nums[i] &gt;= 0) &#123;
+                    break;
+                &#125;
+
+                // 对nums[i]去重
+                if (i &gt; k + 1 &amp;&amp; nums[i] == nums[i - 1]) &#123;
+                    continue;
+                &#125;
+                int left = i + 1;
+                int right = nums.size() - 1;
+                while (right &gt; left) &#123;
+                    // nums[k] + nums[i] + nums[left] + nums[right] &gt; target 会溢出
+                    if ((long) nums[k] + nums[i] + nums[left] + nums[right] &gt; target) &#123;
+                        right--;
+                    // nums[k] + nums[i] + nums[left] + nums[right] &lt; target 会溢出
+                    &#125; else if ((long) nums[k] + nums[i] + nums[left] + nums[right]  &lt; target) &#123;
+                        left++;
+                    &#125; else &#123;
+                        result.push_back(vector&lt;int&gt;&#123;nums[k], nums[i], nums[left], nums[right]&#125;);
+                        // 对nums[left]和nums[right]去重
+                        while (right &gt; left &amp;&amp; nums[right] == nums[right - 1]) right--;
+                        while (right &gt; left &amp;&amp; nums[left] == nums[left + 1]) left++;
+
+                        // 找到答案时，双指针同时收缩
+                        right--;
+                        left++;
+                    &#125;
+                &#125;
+
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:30:20.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-6"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-6/">算法 | day 6</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="常见的三种哈希结构"><a href="#常见的三种哈希结构" class="headerlink" title="常见的三种哈希结构"></a>常见的三种哈希结构</h2><p>当我们想使用哈希法来解决问题的时候，我们一般会选择如下三种数据结构。</p>
+<ul>
+<li>数组</li>
+<li>set （集合）</li>
+<li>map(映射)</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">集合</th>
+<th align="left">底层实现</th>
+<th align="left">是否有序</th>
+<th align="left">数值是否可以重复</th>
+<th align="left">能否更改数值</th>
+<th align="left">查询效率</th>
+<th align="left">增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">std::set</td>
+<td align="left">红黑树</td>
+<td align="left">有序</td>
+<td align="left">否</td>
+<td align="left">否</td>
+<td align="left">O(log n)</td>
+<td align="left">O(log n)</td>
+</tr>
+<tr>
+<td align="left">std::multiset</td>
+<td align="left">红黑树</td>
+<td align="left">有序</td>
+<td align="left">是</td>
+<td align="left">否</td>
+<td align="left">O(logn)</td>
+<td align="left">O(logn)</td>
+</tr>
+<tr>
+<td align="left">std::unordered_set</td>
+<td align="left">哈希表</td>
+<td align="left">无序</td>
+<td align="left">否</td>
+<td align="left">否</td>
+<td align="left">O(1)</td>
+<td align="left">O(1)</td>
+</tr>
+</tbody></table>
+<p>std::unordered_set底层实现为哈希表，std::set 和std::multiset 的底层实现是红黑树，红黑树是一种平衡二叉搜索树，所以key值是有序的，但key不可以修改，改动key值会导致整棵树的错乱，所以只能删除和增加。</p>
+<table>
+<thead>
+<tr>
+<th align="left">映射</th>
+<th align="left">底层实现</th>
+<th align="left">是否有序</th>
+<th align="left">数值是否可以重复</th>
+<th align="left">能否更改数值</th>
+<th align="left">查询效率</th>
+<th align="left">增删效率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">std::map</td>
+<td align="left">红黑树</td>
+<td align="left">key有序</td>
+<td align="left">key不可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(logn)</td>
+<td align="left">O(logn)</td>
+</tr>
+<tr>
+<td align="left">std::multimap</td>
+<td align="left">红黑树</td>
+<td align="left">key有序</td>
+<td align="left">key可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(log n)</td>
+<td align="left">O(log n)</td>
+</tr>
+<tr>
+<td align="left">std::unordered_map</td>
+<td align="left">哈希表</td>
+<td align="left">key无序</td>
+<td align="left">key不可重复</td>
+<td align="left">key不可修改</td>
+<td align="left">O(1)</td>
+<td align="left">O(1)</td>
+</tr>
+</tbody></table>
+<p> std::unordered_map 底层实现为哈希表，std::map 和std::multimap 的底层实现是红黑树。同理，std::map 和std::multimap 的key也是有序的（这个问题也经常作为面试题，考察对语言容器底层的理解）。</p>
+<p>当我们要使用集合来解决哈希问题的时候，优先使用unordered_set，因为它的查询和增删效率是最优的，如果需要集合是有序的，那么就用set，如果要求不仅有序还要有重复数据的话，那么就用multiset。</p>
+<p>那么再来看一下map ，在map 是一个key value 的数据结构，map中，对key是有限制，对value没有限制的，因为key的存储方式使用红黑树实现的。</p>
+<h2 id="有效的字母异位词"><a href="#有效的字母异位词" class="headerlink" title="有效的字母异位词"></a>有效的字母异位词</h2><p>给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的字母异位词。<br>注意：若 s 和 t 中每个字符出现的次数都相同，则称 s 和 t 互为字母异位词。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: s = &quot;anagram&quot;, t = &quot;nagaram&quot;
+输出: true
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: s = &quot;rat&quot;, t = &quot;car&quot;
+输出: false
+</code></pre>
+<p>思路:用大小为26的数组保存字母的次数.</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool isAnagram(string s, string t) &#123;
+        if(s.length()!=t.length())&#123;
+            return false;
+        &#125;
+        int nums[26]=&#123;0&#125;;
+        for(int i=0;i&lt;s.length();i++)&#123;
+            nums[s[i]-&#39;a&#39;]++;
+        &#125;
+
+        for(int i=0;i&lt;s.length();i++)&#123;
+            nums[t[i]-&#39;a&#39;]--;
+        &#125;
+
+        for(int i=0;i&lt;26;i++)&#123;
+            if(nums[i]!=0)&#123;
+                return false;
+            &#125;
+        &#125;
+
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="两个数组的交集"><a href="#两个数组的交集" class="headerlink" title="两个数组的交集"></a>两个数组的交集</h2><p>给定两个数组 nums1 和 nums2 ，返回 它们的交集 。输出结果中的每个元素一定是 唯一 的。我们可以 不考虑输出结果的顺序 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums1 = [1,2,2,1], nums2 = [2,2]
+输出：[2]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出：[9,4]
+解释：[4,9] 也是可通过的
+</code></pre>
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; nums1.length, nums2.length &lt;&#x3D; 1000</li>
+<li>0 &lt;&#x3D; nums1[i], nums2[i] &lt;&#x3D; 1000</li>
+</ul>
+<p>思路:题目中规定了nums的长度,所以可以用数组做hash表,当然也可以用set.</p>
+<blockquote>
+<p><font color="red"> 未提交,完全不会C++容器相关操作 </font></p>
+</blockquote>
+<p>使用 set:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+        unordered_set&lt;int&gt; result_set; // 存放结果，之所以用set是为了给结果集去重
+        unordered_set&lt;int&gt; nums_set(nums1.begin(), nums1.end());
+        for (int num : nums2) &#123;
+            // 发现nums2的元素 在nums_set里又出现过
+            if (nums_set.find(num) != nums_set.end()) &#123;
+                result_set.insert(num);
+            &#125;
+        &#125;
+        return vector&lt;int&gt;(result_set.begin(), result_set.end());
+    &#125;
+&#125;;
+</code></pre>
+<p>使用数组:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; intersection(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2) &#123;
+        unordered_set&lt;int&gt; result_set; // 存放结果，之所以用set是为了给结果集去重
+        int hash[1005] = &#123;0&#125;; // 默认数值为0
+        for (int num : nums1) &#123; // nums1中出现的字母在hash数组中做记录
+            hash[num] = 1;
+        &#125;
+        for (int num : nums2) &#123; // nums2中出现话，result记录
+            if (hash[num] == 1) &#123;
+                result_set.insert(num);
+            &#125;
+        &#125;
+        return vector&lt;int&gt;(result_set.begin(), result_set.end());
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="快乐数"><a href="#快乐数" class="headerlink" title="快乐数"></a>快乐数</h2><p>编写一个算法来判断一个数 n 是不是快乐数。</p>
+<p>「快乐数」 定义为：</p>
+<ul>
+<li>对于一个正整数，每一次将该数替换为它每个位置上的数字的平方和。</li>
+<li>然后重复这个过程直到这个数变为 1，也可能是 无限循环 但始终变不到 1。</li>
+<li>如果这个过程 结果为 1，那么这个数就是快乐数。<br>如果 n 是 快乐数 就返回 true ；不是，则返回 false 。</li>
+</ul>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:29:38.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-39"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-39/">算法 | day 39</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="不同路径"><a href="#不同路径" class="headerlink" title="不同路径"></a>不同路径</h2><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish” ）。</p>
+<p>问总共有多少条不同的路径？</p>
+<p>思路:二维数组 动态规划</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int uniquePaths(int m, int n) &#123;
+        int dp[m][n];
+        for(int i=0;i&lt;n;i++)&#123;
+            dp[0][i]=1;
+        &#125;
+        for(int i=0;i&lt;m;i++)&#123;
+            dp[i][0]=1;
+        &#125;
+        for(int i=1;i&lt;m;i++)&#123;
+            for(int j=1;j&lt;n;j++)&#123;
+                dp[i][j]=dp[i-1][j]+dp[i][j-1];
+            &#125;
+        &#125;
+        return dp[m-1][n-1];
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="不同路径-II"><a href="#不同路径-II" class="headerlink" title="不同路径 II"></a>不同路径 II</h2><p>一个机器人位于一个 m x n 网格的左上角 （起始点在下图中标记为 “Start” ）。</p>
+<p>机器人每次只能向下或者向右移动一步。机器人试图达到网格的右下角（在下图中标记为 “Finish”）。</p>
+<p>现在考虑网格中有障碍物。那么从左上角到右下角将会有多少条不同的路径？</p>
+<p>网格中的障碍物和空位置分别用 1 和 0 来表示。</p>
+<p>思路:和上一题类似,需要多考虑一点情况.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int uniquePathsWithObstacles(vector&lt;vector&lt;int&gt;&gt;&amp; obstacleGrid) &#123;
+        int m=obstacleGrid.size();
+        int n=obstacleGrid[0].size();
+        int dp[m][n];
+        if(obstacleGrid[0][0])&#123;
+            return 0;
+        &#125;else&#123;
+            dp[0][0]=1;
+        &#125;
+        for(int i=1;i&lt;n;i++)&#123;
+            if(obstacleGrid[0][i])&#123;
+                dp[0][i]=0;
+            &#125;else&#123;
+                dp[0][i]=dp[0][i-1];
+            &#125;
+        &#125;
+        for(int i=1;i&lt;m;i++)&#123;
+            if(obstacleGrid[i][0])&#123;
+                dp[i][0]=0;
+            &#125;else&#123;
+                dp[i][0]=dp[i-1][0];
+            &#125;
+        &#125;
+        for(int i=1;i&lt;m;i++)&#123;
+            for(int j=1;j&lt;n;j++)&#123;
+                if(obstacleGrid[i][j])&#123;
+                    dp[i][j]=0;
+                &#125;else&#123;
+                    dp[i][j]=dp[i-1][j]+dp[i][j-1];
+                &#125;
+            &#125;
+        &#125;
+        return dp[m-1][n-1];
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T10:03:01.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-38"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-38/">算法 | day 38</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="斐波那契数"><a href="#斐波那契数" class="headerlink" title="斐波那契数"></a>斐波那契数</h2><p>斐波那契数 （通常用 F(n) 表示）形成的序列称为 斐波那契数列 。该数列由 0 和 1 开始，后面的每一项数字都是前面两项数字的和。也就是：</p>
+<p>F(0) &#x3D; 0，F(1) &#x3D; 1<br>F(n) &#x3D; F(n - 1) + F(n - 2)，其中 n &gt; 1<br>给定 n ，请计算 F(n) 。</p>
+<p>思路:动态规划</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int fib(int n) &#123;
+        if(n==0)&#123;
+            return 0;
+        &#125;
+        int dp[n+1];
+        dp[0]=0;
+        dp[1]=1;
+        for(int i=2;i&lt;=n;i++)&#123;
+            dp[i]=dp[i-1]+dp[i-2];
+        &#125;
+        return dp[n];
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="爬楼梯"><a href="#爬楼梯" class="headerlink" title="爬楼梯"></a>爬楼梯</h2><p>假设你正在爬楼梯。需要 n 阶你才能到达楼顶。</p>
+<p>每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：n = 2
+输出：2
+解释：有两种方法可以爬到楼顶。
+1. 1 阶 + 1 阶
+2. 2 阶
+</code></pre>
+<p>思路:动态规划</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int climbStairs(int n) &#123;
+        int dp[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2;i&lt;=n;i++)&#123;
+            dp[i]=dp[i-1]+dp[i-2];
+        &#125;
+        return dp[n];
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="使用最小花费爬楼梯"><a href="#使用最小花费爬楼梯" class="headerlink" title="使用最小花费爬楼梯"></a>使用最小花费爬楼梯</h2><p>给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。一旦你支付此费用，即可选择向上爬一个或者两个台阶。</p>
+<p>你可以选择从下标为 0 或下标为 1 的台阶开始爬楼梯。</p>
+<p>请你计算并返回达到楼梯顶部的最低花费。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：cost = [10,15,20]
+输出：15
+解释：你将从下标为 1 的台阶开始。
+- 支付 15 ，向上爬两个台阶，到达楼梯顶部。
+总花费为 15 。
+</code></pre>
+<p>思路:动态规划</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int minCostClimbingStairs(vector&lt;int&gt;&amp; cost) &#123;
+        int n=cost.size();
+        int dp[n+1];
+        dp[0]=0;
+        dp[1]=0;
+        for(int i=2;i&lt;=n;i++)&#123;
+            dp[i]=min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2]);
+        &#125;
+        return dp[n];
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T09:51:40.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-37"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-37/">算法 | day 37</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="单调递增的数字"><a href="#单调递增的数字" class="headerlink" title="单调递增的数字"></a>单调递增的数字</h2><p>当且仅当每个相邻位数上的数字 x 和 y 满足 x &lt;&#x3D; y 时，我们称这个整数是单调递增的。</p>
+<p>给定一个整数 n ，返回 小于或等于 n 的最大数字，且数字呈 单调递增 。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: n = 10
+输出: 9
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: n = 1234
+输出: 1234
+</code></pre>
+<p>示例 3:</p>
+<pre><code class="bash">输入: n = 332
+输出: 299
+</code></pre>
+<p>思路:如果遍历的数字是比前一个数大的,记录当前位置,添加数字;如果遇到有相等的情况,不更新当前位置,直接添加数字;遇到小于的情况时,记录位置的数-1,同时后面的数全变为9.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int monotoneIncreasingDigits(int n) &#123;
+        if(n==0)&#123;
+            return 0;
+        &#125;
+        vector&lt;int&gt; nums;
+        while(n!=0)&#123;
+            nums.push_back(n%10);
+            n/=10;
+        &#125;
+        vector&lt;int&gt; result;
+        result.push_back(nums.back());
+        int pre=0;
+        for(int i=nums.size()-2;i&gt;=0;i--)&#123;
+            if(nums[i]&gt;result.back())&#123;
+                result.push_back(nums[i]);
+                pre = result.size()-1;
+            &#125;else if(nums[i]==result.back())&#123;
+                result.push_back(nums[i]);
+            &#125;else&#123;
+                result[pre]-=1;
+                for(int j=pre+1;j&lt;result.size();j++)&#123;
+                    result[j]=9;
+                &#125;
+                int tmp=nums.size()-result.size();
+                while(tmp--)&#123;
+                    result.push_back(9);
+                &#125;
+                break;
+            &#125;
+        &#125;
+        int res=0;
+        for(int i=0;i&lt;result.size();i++)&#123;
+            res=10*res+result[i];
+        &#125;
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>思路相似的代码,<code>strNum[i - 1]--</code>是因为有相等的情况</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int monotoneIncreasingDigits(int N) &#123;
+        string strNum = to_string(N);
+        // flag用来标记赋值9从哪里开始
+        // 设置为这个默认值，为了防止第二个for循环在flag没有被赋值的情况下执行
+        int flag = strNum.size();
+        for (int i = strNum.size() - 1; i &gt; 0; i--) &#123;
+            if (strNum[i - 1] &gt; strNum[i] ) &#123;
+                flag = i;
+                strNum[i - 1]--;
+            &#125;
+        &#125;
+        for (int i = flag; i &lt; strNum.size(); i++) &#123;
+            strNum[i] = &#39;9&#39;;
+        &#125;
+        return stoi(strNum);
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="监控二叉树"><a href="#监控二叉树" class="headerlink" title="监控二叉树"></a>监控二叉树</h2><p>给定一个二叉树，我们在树的节点上安装摄像头。</p>
+<p>节点上的每个摄影头都可以监视其父对象、自身及其直接子对象。</p>
+<p>计算监控树的所有节点所需的最小摄像头数量。</p>
+<p>有点难,先把代码放这里…</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    int result;
+    int traversal(TreeNode* cur) &#123;
+        if (cur == NULL) return 2;
+        int left = traversal(cur-&gt;left);    // 左
+        int right = traversal(cur-&gt;right);  // 右
+        if (left == 2 &amp;&amp; right == 2) return 0;
+        else if (left == 0 || right == 0) &#123;
+            result++;
+            return 1;
+        &#125; else return 2;
+    &#125;
+public:
+    int minCameraCover(TreeNode* root) &#123;
+        result = 0;
+        if (traversal(root) == 0) &#123; // root 无覆盖
+            result++;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-23T08:56:50.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+    
+      <article
+id="post-算法-day-36"
+class="article article-type-post"
+>
+
+
+
+<div class="article-inner">
+    
+
+    <div class="article-body">
+    <header class="article-title">
+        <a href="/2023/04/21/%E7%AE%97%E6%B3%95-day-36/">算法 | day 36</a>
+    </header>
+    <div class="article-entry post-inner-html">
+        
+        <h2 id="无重叠区间"><a href="#无重叠区间" class="headerlink" title="无重叠区间"></a>无重叠区间</h2><p>给定一个区间的集合 intervals ，其中 intervals[i] &#x3D; [starti, endi] 。返回 需要移除区间的最小数量，使剩余区间互不重叠 。</p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: intervals = [[1,2],[2,3],[3,4],[1,3]]
+输出: 1
+解释: 移除 [1,3] 后，剩下的区间没有重叠。
+</code></pre>
+<p>示例 2:</p>
+<pre><code>输入: intervals = [ [1,2], [1,2], [1,2] ]
+输出: 2
+解释: 你需要移除两个 [1,2] 来使剩下的区间没有重叠。
+</code></pre>
+<p>思路:先sort然后分情况考虑.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    static bool comp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;
+        if(a[0]==b[0])&#123;
+            return a[1]&lt;b[1];
+        &#125;
+        return a[0]&lt;b[0];
+    &#125;
+public:
+    int eraseOverlapIntervals(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;
+        int num=0;
+        sort(intervals.begin(),intervals.end(),comp);
+        vector&lt;int&gt; tmp=intervals[0];
+        for(int i=1;i&lt;intervals.size();i++)&#123;
+            if(intervals[i][0]&lt;tmp[1])&#123;
+                if(intervals[i][1]&lt;=tmp[1])&#123;
+                    num++;
+                    tmp=intervals[i];
+                &#125;else&#123;
+                    num++;
+                &#125;
+            &#125;else&#123;
+                tmp=intervals[i];
+            &#125;
+        &#125;
+        return num;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="划分字母区间"><a href="#划分字母区间" class="headerlink" title="划分字母区间"></a>划分字母区间</h2><p>给你一个字符串 s 。我们要把这个字符串划分为尽可能多的片段，同一字母最多出现在一个片段中。</p>
+<p>注意，划分结果需要满足：将所有划分结果按顺序连接，得到的字符串仍然是 s 。</p>
+<p>返回一个表示每个字符串片段的长度的列表。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;ababcbacadefegdehijhklij&quot;
+输出：[9,7,8]
+解释：
+划分结果为 &quot;ababcbaca&quot;、&quot;defegde&quot;、&quot;hijhklij&quot; 。
+每个字母最多出现在一个片段中。
+像 &quot;ababcbacadefegde&quot;, &quot;hijhklij&quot; 这样的划分是错误的，因为划分的片段数较少。 
+</code></pre>
+<p>思路:看到字母首先想到用26个大小的int数组记录,这题只需要记录每个字母出现的最后一个位置.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;int&gt; partitionLabels(string s) &#123;
+        int nums[26];
+        for(int i=0;i&lt;s.size();i++)&#123;
+            nums[s[i]-&#39;a&#39;]=i;
+        &#125;
+        int length=0;
+        int pre=-1;
+        vector&lt;int&gt; result;
+        for(int i=0;i&lt;s.size();i++)&#123;
+            if(nums[s[i]-&#39;a&#39;]&gt;length)&#123;
+                length=nums[s[i]-&#39;a&#39;];
+            &#125;
+            if(i==length)&#123;
+               result.push_back(length-pre);
+               pre=length;
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h2><p>以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] &#x3D; [starti, endi] 。请你合并所有重叠的区间，并返回 一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：intervals = [[1,3],[2,6],[8,10],[15,18]]
+输出：[[1,6],[8,10],[15,18]]
+解释：区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：intervals = [[1,4],[4,5]]
+输出：[[1,5]]
+解释：区间 [1,4] 和 [4,5] 可被视为重叠区间。
+</code></pre>
+<p>思路:先对区间数组进行排序,再合并区间.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    static bool comp(const vector&lt;int&gt;&amp; a,const vector&lt;int&gt;&amp; b)&#123;
+        return a[0]&lt;b[0];
+    &#125;
+public:
+    vector&lt;vector&lt;int&gt;&gt; merge(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;
+        sort(intervals.begin(),intervals.end(),comp);
+        vector&lt;vector&lt;int&gt;&gt; result;
+        int start=intervals[0][0];
+        int end=intervals[0][1];
+        for(int i=1;i&lt;intervals.size();i++)&#123;
+            if(end&gt;=intervals[i][0])&#123;
+                end=max(end,intervals[i][1]);
+            &#125;else&#123;
+                result.push_back(&#123;start,end&#125;);
+                start=intervals[i][0];
+                end=intervals[i][1];
+            &#125;
+        &#125;
+        result.push_back(&#123;start,end&#125;);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; merge(vector&lt;vector&lt;int&gt;&gt;&amp; intervals) &#123;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        if (intervals.size() == 0) return result; // 区间集合为空直接返回
+        // 排序的参数使用了lambda表达式
+        sort(intervals.begin(), intervals.end(), [](const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b)&#123;return a[0] &lt; b[0];&#125;);
+
+        // 第一个区间就可以放进结果集里，后面如果重叠，在result上直接合并
+        result.push_back(intervals[0]); 
+
+        for (int i = 1; i &lt; intervals.size(); i++) &#123;
+            if (result.back()[1] &gt;= intervals[i][0]) &#123; // 发现重叠区间
+                // 合并区间，只更新右边界就好，因为result.back()的左边界一定是最小值，因为我们按照左边界排序的
+                result.back()[1] = max(result.back()[1], intervals[i][1]); 
+            &#125; else &#123;
+                result.push_back(intervals[i]); // 区间不重叠 
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        
+    </div>
+    </div>
+
+    <div class="article-badge">
+        
+        
+    </div>
+
+</div>
+
+<footer class="article-footer">
+    <div class="article-more-info">
+    <div class="article-date">
+  <time datetime="2023-04-21T10:35:20.000Z" itemprop="datePublished">2023-04-21</time>
+</div>
+    
+    
+    </div>
+</footer>
+
+</article>
+
+    
+  
+
+  
+    <nav class="pagination">
+        <a class="extend prev" rel="prev" href="/">Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next</a>
+    </nav>
+  
+</div>
+
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

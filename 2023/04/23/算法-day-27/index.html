@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 27 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 27 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-27/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 27 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-27/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 27 | Hexo",
+            "datePublished": "2023-04-23T10:37:26.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-27/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w2z000ficuhe4nx50gv" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 27
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:37:26.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <p>给你一个 无重复元素 的整数数组 candidates 和一个目标整数 target ，找出 candidates 中可以使数字和为目标数 target 的 所有 不同组合 ，并以列表形式返回。你可以按 任意顺序 返回这些组合。</p>
+<p>candidates 中的 同一个 数字可以 无限制重复被选取 。如果至少一个数字的被选数量不同，则两种组合是不同的。 </p>
+<p>对于给定的输入，保证和为 target 的不同组合数少于 150 个。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：candidates = [2,3,6,7], target = 7
+输出：[[2,2,3],[7]]
+解释：
+2 和 3 可以形成一组候选，2 + 2 + 3 = 7 。注意 2 可以使用多次。
+7 也是一个候选， 7 = 7 。
+仅有这两种组合。
+</code></pre>
+<p>没写出来…</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target, int sum, int startIndex) &#123;
+        if (sum == target) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+
+        // 如果 sum + candidates[i] &gt; target 就终止遍历
+        for (int i = startIndex; i &lt; candidates.size() &amp;&amp; sum + candidates[i] &lt;= target; i++) &#123;
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            backtracking(candidates, target, sum, i);
+            sum -= candidates[i];
+            path.pop_back();
+
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        result.clear();
+        path.clear();
+        sort(candidates.begin(), candidates.end()); // 需要排序
+        backtracking(candidates, target, 0, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>实际上不难 <code>backtracking(candidates, target, sum, i);</code> 就重复利用了所有元素.<br>先将数组sort方便了剪枝.</p>
+<h2 id="组合总和-II"><a href="#组合总和-II" class="headerlink" title="组合总和 II"></a>组合总和 II</h2><p>给定一个候选人编号的集合 candidates 和一个目标数 target ，找出 candidates 中所有可以使数字和为 target 的组合。</p>
+<p>candidates 中的每个数字在每个组合中只能使用 一次 。</p>
+<p>注意：解集不能包含重复的组合。 </p>
+<p>示例 1:</p>
+<pre><code class="bash">输入: candidates = [10,1,2,7,6,1,5], target = 8,
+输出:
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+</code></pre>
+<p>示例 2:</p>
+<pre><code class="bash">输入: candidates = [2,5,2,1,2], target = 5,
+输出:
+[
+[1,2,2],
+[5]
+]
+</code></pre>
+<p>思路 有重复元素就要考虑去重,先<code>sort</code>,在看当前元素是不是和前一个元素相同.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        vector&lt;int&gt; nums;
+        nums.clear();
+        result.clear();
+        sort(candidates.begin(),candidates.end());
+        backtracking(candidates,target,nums,0);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target,vector&lt;int&gt;&amp; nums,int start)&#123;
+        if(target==0)&#123;
+            result.push_back(nums);
+        &#125;
+        int pre=0;
+        for(int i=start;i&lt;candidates.size()&amp;&amp;candidates[i]&lt;=target;i++)&#123;
+            if(candidates[i]==pre)&#123;
+                continue;
+            &#125;
+            nums.push_back(candidates[i]);
+            backtracking(candidates,target-candidates[i],nums,i+1);
+            nums.pop_back();
+            pre=candidates[i];
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>或者使用一个used数组:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; candidates, int target, int sum, int startIndex, vector&lt;bool&gt;&amp; used) &#123;
+        if (sum == target) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; candidates.size() &amp;&amp; sum + candidates[i] &lt;= target; i++) &#123;
+            // used[i - 1] == true，说明同一树枝candidates[i - 1]使用过
+            // used[i - 1] == false，说明同一树层candidates[i - 1]使用过
+            // 要对同一树层使用过的元素进行跳过
+            if (i &gt; 0 &amp;&amp; candidates[i] == candidates[i - 1] &amp;&amp; used[i - 1] == false) &#123;
+                continue;
+            &#125;
+            sum += candidates[i];
+            path.push_back(candidates[i]);
+            used[i] = true;
+            backtracking(candidates, target, sum, i + 1, used); // 和39.组合总和的区别1，这里是i+1，每个数字在每个组合中只能使用一次
+            used[i] = false;
+            sum -= candidates[i];
+            path.pop_back();
+        &#125;
+    &#125;
+
+public:
+    vector&lt;vector&lt;int&gt;&gt; combinationSum2(vector&lt;int&gt;&amp; candidates, int target) &#123;
+        vector&lt;bool&gt; used(candidates.size(), false);
+        path.clear();
+        result.clear();
+        // 首先把给candidates排序，让其相同的元素都挨在一起。
+        sort(candidates.begin(), candidates.end());
+        backtracking(candidates, target, 0, 0, used);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="分割回文串"><a href="#分割回文串" class="headerlink" title="分割回文串"></a>分割回文串</h2><p>给你一个字符串 s，请你将 s 分割成一些子串，使每个子串都是 回文串 。返回 s 所有可能的分割方案。</p>
+<p>回文串 是正着读和反着读都一样的字符串。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：s = &quot;aab&quot;
+输出：[[&quot;a&quot;,&quot;a&quot;,&quot;b&quot;],[&quot;aa&quot;,&quot;b&quot;]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：s = &quot;a&quot;
+输出：[[&quot;a&quot;]]
+</code></pre>
+<p>刚开始判断回文串没转过弯来…</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        vector&lt;string&gt; path;
+        path.clear();
+        result.clear();
+        backtracking(s,0,path);
+        return result;
+    &#125;
+
+    void backtracking(const string&amp; s,int start,vector&lt;string&gt;&amp; path)&#123;
+        if(start==s.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for(int end=start;end&lt;=s.size();end++)&#123;
+            if(judge(s,start,end))&#123;
+                string a(s.begin()+start,s.begin()+end+1);
+                path.push_back(a);
+                backtracking(s,end+1,path);
+                path.pop_back();
+            &#125;
+        &#125;
+    &#125;
+
+    bool judge(const string&amp; s,int start,int end)&#123;
+        int left=start;
+        int right=end;
+        while(left&lt;right)&#123;
+            if(s[left]!=s[right])&#123;
+                return false;
+            &#125;
+            left++;
+            right--;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+    vector&lt;string&gt; path; // 放已经回文的子串
+    void backtracking (const string&amp; s, int startIndex) &#123;
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex &gt;= s.size()) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isPalindrome(s, startIndex, i)) &#123;   // 是回文子串
+                // 获取[startIndex,i]在s中的子串
+                string str = s.substr(startIndex, i - startIndex + 1);
+                path.push_back(str);
+            &#125; else &#123;                                // 不是回文，跳过
+                continue;
+            &#125;
+            backtracking(s, i + 1); // 寻找i+1为起始位置的子串
+            path.pop_back(); // 回溯过程，弹出本次已经填在的子串
+        &#125;
+    &#125;
+    bool isPalindrome(const string&amp; s, int start, int end) &#123;
+        for (int i = start, j = end; i &lt; j; i++, j--) &#123;
+            if (s[i] != s[j]) &#123;
+                return false;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        result.clear();
+        path.clear();
+        backtracking(s, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>string有<code>substr</code>函数</p>
+<p>优化:<br>上面的代码还存在一定的优化空间, 在于如何更高效的计算一个子字符串是否是回文字串。上述代码isPalindrome函数运用双指针的方法来判定对于一个字符串s, 给定起始下标和终止下标, 截取出的子字符串是否是回文字串。但是其中有一定的重复计算存在:</p>
+<p>例如给定字符串”abcde”, 在已知”bcd”不是回文字串时, 不再需要去双指针操作”abcde”而可以直接判定它一定不是回文字串。</p>
+<p>具体来说, 给定一个字符串s, 长度为n, 它成为回文字串的充分必要条件是s[0] &#x3D;&#x3D; s[n-1]且s[1:n-1]是回文字串。</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;string&gt;&gt; result;
+    vector&lt;string&gt; path; // 放已经回文的子串
+    vector&lt;vector&lt;bool&gt;&gt; isPalindrome; // 放事先计算好的是否回文子串的结果
+    void backtracking (const string&amp; s, int startIndex) &#123;
+        // 如果起始位置已经大于s的大小，说明已经找到了一组分割方案了
+        if (startIndex &gt;= s.size()) &#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for (int i = startIndex; i &lt; s.size(); i++) &#123;
+            if (isPalindrome[startIndex][i]) &#123;   // 是回文子串
+                // 获取[startIndex,i]在s中的子串
+                string str = s.substr(startIndex, i - startIndex + 1);
+                path.push_back(str);
+            &#125; else &#123;                                // 不是回文，跳过
+                continue;
+            &#125;
+            backtracking(s, i + 1); // 寻找i+1为起始位置的子串
+            path.pop_back(); // 回溯过程，弹出本次已经填在的子串
+        &#125;
+    &#125;
+    void computePalindrome(const string&amp; s) &#123;
+        // isPalindrome[i][j] 代表 s[i:j](双边包括)是否是回文字串 
+        isPalindrome.resize(s.size(), vector&lt;bool&gt;(s.size(), false)); // 根据字符串s, 刷新布尔矩阵的大小
+        for (int i = s.size() - 1; i &gt;= 0; i--) &#123; 
+            // 需要倒序计算, 保证在i行时, i+1行已经计算好了
+            for (int j = i; j &lt; s.size(); j++) &#123;
+                if (j == i) &#123;isPalindrome[i][j] = true;&#125;
+                else if (j - i == 1) &#123;isPalindrome[i][j] = (s[i] == s[j]);&#125;
+                else &#123;isPalindrome[i][j] = (s[i] == s[j] &amp;&amp; isPalindrome[i+1][j-1]);&#125;
+            &#125;
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;string&gt;&gt; partition(string s) &#123;
+        result.clear();
+        path.clear();
+        computePalindrome(s);
+        backtracking(s, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 28
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-23/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 23</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 27 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-27%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 27 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-27%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 27 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-27/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

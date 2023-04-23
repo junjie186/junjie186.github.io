@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 35 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 35 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/20/%E7%AE%97%E6%B3%95-day-35/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 35 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/20/%E7%AE%97%E6%B3%95-day-35/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 35 | Hexo",
+            "datePublished": "2023-04-20T10:18:16.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/20/%E7%AE%97%E6%B3%95-day-35/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w36000licuhe6e1aws1" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 35
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-20T10:18:16.000Z" itemprop="datePublished">2023-04-20</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="柠檬水找零"><a href="#柠檬水找零" class="headerlink" title="柠檬水找零"></a>柠檬水找零</h2><p>在柠檬水摊上，每一杯柠檬水的售价为 5 美元。顾客排队购买你的产品，（按账单 bills 支付的顺序）一次购买一杯。</p>
+<p>每位顾客只买一杯柠檬水，然后向你付 5 美元、10 美元或 20 美元。你必须给每个顾客正确找零，也就是说净交易是每位顾客向你支付 5 美元。</p>
+<p>注意，一开始你手头没有任何零钱。</p>
+<p>给你一个整数数组 bills ，其中 bills[i] 是第 i 位顾客付的账。如果你能给每位顾客正确找零，返回 true ，否则返回 false 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：bills = [5,5,5,10,20]
+输出：true
+解释：
+前 3 位顾客那里，我们按顺序收取 3 张 5 美元的钞票。
+第 4 位顾客那里，我们收取一张 10 美元的钞票，并返还 5 美元。
+第 5 位顾客那里，我们找还一张 10 美元的钞票和一张 5 美元的钞票。
+由于所有客户都得到了正确的找零，所以我们输出 true。
+</code></pre>
+<p>思路:很简单,注意收20块时先考虑用一张10块和一张5块,再考虑用3张5块.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool lemonadeChange(vector&lt;int&gt;&amp; bills) &#123;
+        int nums5=0;
+        int nums10=0;
+        for(int i=0;i&lt;bills.size();i++)&#123;
+            if(bills[i]==5)&#123;
+                nums5+=1;
+            &#125;else if(bills[i]==10)&#123;
+                if(nums5==0)&#123;
+                    return false;
+                &#125;
+                nums5-=1;
+                nums10+=1;
+            &#125;else&#123;
+                if(nums5==0||(nums10==0&amp;&amp;nums5&lt;3))&#123;
+                    return false;
+                &#125;else if(nums10&gt;0)&#123;
+                    nums10-=1;
+                    nums5-=1;
+                &#125;else&#123;
+                    nums5-=3;
+                &#125;
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="根据身高重建队列"><a href="#根据身高重建队列" class="headerlink" title="根据身高重建队列"></a>根据身高重建队列</h2><p>假设有打乱顺序的一群人站成一个队列，数组 people 表示队列中一些人的属性（不一定按顺序）。每个 people[i] &#x3D; [hi, ki] 表示第 i 个人的身高为 hi ，前面 正好 有 ki 个身高大于或等于 hi 的人。</p>
+<p>请你重新构造并返回输入数组 people 所表示的队列。返回的队列应该格式化为数组 queue ，其中 queue[j] &#x3D; [hj, kj] 是队列中第 j 个人的属性（queue[0] 是排在队列前面的人）。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：people = [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]
+输出：[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]
+解释：
+编号为 0 的人身高为 5 ，没有身高更高或者相同的人排在他前面。
+编号为 1 的人身高为 7 ，没有身高更高或者相同的人排在他前面。
+编号为 2 的人身高为 5 ，有 2 个身高更高或者相同的人排在他前面，即编号为 0 和 1 的人。
+编号为 3 的人身高为 6 ，有 1 个身高更高或者相同的人排在他前面，即编号为 1 的人。
+编号为 4 的人身高为 4 ，有 4 个身高更高或者相同的人排在他前面，即编号为 0、1、2、3 的人。
+编号为 5 的人身高为 7 ，有 1 个身高更高或者相同的人排在他前面，即编号为 1 的人。
+因此 [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]] 是重新构造后的队列。
+</code></pre>
+<p>思路:先按身高从大到小,身高相同时先排第二项较小的顺序对数组进行排序,再按招排序的顺序重新建立新数组,即第二项为几就插入第几个位置,因为是按照身高从大到小进行排序的,新数组已插入的元素一定比后插入的元素大,后插的元素位置一定正确.</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    static bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) &#123;
+        if (a[0] == b[0]) return a[1] &lt; b[1];
+        return a[0] &gt; b[0];
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;
+        sort (people.begin(), people.end(), cmp);
+        vector&lt;vector&lt;int&gt;&gt; que;
+        for (int i = 0; i &lt; people.size(); i++) &#123;
+            int position = people[i][1];
+            que.insert(que.begin() + position, people[i]);
+        &#125;
+        return que;
+    &#125;
+&#125;;
+</code></pre>
+<p>但使用vector是非常费时的，C++中vector（可以理解是一个动态数组，底层是普通数组实现的）如果插入元素大于预先普通数组大小，vector底部会有一个扩容的操作，即申请两倍于原先普通数组的大小，然后把数据拷贝到另一个更大的数组上。</p>
+<p>所以使用vector（动态数组）来insert，是费时的，插入再拷贝的话，单纯一个插入的操作就是O(n^2)了，甚至可能拷贝好几次，就不止O(n^2)了。</p>
+<p>改成链表之后，C++代码如下：</p>
+<pre><code class="bash">class Solution &#123;
+public:
+    // 身高从大到小排（身高相同k小的站前面）
+    static bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) &#123;
+        if (a[0] == b[0]) return a[1] &lt; b[1];
+        return a[0] &gt; b[0];
+    &#125;
+    vector&lt;vector&lt;int&gt;&gt; reconstructQueue(vector&lt;vector&lt;int&gt;&gt;&amp; people) &#123;
+        sort (people.begin(), people.end(), cmp);
+        list&lt;vector&lt;int&gt;&gt; que; // list底层是链表实现，插入效率比vector高的多
+        for (int i = 0; i &lt; people.size(); i++) &#123;
+            int position = people[i][1]; // 插入到下标为position的位置
+            std::list&lt;vector&lt;int&gt;&gt;::iterator it = que.begin();
+            while (position--) &#123; // 寻找在插入位置
+                it++;
+            &#125;
+            que.insert(it, people[i]);
+        &#125;
+        return vector&lt;vector&lt;int&gt;&gt;(que.begin(), que.end());
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="用最少数量的箭引爆气球"><a href="#用最少数量的箭引爆气球" class="headerlink" title="用最少数量的箭引爆气球"></a>用最少数量的箭引爆气球</h2><p>有一些球形气球贴在一堵用 XY 平面表示的墙面上。墙面上的气球记录在整数数组 points ，其中points[i] &#x3D; [xstart, xend] 表示水平直径在 xstart 和 xend之间的气球。你不知道气球的确切 y 坐标。</p>
+<p>一支弓箭可以沿着 x 轴从不同点 完全垂直 地射出。在坐标 x 处射出一支箭，若有一个气球的直径的开始和结束坐标为 xstart，xend， 且满足  xstart ≤ x ≤ xend，则该气球会被 引爆 。可以射出的弓箭的数量 没有限制 。 弓箭一旦被射出之后，可以无限地前进。</p>
+<p>给你一个数组 points ，返回引爆所有气球所必须射出的 最小 弓箭数 。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：points = [[10,16],[2,8],[1,6],[7,12]]
+输出：2
+解释：气球可以用2支箭来爆破:
+-在x = 6处射出箭，击破气球[2,8]和[1,6]。
+-在x = 11处发射箭，击破气球[10,16]和[7,12]。
+</code></pre>
+<p>思路:先按左边位置从小到大排序,然后一直更新重合区间.</p>
+<pre><code class="C++">class Solution &#123;
+    static bool comp(vector&lt;int&gt;&amp; a,vector&lt;int&gt;&amp; b)&#123;
+        if(a[0]==b[0])&#123;
+            return a[1]&lt;b[1];
+        &#125;
+        return a[0]&lt;b[0];
+    &#125;
+public:
+    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;
+        sort(points.begin(),points.end(),comp);
+        vector&lt;int&gt; tmp=points[0];
+        int num=0;
+        for(int i=1;i&lt;points.size();i++)&#123;
+            if(tmp[1]&gt;=points[i][0]&amp;&amp;tmp[1]&lt;=points[i][1])&#123;
+                tmp=&#123;points[i][0],tmp[1]&#125;;
+            &#125;else if(tmp[1]&gt;=points[i][0]&amp;&amp;tmp[1]&gt;points[i][1])&#123;
+                tmp=&#123;points[i][0],points[i][1]&#125;;
+            &#125;else&#123;
+                num++;
+                tmp=points[i];
+            &#125;
+        &#125;
+        num++;
+        return num;
+    &#125;
+&#125;;
+</code></pre>
+<p>注意comp函数应为 <code>static bool</code> 参数应为 <code>const vector&lt;int&gt;&amp;</code></p>
+<p>也可以不使用额外空间:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    static bool cmp(const vector&lt;int&gt;&amp; a, const vector&lt;int&gt;&amp; b) &#123;
+        return a[0] &lt; b[0];
+    &#125;
+public:
+    int findMinArrowShots(vector&lt;vector&lt;int&gt;&gt;&amp; points) &#123;
+        if (points.size() == 0) return 0;
+        sort(points.begin(), points.end(), cmp);
+
+        int result = 1; // points 不为空至少需要一支箭
+        for (int i = 1; i &lt; points.size(); i++) &#123;
+            if (points[i][0] &gt; points[i - 1][1]) &#123;  // 气球i和气球i-1不挨着，注意这里不是&gt;=
+                result++; // 需要一支箭
+            &#125;
+            else &#123;  // 气球i和气球i-1挨着
+                points[i][1] = min(points[i - 1][1], points[i][1]); // 更新重叠气球最小右边界
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/21/%E7%AE%97%E6%B3%95-day-36/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 36
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/12/%E7%AE%97%E6%B3%95-day-29/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 29</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 35 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F20%2F%25E7%25AE%2597%25E6%25B3%2595-day-35%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 35 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F20%2F%25E7%25AE%2597%25E6%25B3%2595-day-35%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 35 - Hexo&url=http://example.com/2023/04/20/%E7%AE%97%E6%B3%95-day-35/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

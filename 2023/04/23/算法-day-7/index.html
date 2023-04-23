@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 7 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 7 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-7/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 7 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-7/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 7 | Hexo",
+            "datePublished": "2023-04-23T10:30:20.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-7/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w3d000ricuha08xabya" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 7
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:30:20.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="四数相加-II"><a href="#四数相加-II" class="headerlink" title="四数相加 II"></a>四数相加 II</h2><p>给你四个整数数组 nums1、nums2、nums3 和 nums4 ，数组长度都是 n ，请你计算有多少个元组 (i, j, k, l) 能满足：</p>
+<ul>
+<li>0 &lt;&#x3D; i, j, k, l &lt; n</li>
+<li>nums1[i] + nums2[j] + nums3[k] + nums4[l] &#x3D;&#x3D; 0</li>
+</ul>
+<p>思路:先遍历前两个数组,再遍历后两个数组,这样时间复杂度会是n^2</p>
+<p>写代码时把<code>map[a+b]</code>写成了<code>map(a+b)</code>,map不是函数…</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int fourSumCount(vector&lt;int&gt;&amp; nums1, vector&lt;int&gt;&amp; nums2, vector&lt;int&gt;&amp; nums3, vector&lt;int&gt;&amp; nums4) &#123;
+        unordered_map&lt;int,int&gt; map;
+        int count = 0;
+        for(auto a : nums1)&#123;
+            for(auto b : nums2)&#123;
+                map[a+b]++;
+            &#125;
+        &#125;
+
+        for(auto c : nums3)&#123;
+            for(auto d : nums4)&#123;
+                if(map.find(-(c+d))!=map.end())&#123;
+                    count+=map[-(c+d)];
+                &#125;
+            &#125;
+        &#125;
+
+        return count;
+    &#125;
+&#125;;
+</code></pre>
+<h3 id="赎金信"><a href="#赎金信" class="headerlink" title="赎金信"></a>赎金信</h3><p>给你两个字符串：ransomNote 和 magazine ，判断 ransomNote 能不能由 magazine 里面的字符构成。</p>
+<p>如果可以，返回 true ；否则返回 false 。</p>
+<p>magazine 中的每个字符只能在 ransomNote 中使用一次。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：ransomNote = &quot;a&quot;, magazine = &quot;b&quot;
+输出：false
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：ransomNote = &quot;aa&quot;, magazine = &quot;ab&quot;
+输出：false
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：ransomNote = &quot;aa&quot;, magazine = &quot;aab&quot;
+输出：true
+</code></pre>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool canConstruct(string ransomNote, string magazine) &#123;
+        int nums[26]=&#123;0&#125;;
+        for(int i=0;i&lt;magazine.size();i++)&#123;
+            nums[magazine[i]-&#39;a&#39;]++;
+        &#125;
+
+        for(int i=0;i&lt;ransomNote.size();i++)&#123;
+            if(nums[ransomNote[i]-&#39;a&#39;]==0)&#123;
+                return false;
+            &#125;
+
+            nums[ransomNote[i]-&#39;a&#39;]--;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="三数之和"><a href="#三数之和" class="headerlink" title="三数之和"></a>三数之和</h2><p>给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i !&#x3D; j、i !&#x3D; k 且 j !&#x3D; k ，同时还满足 nums[i] + nums[j] + nums[k] &#x3D;&#x3D; 0 。请你返回所有和为 0 且不重复的三元组。</p>
+<p>注意：<strong>答案中不可以包含重复的三元组。</strong></p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [-1,0,1,2,-1,-4]
+输出：[[-1,-1,2],[-1,0,1]]
+解释：
+nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。
+nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。
+nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
+不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。
+注意，输出的顺序和三元组的顺序并不重要。
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0,1,1]
+输出：[]
+解释：唯一可能的三元组和不为 0 。
+</code></pre>
+<p>示例 3：</p>
+<pre><code class="bash">输入：nums = [0,0,0]
+输出：[[0,0,0]]
+解释：唯一可能的三元组和为 0 。
+</code></pre>
+<p>思路:先对整个数组进行排序,遍历一遍数组,使用双指针法.难在去重!</p>
+<p>看视频后的提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt;&amp; nums) &#123;
+        sort(nums.begin(),nums.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        for(int i=0;i&lt;nums.size()-2;i++)&#123;
+            //对a进行去重
+            if(i&gt;0&amp;&amp;nums[i]==nums[i-1])&#123;
+                continue;
+            &#125;
+            int left=i+1;
+            int right=nums.size()-1;
+            int a=nums[i];
+            while(left&lt;right)&#123;
+                int b=nums[left];
+                int c=nums[right];
+                if(a+b+c==0)&#123;
+                    vector&lt;int&gt; tmp=&#123;a,b,c&#125;;
+                    res.push_back(tmp);
+                    left++;
+                    right--;
+
+                    //对b c去重
+                    while(left&lt;right&amp;&amp;nums[left]==nums[left-1])&#123;
+                        left++;
+                    &#125;
+
+                    while(left&lt;right&amp;&amp;nums[right]==nums[right+1])&#123;
+                        right--;
+                    &#125;
+                &#125;else if(a+b+c&lt;0)&#123;
+                    left++;
+                &#125;else&#123;
+                    right--;
+                &#125;
+            &#125;
+        &#125;
+
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="四数之和"><a href="#四数之和" class="headerlink" title="四数之和"></a>四数之和</h2><p>给你一个由 n 个整数组成的数组 nums ，和一个目标值 target 。请你找出并返回满足下述全部条件且不重复的四元组 [nums[a], nums[b], nums[c], nums[d]] （若两个四元组元素一一对应，则认为两个四元组重复）：</p>
+<ul>
+<li>0 &lt;&#x3D; a, b, c, d &lt; n</li>
+<li>a、b、c 和 d 互不相同</li>
+<li>nums[a] + nums[b] + nums[c] + nums[d] &#x3D;&#x3D; target<br>你可以按 任意顺序 返回答案 。</li>
+</ul>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,0,-1,0,-2,2], target = 0
+输出：[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [2,2,2,2,2], target = 8
+输出：[[2,2,2,2]]
+</code></pre>
+<p>思路:三数之和套个for循环</p>
+<p>因为可能会加法溢出,在加的时候转成long</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        if(nums.size()&lt;4)&#123;
+            return &#123;&#125;;
+        &#125;
+        sort(nums.begin(),nums.end());
+        vector&lt;vector&lt;int&gt;&gt; res;
+        for(int j=0;j&lt;nums.size()-3;j++)&#123;
+            if(j&gt;0&amp;&amp;nums[j]==nums[j-1])&#123;
+                continue;
+            &#125;
+
+            int target2=target-nums[j];
+
+            for(int i=j+1;i&lt;nums.size()-2;i++)&#123;
+                //对a进行去重
+                if(i&gt;j+1&amp;&amp;nums[i]==nums[i-1])&#123;
+                    continue;
+                &#125;
+                int left=i+1;
+                int right=nums.size()-1;
+                int a=nums[i];
+                while(left&lt;right)&#123;
+                    int b=nums[left];
+                    int c=nums[right];
+                    //防止溢出
+                    if((long)a+b+c==target2)&#123;
+                        vector&lt;int&gt; tmp=&#123;nums[j],a,b,c&#125;;
+                        res.push_back(tmp);
+                        left++;
+                        right--;
+
+                        //对b c去重
+                        while(left&lt;right&amp;&amp;nums[left]==nums[left-1])&#123;
+                            left++;
+                        &#125;
+
+                        while(left&lt;right&amp;&amp;nums[right]==nums[right+1])&#123;
+                            right--;
+                        &#125;
+                    &#125;else if((long)a+b+c&lt;target2)&#123;
+                        left++;
+                    &#125;else&#123;
+                        right--;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+
+        return res;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    vector&lt;vector&lt;int&gt;&gt; fourSum(vector&lt;int&gt;&amp; nums, int target) &#123;
+        vector&lt;vector&lt;int&gt;&gt; result;
+        sort(nums.begin(), nums.end());
+        for (int k = 0; k &lt; nums.size(); k++) &#123;
+            // 剪枝处理
+            if (nums[k] &gt; target &amp;&amp; nums[k] &gt;= 0) &#123;
+                break; // 这里使用break，统一通过最后的return返回
+            &#125;
+            // 对nums[k]去重
+            if (k &gt; 0 &amp;&amp; nums[k] == nums[k - 1]) &#123;
+                continue;
+            &#125;
+            for (int i = k + 1; i &lt; nums.size(); i++) &#123;
+                // 2级剪枝处理
+                if (nums[k] + nums[i] &gt; target &amp;&amp; nums[k] + nums[i] &gt;= 0) &#123;
+                    break;
+                &#125;
+
+                // 对nums[i]去重
+                if (i &gt; k + 1 &amp;&amp; nums[i] == nums[i - 1]) &#123;
+                    continue;
+                &#125;
+                int left = i + 1;
+                int right = nums.size() - 1;
+                while (right &gt; left) &#123;
+                    // nums[k] + nums[i] + nums[left] + nums[right] &gt; target 会溢出
+                    if ((long) nums[k] + nums[i] + nums[left] + nums[right] &gt; target) &#123;
+                        right--;
+                    // nums[k] + nums[i] + nums[left] + nums[right] &lt; target 会溢出
+                    &#125; else if ((long) nums[k] + nums[i] + nums[left] + nums[right]  &lt; target) &#123;
+                        left++;
+                    &#125; else &#123;
+                        result.push_back(vector&lt;int&gt;&#123;nums[k], nums[i], nums[left], nums[right]&#125;);
+                        // 对nums[left]和nums[right]去重
+                        while (right &gt; left &amp;&amp; nums[right] == nums[right - 1]) right--;
+                        while (right &gt; left &amp;&amp; nums[left] == nums[left + 1]) left++;
+
+                        // 找到答案时，双指针同时收缩
+                        right--;
+                        left++;
+                    &#125;
+                &#125;
+
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 8
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-6/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 6</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 7 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-7%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 7 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-7%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 7 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-7/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

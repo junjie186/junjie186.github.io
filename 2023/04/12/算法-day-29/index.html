@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 29 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 29 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/12/%E7%AE%97%E6%B3%95-day-29/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 29 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/12/%E7%AE%97%E6%B3%95-day-29/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 29 | Hexo",
+            "datePublished": "2023-04-12T10:57:31.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/12/%E7%AE%97%E6%B3%95-day-29/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w30000gicuhgzo113hw" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 29
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-12T10:57:31.000Z" itemprop="datePublished">2023-04-12</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="递增子序列"><a href="#递增子序列" class="headerlink" title="递增子序列"></a>递增子序列</h2><p>给你一个整数数组 nums ，找出并返回所有该数组中不同的递增子序列，递增子序列中 至少有两个元素 。你可以按 任意顺序 返回答案。</p>
+<p>数组中可能含有重复元素，如出现两个整数相等，也可以视作递增序列的一种特殊情况。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [4,6,7,7]
+输出：[[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [4,4,3,2,1]
+输出：[[4,4]]
+</code></pre>
+<p>没想出来….</p>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; nums, int startIndex) &#123;
+        if (path.size() &gt; 1) &#123;
+            result.push_back(path);
+            // 注意这里不要加return，要取树上的节点
+        &#125;
+        unordered_set&lt;int&gt; uset; // 使用set对本层元素进行去重
+        for (int i = startIndex; i &lt; nums.size(); i++) &#123;
+            if ((!path.empty() &amp;&amp; nums[i] &lt; path.back())
+                    || uset.find(nums[i]) != uset.end()) &#123;
+                    continue;
+            &#125;
+            uset.insert(nums[i]); // 记录这个元素在本层用过了，本层后面不能再用了
+            path.push_back(nums[i]);
+            backtracking(nums, i + 1);
+            path.pop_back();
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        result.clear();
+        path.clear();
+        backtracking(nums, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>优化 使用数组来做哈希:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    void backtracking(vector&lt;int&gt;&amp; nums, int startIndex) &#123;
+        if (path.size() &gt; 1) &#123;
+            result.push_back(path);
+        &#125;
+        int used[201] = &#123;0&#125;; // 这里使用数组来进行去重操作，题目说数值范围[-100, 100]
+        for (int i = startIndex; i &lt; nums.size(); i++) &#123;
+            if ((!path.empty() &amp;&amp; nums[i] &lt; path.back())
+                    || used[nums[i] + 100] == 1) &#123;
+                    continue;
+            &#125;
+            used[nums[i] + 100] = 1; // 记录这个元素在本层用过了，本层后面不能再用了
+            path.push_back(nums[i]);
+            backtracking(nums, i + 1);
+            path.pop_back();
+        &#125;
+    &#125;
+public:
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        result.clear();
+        path.clear();
+        backtracking(nums, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>我写的错误代码:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        unordered_set&lt;int&gt; used;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            if(!used.empty()&amp;&amp;used.find(nums[i])!=used.end())&#123;
+                continue;
+            &#125;
+            if(path.empty())&#123;
+                path.push_back(nums[i]);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else if(nums[i]&gt;=path.back())&#123;
+                path.push_back(nums[i]);
+                result.push_back(path);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else&#123;
+                path.clear();
+                path.push_back(nums[i]);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;
+            used.insert(nums[i]);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>我在第二个else分支没有取值,并且进入下次回溯</p>
+<p>修改后:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        unordered_set&lt;int&gt; used;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            if(!used.empty()&amp;&amp;used.find(nums[i])!=used.end())&#123;
+                continue;
+            &#125;
+            if(path.empty())&#123;
+                path.push_back(nums[i]);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else if(nums[i]&gt;=path.back())&#123;
+                path.push_back(nums[i]);
+                result.push_back(path);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else&#123;
+                continue;
+            &#125;
+            used.insert(nums[i]);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="全排列"><a href="#全排列" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+</code></pre>
+<p>思路:使用used数组</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;bool&gt; used(nums.size(),false);
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        backtracking(nums,used,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,vector&lt;bool&gt;&amp; used,vector&lt;int&gt;&amp; path)&#123;
+        if(path.size()==nums.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            if(used[i])&#123;
+                continue;
+            &#125;
+            path.push_back(nums[i]);
+            used[i]=true;
+            backtracking(nums,used,path);
+            used[i]=false;
+            path.pop_back();
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="全排列-II"><a href="#全排列-II" class="headerlink" title="全排列 II"></a>全排列 II</h2><p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
+<p>示例 1：</p>
+<pre><code>输入：nums = [1,1,2]
+输出：
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]]
+</code></pre>
+<p>思路:这个很简单,同一层去重</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; permuteUnique(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;bool&gt; used(nums.size(),false);
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        sort(nums.begin(),nums.end());
+        backtracking(nums,used,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,vector&lt;bool&gt;&amp; used,vector&lt;int&gt;&amp; path)&#123;
+        if(path.size()==nums.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        int pre=-11;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            if(used[i]||nums[i]==pre)&#123;
+                continue;
+            &#125;
+            path.push_back(nums[i]);
+            used[i]=true;
+            backtracking(nums,used,path);
+            used[i]=false;
+            path.pop_back();
+            pre=nums[i];
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h1 id="重新写了一遍"><a href="#重新写了一遍" class="headerlink" title="重新写了一遍"></a>重新写了一遍</h1><h2 id="递增子序列-1"><a href="#递增子序列-1" class="headerlink" title="递增子序列"></a>递增子序列</h2><p>给你一个整数数组 nums ，找出并返回所有该数组中不同的递增子序列，递增子序列中 至少有两个元素 。你可以按 任意顺序 返回答案。</p>
+<p>数组中可能含有重复元素，如出现两个整数相等，也可以视作递增序列的一种特殊情况。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [4,6,7,7]
+输出：[[4,6],[4,6,7],[4,6,7,7],[4,7],[4,7,7],[6,7],[6,7,7],[7,7]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [4,4,3,2,1]
+输出：[[4,4]]
+</code></pre>
+<p>思路:这题每个回溯的支路层数都不同,需要同一层使用set去重.</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; findSubsequences(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;int&gt; path;
+        backtracking(nums,0,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,int start,vector&lt;int&gt;&amp; path)&#123;
+        unordered_set&lt;int&gt; used;
+        for(int i=start;i&lt;nums.size();i++)&#123;
+            if(!used.empty()&amp;&amp;used.find(nums[i])!=used.end())&#123;
+                continue;
+            &#125;
+            if(path.empty())&#123;
+                path.push_back(nums[i]);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else if(nums[i]&gt;=path.back())&#123;
+                path.push_back(nums[i]);
+                result.push_back(path);
+                backtracking(nums,i+1,path);
+                path.pop_back();
+            &#125;else&#123;
+                continue;
+            &#125;
+            used.insert(nums[i]);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="全排列-1"><a href="#全排列-1" class="headerlink" title="全排列"></a>全排列</h2><p>给定一个不含重复数字的数组 nums ，返回其 所有可能的全排列 。你可以 按任意顺序 返回答案。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+</code></pre>
+<p>思路:使用used数组</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; permute(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;bool&gt; used(nums.size(),false);
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        backtracking(nums,used,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,vector&lt;bool&gt;&amp; used,vector&lt;int&gt;&amp; path)&#123;
+        if(path.size()==nums.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            if(used[i])&#123;
+                continue;
+            &#125;
+            path.push_back(nums[i]);
+            used[i]=true;
+            backtracking(nums,used,path);
+            used[i]=false;
+            path.pop_back();
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="全排列-II-1"><a href="#全排列-II-1" class="headerlink" title="全排列 II"></a>全排列 II</h2><p>给定一个可包含重复数字的序列 nums ，按任意顺序 返回所有不重复的全排列。</p>
+<p>示例 1：</p>
+<pre><code class="bash">输入：nums = [1,1,2]
+输出：
+[[1,1,2],
+ [1,2,1],
+ [2,1,1]]
+</code></pre>
+<p>示例 2：</p>
+<pre><code class="bash">输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+</code></pre>
+<p>思路:同一层去重 使用used数组</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; result;
+public:
+    vector&lt;vector&lt;int&gt;&gt; permuteUnique(vector&lt;int&gt;&amp; nums) &#123;
+        vector&lt;bool&gt; used(nums.size(),false);
+        vector&lt;int&gt; path;
+        path.clear();
+        result.clear();
+        sort(nums.begin(),nums.end());
+        backtracking(nums,used,path);
+        return result;
+    &#125;
+
+    void backtracking(vector&lt;int&gt;&amp; nums,vector&lt;bool&gt;&amp; used,vector&lt;int&gt;&amp; path)&#123;
+        if(path.size()==nums.size())&#123;
+            result.push_back(path);
+            return;
+        &#125;
+        int pre=-11;
+        for(int i=0;i&lt;nums.size();i++)&#123;
+            if(used[i]||nums[i]==pre)&#123;
+                continue;
+            &#125;
+            path.push_back(nums[i]);
+            used[i]=true;
+            backtracking(nums,used,path);
+            used[i]=false;
+            path.pop_back();
+            pre=nums[i];
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/20/%E7%AE%97%E6%B3%95-day-35/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 35
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/09/%E7%AE%97%E6%B3%95-day-25/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 25</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 29 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F12%2F%25E7%25AE%2597%25E6%25B3%2595-day-29%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 29 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F12%2F%25E7%25AE%2597%25E6%25B3%2595-day-29%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 29 - Hexo&url=http://example.com/2023/04/12/%E7%AE%97%E6%B3%95-day-29/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

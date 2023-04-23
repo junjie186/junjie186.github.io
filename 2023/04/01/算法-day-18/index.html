@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 18 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 18 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/01/%E7%AE%97%E6%B3%95-day-18/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 18 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/01/%E7%AE%97%E6%B3%95-day-18/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 18 | Hexo",
+            "datePublished": "2023-04-01T05:38:35.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/01/%E7%AE%97%E6%B3%95-day-18/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w2p0007icuhfmtxgy1z" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 18
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-01T05:38:35.000Z" itemprop="datePublished">2023-04-01</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="找树左下角的值"><a href="#找树左下角的值" class="headerlink" title="找树左下角的值"></a>找树左下角的值</h2><p>给定一个二叉树的 根节点 root，请找出该二叉树的 最底层 最左边 节点的值。</p>
+<p>假设二叉树中至少有一个节点。</p>
+<p>思路:层序遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int findBottomLeftValue(TreeNode* root) &#123;
+        return traversal(root);
+    &#125;
+
+    int traversal(TreeNode* root)&#123;
+        TreeNode* res;
+        queue&lt;TreeNode*&gt; nodes;
+        nodes.push(root);
+        while(!nodes.empty())&#123;
+            int size=nodes.size();
+            TreeNode* node=nodes.front();
+            res=node;
+            nodes.pop();
+            if(node-&gt;left)&#123;
+                nodes.push(node-&gt;left);
+            &#125;
+            if(node-&gt;right)&#123;
+                nodes.push(node-&gt;right);
+            &#125;
+
+            for(int i=0;i&lt;size-1;i++)&#123;
+                TreeNode* node=nodes.front();
+                nodes.pop();
+                if(node-&gt;left)&#123;
+                    nodes.push(node-&gt;left);
+                &#125;
+                if(node-&gt;right)&#123;
+                    nodes.push(node-&gt;right);
+                &#125;
+            &#125;
+        &#125;
+
+        return res-&gt;val;
+    &#125;   
+&#125;;
+</code></pre>
+<p>回溯法例子:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int maxDepth = INT_MIN;
+    int result;
+    void traversal(TreeNode* root, int depth) &#123;
+        if (root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL) &#123;
+            if (depth &gt; maxDepth) &#123;
+                maxDepth = depth;
+                result = root-&gt;val;
+            &#125;
+            return;
+        &#125;
+        if (root-&gt;left) &#123;
+            traversal(root-&gt;left, depth + 1); // 隐藏着回溯
+        &#125;
+        if (root-&gt;right) &#123;
+            traversal(root-&gt;right, depth + 1); // 隐藏着回溯
+        &#125;
+        return;
+    &#125;
+    int findBottomLeftValue(TreeNode* root) &#123;
+        traversal(root, 0);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<p>其实可以把回溯法的代码看成是前序遍历,在遍历的过程中最下最左的节点一定是比同一层的右节点先遍历到.所以判断条件是 <code>depth &gt; maxDepth</code></p>
+<p>迭代法例子: (层序遍历)</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    int findBottomLeftValue(TreeNode* root) &#123;
+        queue&lt;TreeNode*&gt; que;
+        if (root != NULL) que.push(root);
+        int result = 0;
+        while (!que.empty()) &#123;
+            int size = que.size();
+            for (int i = 0; i &lt; size; i++) &#123;
+                TreeNode* node = que.front();
+                que.pop();
+                if (i == 0) result = node-&gt;val; // 记录最后一行第一个元素
+                if (node-&gt;left) que.push(node-&gt;left);
+                if (node-&gt;right) que.push(node-&gt;right);
+            &#125;
+        &#125;
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="路径总和"><a href="#路径总和" class="headerlink" title="路径总和"></a>路径总和</h2><p>给你二叉树的根节点 root 和一个表示目标和的整数 targetSum 。判断该树中是否存在 根节点到叶子节点 的路径，这条路径上所有节点值相加等于目标和 targetSum 。如果存在，返回 true ；否则，返回 false 。</p>
+<p>叶子节点 是指没有子节点的节点</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) &#123;
+        if(!root)&#123;
+            return false;
+        &#125;
+        if(!root-&gt;right&amp;&amp;!root-&gt;left)&#123;
+            return root-&gt;val==targetSum;
+        &#125;else&#123;
+            return hasPathSum(root-&gt;left,targetSum-root-&gt;val)||hasPathSum(root-&gt;right,targetSum-root-&gt;val);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="路径总和-II"><a href="#路径总和-II" class="headerlink" title="路径总和 II"></a>路径总和 II</h2><p>给你二叉树的根节点 root 和一个整数目标和 targetSum ，找出所有 从根节点到叶子节点 路径总和等于给定目标和的路径。</p>
+<p>叶子节点 是指没有子节点的节点。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+    vector&lt;vector&lt;int&gt;&gt; res;
+public:
+    vector&lt;vector&lt;int&gt;&gt; pathSum(TreeNode* root, int targetSum) &#123;
+        traversal(root,targetSum,&#123;&#125;);
+        return res;
+    &#125;
+
+    void traversal(TreeNode* root, int targetSum,vector&lt;int&gt; nums)&#123;
+        if(!root)&#123;
+            return;
+        &#125;
+        nums.push_back(root-&gt;val);
+        if(!root-&gt;left&amp;&amp;!root-&gt;right)&#123;
+            if(root-&gt;val==targetSum)&#123;
+                res.push_back(nums);
+            &#125;
+            return;
+        &#125;
+        traversal(root-&gt;left,targetSum-root-&gt;val,nums);
+        traversal(root-&gt;right,targetSum-root-&gt;val,nums);
+    &#125;
+&#125;;
+</code></pre>
+<p>回溯法例子:</p>
+<pre><code class="C++">class solution &#123;
+private:
+    vector&lt;vector&lt;int&gt;&gt; result;
+    vector&lt;int&gt; path;
+    // 递归函数不需要返回值，因为我们要遍历整个树
+    void traversal(treenode* cur, int count) &#123;
+        if (!cur-&gt;left &amp;&amp; !cur-&gt;right &amp;&amp; count == 0) &#123; // 遇到了叶子节点且找到了和为sum的路径
+            result.push_back(path);
+            return;
+        &#125;
+
+        if (!cur-&gt;left &amp;&amp; !cur-&gt;right) return ; // 遇到叶子节点而没有找到合适的边，直接返回
+
+        if (cur-&gt;left) &#123; // 左 （空节点不遍历）
+            path.push_back(cur-&gt;left-&gt;val);
+            count -= cur-&gt;left-&gt;val;
+            traversal(cur-&gt;left, count);    // 递归
+            count += cur-&gt;left-&gt;val;        // 回溯
+            path.pop_back();                // 回溯
+        &#125;
+        if (cur-&gt;right) &#123; // 右 （空节点不遍历）
+            path.push_back(cur-&gt;right-&gt;val);
+            count -= cur-&gt;right-&gt;val;
+            traversal(cur-&gt;right, count);   // 递归
+            count += cur-&gt;right-&gt;val;       // 回溯
+            path.pop_back();                // 回溯
+        &#125;
+        return ;
+    &#125;
+
+public:
+    vector&lt;vector&lt;int&gt;&gt; pathsum(treenode* root, int sum) &#123;
+        result.clear();
+        path.clear();
+        if (root == null) return result;
+        path.push_back(root-&gt;val); // 把根节点放进路径
+        traversal(root, sum - root-&gt;val);
+        return result;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="从中序与后序遍历序列构造二叉树"><a href="#从中序与后序遍历序列构造二叉树" class="headerlink" title="从中序与后序遍历序列构造二叉树"></a>从中序与后序遍历序列构造二叉树</h2><p>给定两个整数数组 inorder 和 postorder ，其中 inorder 是二叉树的中序遍历， postorder 是同一棵树的后序遍历，请你构造并返回这颗 二叉树 。</p>
+<p>思路:先后续遍历的数组选最后一个,即中间节点,再从中序遍历数组找到这个节点</p>
+<p>提交:</p>
+<pre><code class="C++">/**
+ * Definition for a binary tree node.
+ * struct TreeNode &#123;
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) &#123;&#125;
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) &#123;&#125;
+ * &#125;;
+ */
+class Solution &#123;
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; inorder, vector&lt;int&gt;&amp; postorder) &#123;
+        int size=inorder.size();
+        return build(inorder,postorder,0,size-1,0,size-1);
+    &#125;
+
+    TreeNode* build(vector&lt;int&gt;&amp; inorder, vector&lt;int&gt;&amp; postorder,int istart,int iend,int pstart,int pend)&#123;
+        if(iend&lt;istart||pend&lt;pstart)&#123;
+            return nullptr;
+        &#125;
+        int val=postorder[pend];
+        TreeNode* node=new TreeNode(val);
+        int imid=0;
+        for(int i=istart;i&lt;=iend;i++)&#123;
+            if(inorder[i]==val)&#123;
+                imid=i;
+                break;
+            &#125;
+        &#125;
+        node-&gt;left=build(inorder,postorder,istart,imid-1,pstart,pstart+imid-istart-1);
+        node-&gt;right=build(inorder,postorder,imid+1,iend,pstart+imid-istart,pend-1);
+        return node;
+    &#125;
+&#125;;
+</code></pre>
+<p>例子:</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    // 中序区间：[inorderBegin, inorderEnd)，后序区间[postorderBegin, postorderEnd)
+    TreeNode* traversal (vector&lt;int&gt;&amp; inorder, int inorderBegin, int inorderEnd, vector&lt;int&gt;&amp; postorder, int postorderBegin, int postorderEnd) &#123;
+        if (postorderBegin == postorderEnd) return NULL;
+
+        int rootValue = postorder[postorderEnd - 1];
+        TreeNode* root = new TreeNode(rootValue);
+
+        if (postorderEnd - postorderBegin == 1) return root;
+
+        int delimiterIndex;
+        for (delimiterIndex = inorderBegin; delimiterIndex &lt; inorderEnd; delimiterIndex++) &#123;
+            if (inorder[delimiterIndex] == rootValue) break;
+        &#125;
+        // 切割中序数组
+        // 左中序区间，左闭右开[leftInorderBegin, leftInorderEnd)
+        int leftInorderBegin = inorderBegin;
+        int leftInorderEnd = delimiterIndex;
+        // 右中序区间，左闭右开[rightInorderBegin, rightInorderEnd)
+        int rightInorderBegin = delimiterIndex + 1;
+        int rightInorderEnd = inorderEnd;
+
+        // 切割后序数组
+        // 左后序区间，左闭右开[leftPostorderBegin, leftPostorderEnd)
+        int leftPostorderBegin =  postorderBegin;
+        int leftPostorderEnd = postorderBegin + delimiterIndex - inorderBegin; // 终止位置是 需要加上 中序区间的大小size
+        // 右后序区间，左闭右开[rightPostorderBegin, rightPostorderEnd)
+        int rightPostorderBegin = postorderBegin + (delimiterIndex - inorderBegin);
+        int rightPostorderEnd = postorderEnd - 1; // 排除最后一个元素，已经作为节点了
+
+        root-&gt;left = traversal(inorder, leftInorderBegin, leftInorderEnd,  postorder, leftPostorderBegin, leftPostorderEnd);
+        root-&gt;right = traversal(inorder, rightInorderBegin, rightInorderEnd, postorder, rightPostorderBegin, rightPostorderEnd);
+
+        return root;
+    &#125;
+public:
+    TreeNode* buildTree(vector&lt;int&gt;&amp; inorder, vector&lt;int&gt;&amp; postorder) &#123;
+        if (inorder.size() == 0 || postorder.size() == 0) return NULL;
+        // 左闭右开的原则
+        return traversal(inorder, 0, inorder.size(), postorder, 0, postorder.size());
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/02/%E7%AE%97%E6%B3%95-day-10/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 10
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/03/31/%E7%AE%97%E6%B3%95-day-17/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 17</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 18 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F01%2F%25E7%25AE%2597%25E6%25B3%2595-day-18%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 18 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F01%2F%25E7%25AE%2597%25E6%25B3%2595-day-18%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 18 - Hexo&url=http://example.com/2023/04/01/%E7%AE%97%E6%B3%95-day-18/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

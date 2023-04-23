@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    
+    <title>算法 | day 20 | Hexo</title>
+
+    <meta name="description" content="Hexo">
+    <meta name="keywords" content="">
+
+    
+
+    <meta property="og:locale" content="cn" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content= "算法 | day 20 | Hexo"  />
+    <meta property="og:description" content= "Hexo" />
+    <meta property="og:url" content="http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-20/index.html" />
+    <meta property="og:site_name" content="" />
+    <meta property="article:author" content="John Doe" />
+    <meta property="article:publisher" content="" />
+    <meta property="og:description" content="Hexo" />
+    <meta name="twitter:title" content="算法 | day 20 | Hexo"/>
+    <meta name="twitter:description" content="Hexo"/>
+    <script type="application/ld+json">
+        {
+            "description": "Hexo",
+            "author": { "@type": "Person", "name": "John Doe" },
+            "@type": "BlogPosting",
+            "url": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-20/index.html",
+            "publisher": {
+            "@type": "Organization",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "http://example.com/images/avatar.jpg"
+            },
+            "name": "John Doe"
+            },
+            "headline": "算法 | day 20 | Hexo",
+            "datePublished": "2023-04-23T10:34:22.000Z",
+            "mainEntityOfPage": {
+                "@type": "WebPage",
+                "@id": "http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-20/index.html"
+            },
+            "@context": "http://schema.org"
+        }
+    </script>
+
+
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<link rel="stylesheet" href="/dist/build.css?v=1654266144177.css">
+
+
+    
+<link rel="stylesheet" href="/dist/custom.css?v=1654266144177.css">
+
+
+    <script>
+        window.isPost = true
+        window.aomori = {
+            
+            
+            
+        }
+        window.aomori_logo_typed_animated = true
+        window.aomori_search_algolia = false
+
+    </script>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body>
+
+    <div class="container">
+    <header class="header">
+        <div class="header-type">
+            
+            <div class="header-type-avatar avatar avatar-sm">
+                <img src="/images/avatar.jpg" alt="John Doe">
+            </div>
+            
+            <div class="header-type-inner">
+                
+                    <div id="typed-strings" style="display:none">
+                        <p>Hexo</p>
+                    </div>
+                    <a class="header-type-title" id="typed" href="/"></a>
+                
+    
+                
+            </div>
+        </div>
+        <div class="header-menu">
+            <div class="header-menu-inner">
+                
+            </div>
+            <div class="header-menu-social">
+                
+            </div>
+        </div>
+
+        <div class="header-menu-mobile">
+            <div class="header-menu-mobile-inner" id="mobile-menu-open">
+                <i class="icon icon-menu"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="header-menu-mobile-menu">
+        <div class="header-menu-mobile-menu-bg"></div>
+        <div class="header-menu-mobile-menu-wrap">
+            <div class="header-menu-mobile-menu-inner">
+                <div class="header-menu-mobile-menu-close" id="mobile-menu-close">
+                    <i class="icon icon-cross"></i>
+                </div>
+                <div class="header-menu-mobile-menu-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <div class="container">
+        <div class="main">
+            <section class="inner">
+                <section class="inner-main">
+                    <div class="post">
+    <article id="post-clgta4w2t0009icuh3slq2pws" class="article article-type-post" itemscope
+    itemprop="blogPost">
+
+    <div class="article-inner">
+
+        
+          
+        
+        
+        
+
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      算法 | day 20
+    </h1>
+  
+
+        </header>
+        
+
+        <div class="article-more-info article-more-info-post hairline">
+
+            <div class="article-date">
+  <time datetime="2023-04-23T10:34:22.000Z" itemprop="datePublished">2023-04-23</time>
+</div>
+
+            
+
+            
+
+            
+
+        </div>
+
+        <div class="article-entry post-inner-html hairline" itemprop="articleBody">
+            <h2 id="最大二叉树"><a href="#最大二叉树" class="headerlink" title="最大二叉树"></a>最大二叉树</h2><p>给定一个不重复的整数数组 nums 。 最大二叉树 可以用下面的算法从 nums 递归地构建:</p>
+<p>创建一个根节点，其值为 nums 中的最大值。<br>递归地在最大值 左边 的 子数组前缀上 构建左子树。<br>递归地在最大值 右边 的 子数组后缀上 构建右子树。<br>返回 nums 构建的 最大二叉树 。</p>
+<p>思路:暴力找出最大值,但是多了重复的遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        if(nums.empty())&#123;
+            return NULL;
+        &#125;
+        return construct(nums,0,nums.size()-1);
+    &#125;
+
+    TreeNode* construct(vector&lt;int&gt;&amp; nums,int start,int end)&#123;
+        if(end&lt;start)&#123;
+            return NULL;
+        &#125;
+        int max=INT_MIN;
+        int k=start;
+        for(int i=start;i&lt;=end;i++)&#123;
+            if(nums[i]&gt;max)&#123;
+                max=nums[i];
+                k=i;
+            &#125;
+        &#125;
+        TreeNode* node=new TreeNode(max);
+        node-&gt;left=construct(nums,start,k-1);
+        node-&gt;right=construct(nums,k+1,end);
+        return node;
+    &#125;
+&#125;;
+</code></pre>
+<p>方法:单调栈</p>
+<p>在最终构造出的树上，以 nums[i]为根节点的子树，在原数组中对应的区间，左边界为 nums[i]左侧第一个比它大的元素所在的位置，右边界为 nums[i]右侧第一个比它大的元素所在的位置。左右边界均为开边界。</p>
+<p>如果某一侧边界不存在，则那一侧边界为数组的边界。如果两侧边界均不存在，说明其为最大值，即根节点。</p>
+<p>并且：nums[i]的父结点是两个边界中较小的那个元素对应的节点。</p>
+<p>因此，我们的任务变为：找出每一个元素左侧和右侧第一个比它大的元素所在的位置。这就是一个经典的单调栈问题了。</p>
+<p>代码:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        vector&lt;int&gt; stk;
+        vector&lt;int&gt; left(n, -1), right(n, -1);
+        vector&lt;TreeNode*&gt; tree(n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            tree[i] = new TreeNode(nums[i]);
+            while (!stk.empty() &amp;&amp; nums[i] &gt; nums[stk.back()]) &#123;
+                right[stk.back()] = i;
+                stk.pop_back();
+            &#125;
+            if (!stk.empty()) &#123;
+                left[i] = stk.back();
+            &#125;
+            stk.push_back(i);
+        &#125;
+
+        TreeNode* root = nullptr;
+        for (int i = 0; i &lt; n; ++i) &#123;
+            if (left[i] == -1 &amp;&amp; right[i] == -1) &#123;
+                root = tree[i];
+            &#125;
+            else if (right[i] == -1 || (left[i] != -1 &amp;&amp; nums[left[i]] &lt; nums[right[i]])) &#123;
+                tree[left[i]]-&gt;right = tree[i];
+            &#125;
+            else &#123;
+                tree[right[i]]-&gt;left = tree[i];
+            &#125;
+        &#125;
+        return root;
+    &#125;
+&#125;;
+</code></pre>
+<p>我们还可以把最后构造树的过程放进单调栈求解的步骤中，省去用来存储左右边界的数组。</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* constructMaximumBinaryTree(vector&lt;int&gt;&amp; nums) &#123;
+        int n = nums.size();
+        vector&lt;int&gt; stk;
+        vector&lt;TreeNode*&gt; tree(n);
+        for (int i = 0; i &lt; n; ++i) &#123;
+            tree[i] = new TreeNode(nums[i]);
+            while (!stk.empty() &amp;&amp; nums[i] &gt; nums[stk.back()]) &#123;
+                tree[i]-&gt;left = tree[stk.back()];
+                stk.pop_back();
+            &#125;
+            if (!stk.empty()) &#123;
+                tree[stk.back()]-&gt;right = tree[i];
+            &#125;
+            stk.push_back(i);
+        &#125;
+        return tree[stk[0]];
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="合并二叉树"><a href="#合并二叉树" class="headerlink" title="合并二叉树"></a>合并二叉树</h2><p>给你两棵二叉树： root1 和 root2 。</p>
+<p>想象一下，当你将其中一棵覆盖到另一棵之上时，两棵树上的一些节点将会重叠（而另一些不会）。你需要将这两棵树合并成一棵新二叉树。合并的规则是：如果两个节点重叠，那么将这两个节点的值相加作为合并后节点的新值；否则，不为 null 的节点将直接作为新二叉树的节点。</p>
+<p>返回合并后的二叉树。</p>
+<p>注意: 合并过程必须从两个树的根节点开始。</p>
+<p>思路:递归</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* mergeTrees(TreeNode* root1, TreeNode* root2) &#123;
+        if(root1==NULL)&#123;
+            return root2;
+        &#125;else if(root2==NULL)&#123;
+            return root1;
+        &#125;
+        root1-&gt;val+=root2-&gt;val;
+        root1-&gt;left=mergeTrees(root1-&gt;left,root2-&gt;left);
+        root1-&gt;right=mergeTrees(root1-&gt;right,root2-&gt;right);
+        return root1;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法,使用队列(层序遍历):</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* mergeTrees(TreeNode* t1, TreeNode* t2) &#123;
+        if (t1 == NULL) return t2;
+        if (t2 == NULL) return t1;
+        queue&lt;TreeNode*&gt; que;
+        que.push(t1);
+        que.push(t2);
+        while(!que.empty()) &#123;
+            TreeNode* node1 = que.front(); que.pop();
+            TreeNode* node2 = que.front(); que.pop();
+            // 此时两个节点一定不为空，val相加
+            node1-&gt;val += node2-&gt;val;
+
+            // 如果两棵树左节点都不为空，加入队列
+            if (node1-&gt;left != NULL &amp;&amp; node2-&gt;left != NULL) &#123;
+                que.push(node1-&gt;left);
+                que.push(node2-&gt;left);
+            &#125;
+            // 如果两棵树右节点都不为空，加入队列
+            if (node1-&gt;right != NULL &amp;&amp; node2-&gt;right != NULL) &#123;
+                que.push(node1-&gt;right);
+                que.push(node2-&gt;right);
+            &#125;
+
+            // 当t1的左节点 为空 t2左节点不为空，就赋值过去
+            if (node1-&gt;left == NULL &amp;&amp; node2-&gt;left != NULL) &#123;
+                node1-&gt;left = node2-&gt;left;
+            &#125;
+            // 当t1的右节点 为空 t2右节点不为空，就赋值过去
+            if (node1-&gt;right == NULL &amp;&amp; node2-&gt;right != NULL) &#123;
+                node1-&gt;right = node2-&gt;right;
+            &#125;
+        &#125;
+        return t1;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="二叉搜索树中的搜索"><a href="#二叉搜索树中的搜索" class="headerlink" title="二叉搜索树中的搜索"></a>二叉搜索树中的搜索</h2><p>给定二叉搜索树（BST）的根节点 root 和一个整数值 val。</p>
+<p>你需要在 BST 中找到节点值等于 val 的节点。 返回以该节点为根的子树。 如果节点不存在，则返回 null 。</p>
+<p>思路:二叉搜索树用中序遍历</p>
+<p>提交:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* searchBST(TreeNode* root, int val) &#123;
+        if(!root)&#123;
+            return NULL;
+        &#125;
+        if(root-&gt;val==val)&#123;
+            return root;
+        &#125;else if(root-&gt;val&gt;val)&#123;
+            return searchBST(root-&gt;left, val);
+        &#125;else&#123;
+            return searchBST(root-&gt;right, val);
+        &#125;
+    &#125;
+&#125;;
+</code></pre>
+<p>迭代法:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* searchBST(TreeNode* root, int val) &#123;
+        while (root != NULL) &#123;
+            if (root-&gt;val &gt; val) root = root-&gt;left;
+            else if (root-&gt;val &lt; val) root = root-&gt;right;
+            else return root;
+        &#125;
+        return NULL;
+    &#125;
+&#125;;
+</code></pre>
+<h2 id="验证二叉搜索树"><a href="#验证二叉搜索树" class="headerlink" title="验证二叉搜索树"></a>验证二叉搜索树</h2><p>给你一个二叉树的根节点 root ，判断其是否是一个有效的二叉搜索树。</p>
+<p>有效 二叉搜索树定义如下：</p>
+<ul>
+<li>节点的左子树只包含 小于 当前节点的数。</li>
+<li>节点的右子树只包含 大于 当前节点的数。</li>
+<li>所有左子树和右子树自身必须也是二叉搜索树。</li>
+</ul>
+<p>思路:中序遍历</p>
+<pre><code class="C++">class Solution &#123;
+private:
+    int curVal;
+    int init=false;
+public:
+    bool isValidBST(TreeNode* root) &#123;
+        if(root==NULL)&#123;
+            return true;
+        &#125;
+        bool b1=isValidBST(root-&gt;left);
+        if(!init)&#123;
+            curVal=root-&gt;val;
+            init=true;
+        &#125;else if(root-&gt;val&lt;=curVal)&#123;
+            return false;
+        &#125;
+        curVal=root-&gt;val;
+        bool b2=isValidBST(root-&gt;right);
+        return b1&amp;&amp;b2;
+    &#125;
+&#125;;
+</code></pre>
+<p>可以把上述代码中的curVal改为TreeNode节点,这样就不需要判断是否初始化:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    TreeNode* pre = NULL; // 用来记录前一个节点
+    bool isValidBST(TreeNode* root) &#123;
+        if (root == NULL) return true;
+        bool left = isValidBST(root-&gt;left);
+
+        if (pre != NULL &amp;&amp; pre-&gt;val &gt;= root-&gt;val) return false;
+        pre = root; // 记录前一个节点
+
+        bool right = isValidBST(root-&gt;right);
+        return left &amp;&amp; right;
+    &#125;
+&#125;;
+</code></pre>
+<p>也可以用迭代法,在二叉树的中序遍历基础上修改一下:</p>
+<pre><code class="C++">class Solution &#123;
+public:
+    bool isValidBST(TreeNode* root) &#123;
+        stack&lt;TreeNode*&gt; st;
+        TreeNode* cur = root;
+        TreeNode* pre = NULL; // 记录前一个节点
+        while (cur != NULL || !st.empty()) &#123;
+            if (cur != NULL) &#123;
+                st.push(cur);
+                cur = cur-&gt;left;                // 左
+            &#125; else &#123;
+                cur = st.top();                 // 中
+                st.pop();
+                if (pre != NULL &amp;&amp; cur-&gt;val &lt;= pre-&gt;val)
+                return false;
+                pre = cur; //保存前一个访问的结点
+
+                cur = cur-&gt;right;               // 右
+            &#125;
+        &#125;
+        return true;
+    &#125;
+&#125;;
+</code></pre>
+
+        </div>
+
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+<nav class="article-nav">
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-21/" id="article-nav-newer" class="article-nav-link-wrap">
+      <div class="article-nav-caption">下一篇</div>
+      <div class="article-nav-title">
+        
+          算法 | day 21
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-15/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-caption">上一篇</div>
+      <div class="article-nav-title">算法 | day 15</div>
+    </a>
+  
+</nav>
+
+
+    <section class="share">
+        <div class="share-title">分享</div>
+        <a class="share-item" target="_blank"
+            href="https://twitter.com/share?text=算法 | day 20 - Hexo&url=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-20%2F">
+            <ion-icon name="logo-twitter"></ion-icon>
+        </a>
+        <a class="share-item" target="_blank"
+            href="https://www.facebook.com/sharer.php?title=算法 | day 20 - Hexo&u=http%3A%2F%2Fexample.com%2F2023%2F04%2F23%2F%25E7%25AE%2597%25E6%25B3%2595-day-20%2F">
+            <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+        <!-- <a class="share-item" target="_blank"
+            href="https://service.weibo.com/share/share.php?title=算法 | day 20 - Hexo&url=http://example.com/2023/04/23/%E7%AE%97%E6%B3%95-day-20/&pic=">
+            <div class="n-icon n-icon-weibo"></div>
+        </a> -->
+    </section>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+                </section>
+            </section>
+
+            
+            <aside class="sidebar ">
+                
+
+
+<div class="widget" id="widget">
+    
+      
+  <div class="widget-wrap">
+    <div class="widget-inner">
+      <div class="toc post-toc-html"></div>
+    </div>
+  </div>
+
+    
+      
+
+    
+      
+  <div class="widget-wrap widget-tags">
+    <div class="widget-title"><span>Tags</span></div>
+    <div class="widget-inner">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%95%B0%E7%BB%84/" rel="tag">数组</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget-wrap widget-recent-posts">
+    <div class="widget-title"><span>Recent Posts</span></div>
+    <div class="widget-inner">
+      <ul>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-34/">算法 | day 34</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-32/">算法 | day 32</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-31/">算法 | day 31</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-30/">算法 | day 30</a>
+          </li>
+        
+          <li>
+            <a href="/2023/04/23/%E7%AE%97%E6%B3%95-day-28/">算法 | day 28</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget-wrap widget-archive">
+    <div class="widget-title"><span>Archive</span></div>
+    <div class="widget-inner">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li></ul>
+    </div>
+  </div>
+
+
+    
+</div>
+
+<div id="backtop"><i class="icon icon-arrow-up"></i></div>
+            </aside>
+            
+        </div>
+    </div>
+
+    <footer class="footer">
+    <div class="footer-wave">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3c4859" fill-opacity="1" d="M0,160L60,181.3C120,203,240,245,360,240C480,235,600,181,720,186.7C840,192,960,256,1080,261.3C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>
+    </div>
+
+    <!-- Please do not remove this -->
+    <!-- 开源不易，请勿删除 -->
+    <div class="footer-wrap">
+        <div class="footer-inner"> 
+            Hexo &copy; 2023<br>
+            Powered By Hexo · Theme By <a href="https://linhong.me/" target="_blank">Aomori</a> · <a href="https://github.com/lh1me/hexo-theme-aomori" target="_blank">Github</a>
+        </div>
+    </div>
+
+</footer>
+
+<script type="module" src="https://unpkg.com/ionicons@6.0.2/dist/ionicons/ionicons.esm.js"></script>
+
+
+
+
+
+
+<script src="/dist/build.js?1654266144177.js"></script>
+
+
+<script src="/dist/custom.js?1654266144177.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
